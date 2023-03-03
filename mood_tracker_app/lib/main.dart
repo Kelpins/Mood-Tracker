@@ -14,6 +14,11 @@ class MainApp extends StatelessWidget {
         body: Center(
           child: Text('Hello World!'),
         ),
+        bottomNavigationBar:
+            BottomNavigationBar(items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.business), 'Statistics'),
+        ]),
       ),
     );
   }
