@@ -5,7 +5,7 @@ class StatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Statistics :D"),
+          title: Center(child: Text("Statistics")),
         ),
         body: Column(
           children: [
