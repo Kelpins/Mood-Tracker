@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'statsPage.dart';
+import 'settingsPage.dart';
 
 void main() => runApp(const MyApp());
 
@@ -35,38 +37,6 @@ class HomePage extends StatelessWidget {
                     Text("Element 2"),
                   ],
                 ))));
-  }
-}
-
-class StatsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Statistics"),
-        ),
-        body: Column(
-          children: [
-            Text("This is the Statistics Page"),
-            Text("This is where you view data"),
-          ],
-        ));
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Settings"),
-        ),
-        body: Column(
-          children: [
-            Text("This is the Settings Page"),
-            Text("This is where you change settings"),
-          ],
-        ));
   }
 }
 
