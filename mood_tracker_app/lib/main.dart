@@ -16,6 +16,54 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Home"),
+        ),
+        body: Column(
+          children: [
+            Text("Today is Tuesday, March 7th"),
+            Text("Element 2"),
+          ],
+        ));
+  }
+}
+
+class StatsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Statistics"),
+        ),
+        body: Column(
+          children: [
+            Text("This is the Statistics Page"),
+            Text("This is where you view data"),
+          ],
+        ));
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Settings"),
+        ),
+        body: Column(
+          children: [
+            Text("This is the Settings Page"),
+            Text("This is where you change settings"),
+          ],
+        ));
+  }
+}
+
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({super.key});
 
@@ -27,19 +75,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Statistics',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Settings',
-      style: optionStyle,
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    StatsPage(),
+    SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
