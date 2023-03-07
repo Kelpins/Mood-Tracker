@@ -23,12 +23,18 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text("Home"),
         ),
-        body: Column(
-          children: [
-            Text("Today is Tuesday, March 7th"),
-            Text("Element 2"),
-          ],
-        ));
+        body: Center(
+            child: Container(
+                margin: const EdgeInsets.all(10.0),
+                color: Color.fromARGB(255, 140, 0, 255),
+                width: 250.0,
+                height: 250.0,
+                child: Column(
+                  children: [
+                    Text("Today is Tuesday, March 7th"),
+                    Text("Element 2"),
+                  ],
+                ))));
   }
 }
 
