@@ -4,6 +4,8 @@ import 'StatPage2.dart';
 import 'StatPage3.dart';
 
 class StatsPage extends StatelessWidget {
+  const StatsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
