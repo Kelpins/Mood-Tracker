@@ -17,13 +17,13 @@ class StatsPage extends StatelessWidget {
                 bottom: const TabBar(
                   tabs: <Widget>[
                     Tab(
-                      icon: Icon(Icons.face),
+                      icon: Icon(Icons.calendar_month),
                     ),
                     Tab(
-                      icon: Icon(Icons.beach_access_sharp),
+                      icon: Icon(Icons.polyline),
                     ),
                     Tab(
-                      icon: Icon(Icons.heart_broken),
+                      icon: Icon(Icons.align_horizontal_left_rounded),
                     ),
                   ],
                 )),
