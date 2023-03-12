@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'StatPage1.dart';
+import 'heatmap.dart';
 import 'StatPage2.dart';
 import 'StatPage3.dart';
 
@@ -29,7 +29,7 @@ class StatsPage extends StatelessWidget {
                 )),
             body: TabBarView(
               children: <Widget>[
-                StatPage1(),
+                heatmap(),
                 StatPage2(),
                 StatPage3(),
               ],
