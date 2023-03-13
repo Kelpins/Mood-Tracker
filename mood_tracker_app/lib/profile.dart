@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
 
+// basic structure from ChatGPT
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profile Page',
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back), 
-            onPressed: () {}
-          ),
+          leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
           title: Text('Profile'),
         ),
         body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: ProfilePicture(),
-              ),
-              AccountInfo(),
-            ],
-          )
-        )
-      )
-    );
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: ProfilePicture(),
+            ),
+            AccountInfo(),
+          ],
+        )));
   }
 }
 
@@ -47,28 +40,24 @@ class AccountInfo extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          title: Text('Name'),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {}
-        ),
+            title: Text('Name'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {}),
         Divider(),
         ListTile(
-          title: Text('Username'),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {}
-        ),
+            title: Text('Username'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {}),
         Divider(),
         ListTile(
-          title: Text('Email'),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {}
-        ),
+            title: Text('Email'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {}),
         Divider(),
         ListTile(
-          title: Text('Password'),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {}
-        ),
+            title: Text('Password'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {}),
       ],
     );
   }

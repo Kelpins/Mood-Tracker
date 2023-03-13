@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker_app/settings.dart';
 import 'homePage.dart';
 import 'statsPage.dart';
 import 'profile.dart';
@@ -33,7 +34,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     StatsPage(),
-    Profile(),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
