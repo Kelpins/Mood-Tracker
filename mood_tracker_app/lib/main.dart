@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'statsPage.dart';
-import 'settingsPage.dart';
+import 'profile.dart';
 
 void main() => runApp(const MyApp());
 
@@ -33,7 +33,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     StatsPage(),
-    SettingsPage(),
+    Profile(),
   ];
 
   void _onItemTapped(int index) {
