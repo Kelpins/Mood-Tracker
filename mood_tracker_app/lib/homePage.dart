@@ -9,10 +9,14 @@ class HomePage extends StatelessWidget {
         ),
         body: Center(
             child: Container(
+                decoration: BoxDecoration(
+                  gradient:
+                      LinearGradient(colors: [Colors.blue, Colors.purple]),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 margin: const EdgeInsets.all(10.0),
-                color: Color.fromARGB(255, 140, 0, 255),
                 width: 250.0,
-                height: 250.0,
+                height: 100.0,
                 child: Column(
                   children: [
                     Text("Today is Tuesday, March 7th"),
