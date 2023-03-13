@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'heatmap.dart';
 import 'StatPage2.dart';
-import 'StatPage3.dart';
+import 'moodEffect.dart';
 
 class StatsPage extends StatelessWidget {
   const StatsPage({super.key});
@@ -31,7 +31,7 @@ class StatsPage extends StatelessWidget {
               children: <Widget>[
                 heatmap(),
                 StatPage2(),
-                StatPage3(),
+                moodEffect(),
               ],
             )));
   }

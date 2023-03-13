@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_heatmap_calendar: ^1.0.5
+  syncfusion_flutter_charts: ^20.4.53
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +19,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - images/correlationMap.png
