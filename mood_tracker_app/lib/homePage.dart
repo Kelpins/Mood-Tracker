@@ -32,7 +32,21 @@ class HomePage extends StatelessWidget {
                       "It is $time on $weekday, $month $day!",
                       textScaleFactor: 1.25,
                     ),
-                  )))
+                  ))),
+          Center(
+              child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  width: 350.0,
+                  height: 75.0,
+                  margin: const EdgeInsets.all(10.0),
+                  child: Center(
+                      child: Form(
+                          child: TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        labelText: "How are you doing?"),
+                  )))))
         ]));
   }
 }
