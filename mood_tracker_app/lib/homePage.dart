@@ -10,6 +10,8 @@ class HomePage extends StatelessWidget {
     String day = DateFormat('dd').format(now);
     String weekday = DateFormat('EEEE').format(now);
 
+    double _value = 20;
+
     return Scaffold(
         appBar: AppBar(
           title: Center(child: Text("Home")),
@@ -40,13 +42,25 @@ class HomePage extends StatelessWidget {
                   height: 75.0,
                   margin: const EdgeInsets.all(10.0),
                   child: Center(
+                      /*child: Slider(
+                          min: 0,
+                          max: 100,
+                          value: _value,
+                          onChanged: (value) {
+                            setState(() {
+                              _value = value;
+                            });
+                          })*/
+
+                      /*
                       child: Form(
                           child: TextField(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
                         labelText: "How are you doing?"),
-                  )))))
+                  ))*/
+                      )))
         ]));
   }
 }
