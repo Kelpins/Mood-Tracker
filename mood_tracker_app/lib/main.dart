@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker_app/settings.dart';
-import 'homePage.dart';
+import 'home_page.dart';
 import 'statsPage.dart';
 import 'profile.dart';
 
@@ -41,7 +41,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   //static const TextStyle optionStyle =
   //TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    const HomePage(),
     const StatsPage(),
     Settings(),
   ];
