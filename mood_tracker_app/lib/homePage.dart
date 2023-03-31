@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     String day = DateFormat('dd').format(now);
     String weekday = DateFormat('EEEE').format(now);
 
-    double _value = 20;
+    //double slider_value = 20;
 
     return Scaffold(
         appBar: AppBar(

@@ -7,7 +7,7 @@ import 'profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -38,11 +38,11 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
+  //static const TextStyle optionStyle =
+  //TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    StatsPage(),
+    const StatsPage(),
     Settings(),
   ];
 
