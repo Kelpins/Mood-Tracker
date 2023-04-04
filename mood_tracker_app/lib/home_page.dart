@@ -22,6 +22,42 @@ class HomePage extends StatelessWidget {
 
     final db = FirebaseFirestore.instance;
 
+    void createUser() {
+      final dailyDocData = {
+        "Habit_1": true,
+        "Habit_2": false,
+        "Habit_3": false,
+        "mood": 5,
+      };
+
+      final habitDocData = {
+        "Description": "Thirty minute nap at least twice a week",
+        "Icon": "Icon(Icons.bed)",
+        "Name": "Taking Naps",
+        "Timing": "weekly"
+      };
+
+      db
+          .collection("Users")
+          .doc("User_2")
+          .collection("Daily")
+          .doc("$docDay")
+          .set(dailyDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      db
+          .collection("Users")
+          .doc("User_2")
+          .collection("Habits")
+          .doc("Habit_1")
+          .set(habitDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text("Home")),
@@ -55,40 +91,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton(
                       child: const Text("Add User"),
                       onPressed: () {
-                        final dailyDocData = {
-                          "Habit_1": true,
-                          "Habit_2": false,
-                          "Habit_3": false,
-                          "mood": 4,
-                        };
-
-                        final habitDocData = {
-                          "Description":
-                              "Thirty minute nap at least twice a week",
-                          "Icon": "Icon(Icons.bed)",
-                          "Name": "Taking Naps",
-                          "Timing": "weekly"
-                        };
-
-                        db
-                            .collection("Users")
-                            .doc("User_2")
-                            .collection("Daily")
-                            .doc("$docDay")
-                            .set(dailyDocData)
-                            .onError(
-                                // ignore: avoid_print
-                                (e, _) => print("Error writing document: $e"));
-
-                        db
-                            .collection("Users")
-                            .doc("User_2")
-                            .collection("Habits")
-                            .doc("Habit_1")
-                            .set(habitDocData)
-                            .onError(
-                                // ignore: avoid_print
-                                (e, _) => print("Error writing document: $e"));
+                        createUser();
                       },
                     ),
                     /*child: Slider(
