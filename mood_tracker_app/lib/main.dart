@@ -3,6 +3,7 @@ import 'package:mood_tracker_app/settings.dart';
 import 'homePage.dart';
 import 'statsPage.dart';
 import 'profile.dart';
+import 'signup.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -44,6 +45,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     HomePage(),
     const StatsPage(),
     Settings(),
+    Signup(),
   ];
 
   void _onItemTapped(int index) {
@@ -71,6 +73,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.key),
+            label: 'Signup',
           ),
         ],
         currentIndex: _selectedIndex,
