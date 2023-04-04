@@ -16,11 +16,13 @@ class HomePage extends StatelessWidget {
     String day = DateFormat('dd').format(now);
     String weekday = DateFormat('EEEE').format(now);
 
-    String docDay = DateFormat('MM-dd-yyyy').format(now);
+    String today = DateFormat('MM-dd-yyyy').format(now);
 
     //double slider_value = 20;
 
     final db = FirebaseFirestore.instance;
+    const email = "kellan@edgy.org";
+    const habitName = "Taking Naps";
 
     void createUser() {
       final dailyDocData = {
@@ -37,22 +39,73 @@ class HomePage extends StatelessWidget {
         "Timing": "weekly"
       };
 
+      final moodsDocData = {
+        "$today": 4,
+        //PAST MOOD DOC DATA -- TO READ
+      };
+
+      final userInfoDocData = {
+        "email": email,
+        "Name": "Kellan",
+        "Password": "Firebase"
+      };
+
+      final preferencesDocData = {
+        "color": "Colors.blue",
+        "Language": "English"
+      };
+
+      //DAILY -- RUNS AT END OF EVERY DAY
       db
           .collection("Users")
-          .doc("User_2")
+          .doc("$email")
           .collection("Daily")
-          .doc("$docDay")
+          .doc("$today")
           .set(dailyDocData)
           .onError(
               // ignore: avoid_print
               (e, _) => print("Error writing document: $e"));
 
+      //HABITS -- RUNS ON NEW HABIT CREATED
       db
           .collection("Users")
-          .doc("User_2")
+          .doc("$email")
           .collection("Habits")
-          .doc("Habit_1")
+          .doc("$habitName")
           .set(habitDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //MOODS -- RUNS ON MOOD UPDATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("Moods")
+          .doc("Mood")
+          .set(moodsDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //USER DATA -- RUNS ON PROFILE CREATE, USER DATA UPDATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("User_Info")
+          .doc("User")
+          .set(userInfoDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //USER PREFERENCES -- RUNS ON PROFILE CREATE, PREFERENCES UPDATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("User_Info")
+          .doc("Preferences")
+          .set(preferencesDocData)
           .onError(
               // ignore: avoid_print
               (e, _) => print("Error writing document: $e"));
