@@ -57,7 +57,7 @@ class Signup extends StatelessWidget {
         "Language": "English"
       };
 
-      //DAILY -- RUNS AT END OF EVERY DAY
+      /*DAILY -- RUNS AT END OF EVERY DAY
       db
           .collection("Users")
           .doc("$email")
@@ -88,7 +88,7 @@ class Signup extends StatelessWidget {
           .set(moodsDocData)
           .onError(
               // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
+              (e, _) => print("Error writing document: $e"));*/
 
       //USER DATA -- RUNS ON PROFILE CREATE, USER DATA UPDATED
       db
