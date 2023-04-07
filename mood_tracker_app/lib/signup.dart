@@ -3,20 +3,116 @@ import 'components/textfield.dart';
 import 'components/button.dart';
 import 'signin.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 // Structure and styling from YouTube video by Mitch Koko
 // https://youtu.be/Dh-cTQJgM-Q
 class Signup extends StatelessWidget {
   Signup({super.key});
 
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  // sign user in method
-  void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    String today = DateFormat('MM-dd-yyyy').format(now);
+    final db = FirebaseFirestore.instance;
+    const habitName = "Taking Naps";
+
+    // sign user in method
+    void signUserUp(email, password) {
+      final dailyDocData = {
+        "Habit_1": true,
+        "Habit_2": false,
+        "Habit_3": false,
+        "mood": 5,
+      };
+
+      final habitDocData = {
+        "Description": "Thirty minute nap at least twice a week",
+        "Icon": "Icon(Icons.bed)",
+        "Name": "Taking Naps",
+        "Timing": "weekly"
+      };
+
+      final moodsDocData = {
+        "$today": 4,
+        //PAST MOOD DOC DATA -- TO READ
+      };
+
+      final userInfoDocData = {
+        "email": email,
+        "Name": "Kellan",
+        "Password": password,
+      };
+
+      final preferencesDocData = {
+        "color": "Colors.blue",
+        "Language": "English"
+      };
+
+      //DAILY -- RUNS AT END OF EVERY DAY
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("Daily")
+          .doc("$today")
+          .set(dailyDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //HABITS -- RUNS ON NEW HABIT CREATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("Habits")
+          .doc("$habitName")
+          .set(habitDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //MOODS -- RUNS ON MOOD UPDATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("Moods")
+          .doc("Mood")
+          .set(moodsDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //USER DATA -- RUNS ON PROFILE CREATE, USER DATA UPDATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("User_Info")
+          .doc("User")
+          .set(userInfoDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+
+      //USER PREFERENCES -- RUNS ON PROFILE CREATE, PREFERENCES UPDATED
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("User_Info")
+          .doc("Preferences")
+          .set(preferencesDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+    }
+
     return Scaffold(
         backgroundColor: Colors.grey[300],
         body: SafeArea(
@@ -44,9 +140,9 @@ class Signup extends StatelessWidget {
 
               // username textfield
               MyTextField(
-                key: Key('username'),
-                controller: usernameController,
-                hintText: 'Username',
+                key: Key('email'),
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
               ),
 
@@ -85,10 +181,14 @@ class Signup extends StatelessWidget {
 
               SizedBox(height: 25),
 
-              MyButton(
-                onTap: signUserIn,
-                text: "Sign Up",
-              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Add User"),
+                  onPressed: () {
+                    signUserUp(emailController.text, passwordController.text);
+                  },
+                ),
+              )
             ]),
           ),
         ));
