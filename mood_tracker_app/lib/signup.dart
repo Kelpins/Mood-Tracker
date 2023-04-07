@@ -7,13 +7,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'auth_service.dart';
+import 'home_page.dart';
+
 import 'firebase_options.dart';
+
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
+
+  @override
+  _SignUpState createState() => _SignUpState();
+}
 
 // Structure and styling from YouTube video by Mitch Koko
 // https://youtu.be/Dh-cTQJgM-Q
-class Signup extends StatelessWidget {
-  Signup({super.key});
-
+class _SignUpState extends State<SignUp> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -167,7 +175,7 @@ class Signup extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Signin()),
+                          MaterialPageRoute(builder: (context) => SignIn()),
                         );
                       },
                       child: Text(
@@ -183,11 +191,31 @@ class Signup extends StatelessWidget {
 
               Center(
                 child: ElevatedButton(
-                  child: const Text("Add User"),
+                    child: const Text("Add User"),
+                    /*
                   onPressed: () {
                     signUserUp(emailController.text, passwordController.text);
                   },
-                ),
+                  */
+                    onPressed: () async {
+                      final message = await AuthService().registration(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+
+                      Future.delayed(Duration.zero, () {
+                        if (message!.contains('Success')) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()));
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(message),
+                          ),
+                        );
+                      });
+                    }),
               )
             ]),
           ),

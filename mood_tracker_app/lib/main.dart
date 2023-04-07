@@ -8,6 +8,7 @@ import 'signin.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,8 +47,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     const HomePage(),
     const StatsPage(),
     Settings(),
-    Signup(),
-    Signin(),
+    SignUp(),
+    SignIn(),
   ];
 
   void _onItemTapped(int index) {

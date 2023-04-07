@@ -4,9 +4,17 @@ import 'package:intl/intl.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +173,8 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15)),
                         labelText: "How are you doing?"),
                   ))*/
-                  )))
+                  ))),
+          Center(child: Container(child: Text('signed in as ' + user.email!))),
         ]));
   }
 }

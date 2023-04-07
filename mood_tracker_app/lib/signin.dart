@@ -5,18 +5,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'signup.dart';
+import 'auth_service.dart';
+import 'home_page.dart';
+
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
+
+  @override
+  _SignInState createState() => _SignInState();
+}
 
 // Structure and styling from YouTube video by Mitch Koko
 // https://youtu.be/Dh-cTQJgM-Q
-class Signin extends StatelessWidget {
-  Signin({super.key});
-
+class _SignInState extends State<SignIn> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  //final user = FirebaseAuth.instance.currentUser!;
-
+/*
   List<String> docIDs = [];
 
   // get docIDs
@@ -31,10 +36,13 @@ class Signin extends StatelessWidget {
 
   // sign user in method
   void signUserIn(email, password) {}
+  
 
   // from https://www.youtube.com/watch?v=TcwQ74WVTTc
   final Stream<QuerySnapshot> users =
       FirebaseFirestore.instance.collection('Users').snapshots();
+
+    */
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +100,7 @@ class Signin extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Signup()),
+                          MaterialPageRoute(builder: (context) => SignUp()),
                         );
                       },
                       child: Text(
@@ -109,11 +117,25 @@ class Signin extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   child: const Text("Add User"),
-                  onPressed: () {
-                    signUserIn(emailController.text, passwordController.text);
+                  onPressed: () async {
+                    //signUserIn(emailController.text, passwordController.text);
+                    final message = await AuthService().login(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                    Future.delayed(Duration.zero, () {
+                      if (message!.contains('Success')) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
+                      }
+                    });
                   },
                 ),
               ),
+              /*
               Container(
                   child: StreamBuilder<QuerySnapshot>(
                       stream: users,
@@ -135,6 +157,7 @@ class Signin extends StatelessWidget {
                               return Text('users: ${data.docs[index]}');
                             });
                       }))
+                      */
             ]),
           ),
         ));
