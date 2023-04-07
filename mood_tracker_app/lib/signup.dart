@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'components/textfield.dart';
 import 'components/button.dart';
+import 'signin.dart';
 
 // Structure and styling from YouTube video by Mitch Koko
 // https://youtu.be/Dh-cTQJgM-Q
@@ -33,7 +34,7 @@ class Signup extends StatelessWidget {
 
               SizedBox(height: 50),
 
-              Text('Welcome back! How have you been?',
+              Text('Welcome to Meliora!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -66,9 +67,17 @@ class Signup extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signin()),
+                        );
+                      },
+                      child: Text(
+                        'Sign into an existing account.',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
                     ),
                   ],
                 ),
@@ -78,6 +87,7 @@ class Signup extends StatelessWidget {
 
               MyButton(
                 onTap: signUserIn,
+                text: "Sign Up",
               ),
             ]),
           ),

@@ -4,6 +4,7 @@ import 'home_page.dart';
 import 'statsPage.dart';
 import 'profile.dart';
 import 'signup.dart';
+import 'signin.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -46,6 +47,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     const StatsPage(),
     Settings(),
     Signup(),
+    Signin(),
   ];
 
   void _onItemTapped(int index) {
@@ -77,6 +79,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.key),
             label: 'Signup',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lock),
+            label: 'Sign In',
           ),
         ],
         currentIndex: _selectedIndex,
