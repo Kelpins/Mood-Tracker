@@ -15,17 +15,17 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
     );
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+  MyStatefulWidget({super.key});
 
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
@@ -44,8 +44,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   //static const TextStyle optionStyle =
   //TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    const HomePage(),
-    const StatsPage(),
+    HomePage(),
+    StatsPage(),
     Settings(),
     SignUp(),
     SignIn(),
@@ -59,11 +59,63 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _buildScreens() {
+      return [HomePage(), StatsPage(), Settings(), SignUp(), SignIn()];
+    }
+
+    List<PersistentBottomNavBarItem> _navBarsItems() {
+      return [
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.home),
+          title: ("Home"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.analytics_outlined),
+          title: ("Statistics"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.settings),
+          title: ("Settings"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.key),
+          title: ("Sign In"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.lock),
+          title: ("Sign Up"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+      ];
+    }
+
+    PersistentTabController tabController;
+
+    tabController = PersistentTabController(initialIndex: 0);
+
     return Scaffold(
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: PersistentTabView(
+          context,
+          controller: tabController,
+          screens: _buildScreens(),
+          items: _navBarsItems(),
+          decoration: NavBarDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.white,
+          ),
+        ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /*bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -89,8 +141,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         currentIndex: _selectedIndex,
         unselectedItemColor: Colors.blueGrey,
         selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+        onTap: _onItemTapped,*/
     );
   }
 }

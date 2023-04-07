@@ -116,7 +116,7 @@ class _SignInState extends State<SignIn> {
 
               Center(
                 child: ElevatedButton(
-                  child: const Text("Add User"),
+                  child: const Text("Log In"),
                   onPressed: () async {
                     //signUserIn(emailController.text, passwordController.text);
                     final message = await AuthService().login(
