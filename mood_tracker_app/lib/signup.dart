@@ -171,7 +171,7 @@ class Signup extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        'Sign into an existing account.',
+                        'Create an account.',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'components/textfield.dart';
 import 'components/button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'signup.dart';
 
 // Structure and styling from YouTube video by Mitch Koko
@@ -9,11 +12,29 @@ class Signin extends StatelessWidget {
   Signin({super.key});
 
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  //final user = FirebaseAuth.instance.currentUser!;
+
+  List<String> docIDs = [];
+
+  // get docIDs
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .get()
+        .then((snapshot) => snapshot.docs.forEach((element) {
+              print(element.reference);
+            }));
+  }
+
   // sign user in method
-  void signUserIn() {}
+  void signUserIn(email, password) {}
+
+  // from https://www.youtube.com/watch?v=TcwQ74WVTTc
+  final Stream<QuerySnapshot> users =
+      FirebaseFirestore.instance.collection('Users').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +65,9 @@ class Signin extends StatelessWidget {
 
               // username textfield
               MyTextField(
-                key: Key('username'),
-                controller: usernameController,
-                hintText: 'Username',
+                key: Key('email'),
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
               ),
 
@@ -75,7 +96,7 @@ class Signin extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        'Create an account.',
+                        'Sign into an existing account.',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
@@ -85,10 +106,35 @@ class Signin extends StatelessWidget {
 
               SizedBox(height: 25),
 
-              MyButton(
-                onTap: signUserIn,
-                text: "Sign In",
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Add User"),
+                  onPressed: () {
+                    signUserIn(emailController.text, passwordController.text);
+                  },
+                ),
               ),
+              Container(
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: users,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Something went wrong.');
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text('Loading...');
+                        }
+
+                        final data = snapshot.requireData;
+
+                        return ListView.builder(
+                            itemCount: data.size,
+                            itemBuilder: (context, index) {
+                              return Text('users: ${data.docs[index]}');
+                            });
+                      }))
             ]),
           ),
         ));
