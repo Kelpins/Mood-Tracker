@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'components/textfield.dart';
+import 'components/button.dart';
 
 // Structure and styling from YouTube video by Mitch Koko
 // https://youtu.be/Dh-cTQJgM-Q
 class Signup extends StatelessWidget {
-  const Signup({super.key});
+  Signup({super.key});
+
+  // text editing controllers
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  // sign user in method
+  void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
+        backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Center(
+            child: Column(children: [
               // spacing
               SizedBox(height: 50),
 
@@ -25,54 +33,54 @@ class Signup extends StatelessWidget {
 
               SizedBox(height: 50),
 
-              Text(
-                'Welcome back! How have you been?',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
-                )
-              ),
+              Text('Welcome back! How have you been?',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 16,
+                  )),
 
               SizedBox(height: 25),
 
               // username textfield
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400)
-                    ),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
-                  )
-                ),
+              MyTextField(
+                key: Key('username'),
+                controller: usernameController,
+                hintText: 'Username',
+                obscureText: false,
               ),
 
               SizedBox(height: 10),
 
               // password textfield
+              MyTextField(
+                key: Key('password'),
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
+              ),
+
+              SizedBox(height: 10),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: Colors.grey[600]),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400)
-                    ),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
-                  )
+                  ],
                 ),
               ),
-          ]),
-        ),
-      )
-    );
+
+              SizedBox(height: 25),
+
+              MyButton(
+                onTap: signUserIn,
+              ),
+            ]),
+          ),
+        ));
   }
 }
