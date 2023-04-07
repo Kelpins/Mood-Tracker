@@ -26,4 +26,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/correlationMap.png
+    - images/
