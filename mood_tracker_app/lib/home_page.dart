@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     //double slider_value = 20;
 
     final db = FirebaseFirestore.instance;
-    const email = "kellan@edgy.org";
+    final email = user.email;
     const habitName = "Taking Naps";
 
     void logOut() {

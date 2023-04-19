@@ -25,6 +25,7 @@ class _SignUpState extends State<SignUp> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _SignUpState extends State<SignUp> {
     const habitName = "Taking Naps";
 
     // sign user in method
-    void signUserUp(email, password) {
+    void signUserUp(email, password, name) {
       final dailyDocData = {
         "Habit_1": true,
         "Habit_2": false,
@@ -56,7 +57,7 @@ class _SignUpState extends State<SignUp> {
 
       final userInfoDocData = {
         "email": email,
-        "Name": "Kellan",
+        "Name": name,
         "Password": password,
       };
 
@@ -166,6 +167,16 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 10),
 
+              // name textfield
+              MyTextField(
+                key: Key('name'),
+                controller: nameController,
+                hintText: 'Username',
+                obscureText: true,
+              ),
+
+              SizedBox(height: 10),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -202,6 +213,8 @@ class _SignUpState extends State<SignUp> {
                         email: emailController.text,
                         password: passwordController.text,
                       );
+                      signUserUp(emailController.text, passwordController.text,
+                          nameController.text);
 
                       Future.delayed(Duration.zero, () {
                         if (message!.contains('Success')) {
