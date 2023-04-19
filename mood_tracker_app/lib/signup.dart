@@ -179,7 +179,7 @@ class _SignUpState extends State<SignUp> {
                         );
                       },
                       child: Text(
-                        'Create an account.',
+                        'Tap here to log in!',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
@@ -191,7 +191,7 @@ class _SignUpState extends State<SignUp> {
 
               Center(
                 child: ElevatedButton(
-                    child: const Text("Add User"),
+                    child: const Text("Sign Up"),
                     /*
                   onPressed: () {
                     signUserUp(emailController.text, passwordController.text);

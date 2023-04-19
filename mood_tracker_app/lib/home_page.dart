@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final user = FirebaseAuth.instance.currentUser!;
+  var user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,7 @@ class _HomePageState extends State<HomePage> {
     const habitName = "Taking Naps";
 
     void createUser() {
-      FirebaseAuth.instance.signOut();
-
-      /*final dailyDocData = {
+      final dailyDocData = {
         "Habit_1": true,
         "Habit_2": false,
         "Habit_3": false,
@@ -118,7 +116,7 @@ class _HomePageState extends State<HomePage> {
           .set(preferencesDocData)
           .onError(
               // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));*/
+              (e, _) => print("Error writing document: $e"));
     }
 
     return Scaffold(
@@ -152,9 +150,9 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(10.0),
                   child: Center(
                     child: ElevatedButton(
-                      child: const Text("Add User"),
+                      child: const Text("Log Out"),
                       onPressed: () {
-                        createUser();
+                        FirebaseAuth.instance.signOut();
                       },
                     ),
                     /*child: Slider(

@@ -48,8 +48,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     HomePage(),
     StatsPage(),
     Settings(),
-    SignUp(),
-    SignIn(),
   ];
 
   void _onItemTapped(int index) {
@@ -61,46 +59,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _buildScreens() {
-      if (FirebaseAuth.instance.currentUser != null) {
-        return [HomePage(), StatsPage(), Settings()];
-      }
-
-      return [SignUp(), SignIn()];
+      return [HomePage(), StatsPage(), Settings()];
     }
 
     List<PersistentBottomNavBarItem> _navBarsItems() {
-      if (FirebaseAuth.instance.currentUser != null) {
-        return [
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.home),
-            title: ("Home"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.orange,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.analytics_outlined),
-            title: ("Statistics"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.orange,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.settings),
-            title: ("Settings"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.orange,
-          ),
-        ];
-      }
       return [
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.key),
-          title: ("Sign In"),
+          icon: Icon(Icons.home),
+          title: ("Home"),
           activeColorPrimary: Colors.blue,
           inactiveColorPrimary: Colors.orange,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.lock),
-          title: ("Sign Up"),
+          icon: Icon(Icons.analytics_outlined),
+          title: ("Statistics"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.settings),
+          title: ("Settings"),
           activeColorPrimary: Colors.blue,
           inactiveColorPrimary: Colors.orange,
         ),
@@ -111,20 +89,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     tabController = PersistentTabController(initialIndex: 0);
 
-    return Scaffold(
-      body: Center(
-        child: PersistentTabView(
-          context,
-          controller: tabController,
-          screens: _buildScreens(),
-          items: _navBarsItems(),
-          decoration: NavBarDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            colorBehindNavBar: Colors.white,
+    if (FirebaseAuth.instance.currentUser != null) {
+      return Scaffold(
+        body: Center(
+          child: PersistentTabView(
+            context,
+            controller: tabController,
+            screens: _buildScreens(),
+            items: _navBarsItems(),
+            decoration: NavBarDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              colorBehindNavBar: Colors.white,
+            ),
           ),
         ),
-      ),
-      /*bottomNavigationBar: BottomNavigationBar(
+      );
+    } else {
+      return SignIn();
+    }
+    /*bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -151,6 +134,5 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         unselectedItemColor: Colors.blueGrey,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,*/
-    );
   }
 }

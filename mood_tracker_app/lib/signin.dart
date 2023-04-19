@@ -104,7 +104,7 @@ class _SignInState extends State<SignIn> {
                         );
                       },
                       child: Text(
-                        'Sign into an existing account.',
+                        'Tap here to sign up!',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ),
