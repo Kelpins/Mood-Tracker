@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'signin.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,6 +33,12 @@ class _HomePageState extends State<HomePage> {
     final db = FirebaseFirestore.instance;
     const email = "kellan@edgy.org";
     const habitName = "Taking Naps";
+
+    void logOut() {
+      FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => SignIn()));
+    }
 
     void createUser() {
       final dailyDocData = {
@@ -152,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       child: const Text("Log Out"),
                       onPressed: () {
-                        FirebaseAuth.instance.signOut();
+                        logOut();
                       },
                     ),
                     /*child: Slider(
