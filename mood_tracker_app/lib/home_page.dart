@@ -33,7 +33,9 @@ class _HomePageState extends State<HomePage> {
     const habitName = "Taking Naps";
 
     void createUser() {
-      final dailyDocData = {
+      FirebaseAuth.instance.signOut();
+
+      /*final dailyDocData = {
         "Habit_1": true,
         "Habit_2": false,
         "Habit_3": false,
@@ -116,7 +118,7 @@ class _HomePageState extends State<HomePage> {
           .set(preferencesDocData)
           .onError(
               // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
+              (e, _) => print("Error writing document: $e"));*/
     }
 
     return Scaffold(

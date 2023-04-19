@@ -9,7 +9,6 @@ import 'signin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,37 +60,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _buildScreens() {
-      if (FirebaseAuth.instance.currentUser != null) {
-        return [HomePage(), StatsPage(), Settings()];
-      }
-
-      return [SignUp(), SignIn()];
+      return [HomePage(), StatsPage(), Settings(), SignUp(), SignIn()];
     }
 
     List<PersistentBottomNavBarItem> _navBarsItems() {
-      if (FirebaseAuth.instance.currentUser != null) {
-        return [
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.home),
-            title: ("Home"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.orange,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.analytics_outlined),
-            title: ("Statistics"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.orange,
-          ),
-          PersistentBottomNavBarItem(
-            icon: Icon(Icons.settings),
-            title: ("Settings"),
-            activeColorPrimary: Colors.blue,
-            inactiveColorPrimary: Colors.orange,
-          ),
-        ];
-      }
       return [
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.home),
+          title: ("Home"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.analytics_outlined),
+          title: ("Statistics"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
+        PersistentBottomNavBarItem(
+          icon: Icon(Icons.settings),
+          title: ("Settings"),
+          activeColorPrimary: Colors.blue,
+          inactiveColorPrimary: Colors.orange,
+        ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.key),
           title: ("Sign In"),
