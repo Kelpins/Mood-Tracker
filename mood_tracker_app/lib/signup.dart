@@ -172,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                 key: Key('name'),
                 controller: nameController,
                 hintText: 'Username',
-                obscureText: true,
+                obscureText: false,
               ),
 
               SizedBox(height: 10),
