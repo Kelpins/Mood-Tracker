@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'signin.dart';
+import 'components/button.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -150,6 +151,54 @@ class _HomePageState extends State<HomePage> {
                       textScaleFactor: 1.25,
                     ),
                   ))),
+          Center(
+            child: Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 255, 0, 0),
+                    Color.fromARGB(255, 255, 170, 0),
+                    Color.fromARGB(255, 204, 255, 0),
+                    Color.fromARGB(255, 0, 255, 85)
+                  ]),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                padding: const EdgeInsets.all(10.0),
+                width: 350.0,
+                height: 75.0,
+                margin: const EdgeInsets.all(10.0),
+                child: Center(
+                    child: Row(
+                  children: [
+                    MyButton(
+                      text: "Mood",
+                      onTap: () {
+                        logOut();
+                      },
+                    ),
+                    SizedBox(width: 60 - 2 / 3),
+                    MyButton(
+                      text: "Mood",
+                      onTap: () {
+                        logOut();
+                      },
+                    ),
+                    SizedBox(width: 60 - 2 / 3),
+                    MyButton(
+                      text: "Mood",
+                      onTap: () {
+                        logOut();
+                      },
+                    ),
+                    SizedBox(width: 60 - 2 / 3),
+                    MyButton(
+                      text: "Mood",
+                      onTap: () {
+                        logOut();
+                      },
+                    ),
+                  ],
+                ))),
+          ),
           Center(
               child: Container(
                   padding: const EdgeInsets.all(10.0),
