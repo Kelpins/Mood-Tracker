@@ -32,8 +32,6 @@ class _HomePageState extends State<HomePage> {
 
     final db = FirebaseFirestore.instance;
     final email = user.email;
-    var username =
-        user.email.toString(); //READ USERNAME FROM DOCUMENT, NOT EMAIL
     const habitName = "Taking Naps";
 
     void logOut() {
@@ -144,11 +142,11 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   margin: const EdgeInsets.all(10.0),
-                  width: 350.0,
+                  width: 375.0,
                   height: 75.0,
                   child: Center(
                     child: Text(
-                      "Hello, $username! It is $time on $weekday, $month $day.",
+                      "Hello! It is $time on $weekday, $month $day.",
                       textScaleFactor: 1.25,
                     ),
                   ))),
