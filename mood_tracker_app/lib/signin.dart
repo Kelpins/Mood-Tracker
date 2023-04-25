@@ -22,28 +22,14 @@ class _SignInState extends State<SignIn> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-/*
-  List<String> docIDs = [];
 
-  // get docIDs
-  Future getDocId() async {
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .get()
-        .then((snapshot) => snapshot.docs.forEach((element) {
-              print(element.reference);
-            }));
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
   }
-
-  // sign user in method
-  void signUserIn(email, password) {}
-  
-
-  // from https://www.youtube.com/watch?v=TcwQ74WVTTc
-  final Stream<QuerySnapshot> users =
-      FirebaseFirestore.instance.collection('Users').snapshots();
-
-    */
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +50,7 @@ class _SignInState extends State<SignIn> {
 
               SizedBox(height: 50),
 
+              // header
               Text('Welcome back! How have you been?',
                   style: TextStyle(
                     color: Colors.grey[700],
@@ -92,6 +79,7 @@ class _SignInState extends State<SignIn> {
 
               SizedBox(height: 10),
 
+              // link to the signup page
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -115,6 +103,7 @@ class _SignInState extends State<SignIn> {
 
               SizedBox(height: 25),
 
+              // log in button
               Center(
                 child: ElevatedButton(
                   child: const Text("Log In"),
@@ -133,6 +122,15 @@ class _SignInState extends State<SignIn> {
                         );
                       }
                     });
+
+                    // error message
+                    if (message != null) {
+                      Text(message,
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 16,
+                          ));
+                    }
                   },
                 ),
               ),
