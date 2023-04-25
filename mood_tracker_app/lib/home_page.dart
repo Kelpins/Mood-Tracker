@@ -38,29 +38,14 @@ class _HomePageState extends State<HomePage> {
     final email = user.email;
     const habitName = "Taking Naps";
     double currentMood = 10.0;
+    double _currentSliderPrimaryValue = 0.2;
+    double _currentSliderSecondaryValue = 0.5;
 
     void logOut() {
       FirebaseAuth.instance.signOut();
       //Navigator.pop(context);
       PersistentNavBarNavigator.pushNewScreen(context,
           screen: MyStatefulWidget(), withNavBar: false);
-    }
-
-    void updateMood(double value) {
-      final moodsDocData = {
-        "$today": value,
-        //PAST MOOD DOC DATA -- TO READ
-      };
-
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Moods")
-          .doc("Mood")
-          .set(moodsDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
     }
 
     void createUser() {
@@ -186,16 +171,58 @@ class _HomePageState extends State<HomePage> {
                 ),
                 padding: const EdgeInsets.all(10.0),
                 width: 350.0,
-                height: 75.0,
+                height: 150.0,
                 margin: const EdgeInsets.all(10.0),
                 child: Center(
-                  child: MySlider(
-                    val: currentMood,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Slider(
+                        value: _currentSliderPrimaryValue,
+                        secondaryTrackValue: _currentSliderSecondaryValue,
+                        label: _currentSliderPrimaryValue.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentSliderPrimaryValue = value;
+                          });
+                        },
+                      ),
+                      Slider(
+                        value: _currentSliderSecondaryValue,
+                        label: _currentSliderSecondaryValue.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentSliderSecondaryValue = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ), /*Slider(
+                    value: currentMood,
                     min: 0.0,
                     max: 20.0,
-                    step: 1,
-                    onChanged: updateMood,
-                  ),
+                    divisions: 20,
+                    onChanged: (double value) {
+                      setState(() {
+                        currentMood = value;
+                      });
+
+                      final moodsDocData = {
+                        "$today": value,
+                        //PAST MOOD DOC DATA -- TO READ
+                      };
+
+                      db
+                          .collection("Users")
+                          .doc("$email")
+                          .collection("Moods")
+                          .doc("Mood")
+                          .set(moodsDocData)
+                          .onError(
+                              // ignore: avoid_print
+                              (e, _) => print("Error writing document: $e"));
+                    },
+                  ),*/
                 )),
           ),
           Center(
