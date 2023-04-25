@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'signin.dart';
 import 'components/button.dart';
@@ -41,8 +42,8 @@ class _HomePageState extends State<HomePage> {
     void logOut() {
       FirebaseAuth.instance.signOut();
       //Navigator.pop(context);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MyStatefulWidget()));
+      PersistentNavBarNavigator.pushNewScreen(context,
+          screen: MyStatefulWidget(), withNavBar: false);
     }
 
     void updateMood(double value) {
