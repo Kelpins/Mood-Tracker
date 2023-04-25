@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'auth_service.dart';
 import 'home_page.dart';
+import 'main.dart';
 
 import 'firebase_options.dart';
 
@@ -220,7 +221,7 @@ class _SignUpState extends State<SignUp> {
                         if (message!.contains('Success')) {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => const HomePage()));
+                                  builder: (context) => MyStatefulWidget()));
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

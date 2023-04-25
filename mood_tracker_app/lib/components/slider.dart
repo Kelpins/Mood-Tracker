@@ -6,12 +6,14 @@ class MySlider extends StatelessWidget {
   final double val;
   final double min;
   final double max;
+  final int step;
 
   const MySlider(
       {super.key,
       required this.val,
       required this.min,
       required this.max,
+      required this.step,
       required this.onChanged});
 
   @override
@@ -21,6 +23,7 @@ class MySlider extends StatelessWidget {
       onChanged: onChanged(val),
       min: min,
       max: max,
+      divisions: step,
     );
   }
 }

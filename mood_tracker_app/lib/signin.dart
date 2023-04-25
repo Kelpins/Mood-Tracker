@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'signup.dart';
 import 'auth_service.dart';
 import 'home_page.dart';
+import 'main.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -127,7 +128,7 @@ class _SignInState extends State<SignIn> {
                       if (message!.contains('Success')) {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                            builder: (context) => MyStatefulWidget(),
                           ),
                         );
                       }

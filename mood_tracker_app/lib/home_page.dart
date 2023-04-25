@@ -9,6 +9,7 @@ import 'components/slider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,8 +40,9 @@ class _HomePageState extends State<HomePage> {
 
     void logOut() {
       FirebaseAuth.instance.signOut();
+      //Navigator.pop(context);
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => SignIn()));
+          context, MaterialPageRoute(builder: (context) => MyStatefulWidget()));
     }
 
     void updateMood(double value) {
@@ -190,6 +192,7 @@ class _HomePageState extends State<HomePage> {
                     val: currentMood,
                     min: 0.0,
                     max: 20.0,
+                    step: 1,
                     onChanged: updateMood,
                   ),
                 )),
