@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'home_page.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  const Settings({Key? key}) : super(key: key);
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings')
-      ),
+      appBar: AppBar(title: Text('Settings')),
       body: SettingsList(
         sections: [
           SettingsSection(
