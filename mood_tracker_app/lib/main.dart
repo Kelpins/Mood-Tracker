@@ -107,32 +107,5 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     } else {
       return SignIn();
     }
-    /*bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_outlined),
-            label: 'Statistics',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.key),
-            label: 'Signup',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lock),
-            label: 'Sign In',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        unselectedItemColor: Colors.blueGrey,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,*/
   }
 }

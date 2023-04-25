@@ -174,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         logOut();
                       },
+                      icon: Icons.face,
                     ),
                     SizedBox(width: 60 - 2 / 3),
                     MyButton(
@@ -181,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         logOut();
                       },
+                      icon: Icons.face,
                     ),
                     SizedBox(width: 60 - 2 / 3),
                     MyButton(
@@ -188,6 +190,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         logOut();
                       },
+                      icon: Icons.face,
                     ),
                     SizedBox(width: 60 - 2 / 3),
                     MyButton(
@@ -195,6 +198,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         logOut();
                       },
+                      icon: Icons.face,
                     ),
                   ],
                 ))),
