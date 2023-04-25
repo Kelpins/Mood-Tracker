@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'signin.dart';
 import 'components/button.dart';
+import 'components/slider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -34,11 +35,29 @@ class _HomePageState extends State<HomePage> {
     final db = FirebaseFirestore.instance;
     final email = user.email;
     const habitName = "Taking Naps";
+    double currentMood = 10.0;
 
     void logOut() {
       FirebaseAuth.instance.signOut();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => SignIn()));
+    }
+
+    void updateMood(double value) {
+      final moodsDocData = {
+        "$today": value,
+        //PAST MOOD DOC DATA -- TO READ
+      };
+
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("Moods")
+          .doc("Mood")
+          .set(moodsDocData)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
     }
 
     void createUser() {
@@ -167,41 +186,13 @@ class _HomePageState extends State<HomePage> {
                 height: 75.0,
                 margin: const EdgeInsets.all(10.0),
                 child: Center(
-                    child: Row(
-                  children: [
-                    MyButton(
-                      text: "Mood",
-                      onTap: () {
-                        logOut();
-                      },
-                      icon: Icons.face,
-                    ),
-                    SizedBox(width: 60 - 2 / 3),
-                    MyButton(
-                      text: "Mood",
-                      onTap: () {
-                        logOut();
-                      },
-                      icon: Icons.face,
-                    ),
-                    SizedBox(width: 60 - 2 / 3),
-                    MyButton(
-                      text: "Mood",
-                      onTap: () {
-                        logOut();
-                      },
-                      icon: Icons.face,
-                    ),
-                    SizedBox(width: 60 - 2 / 3),
-                    MyButton(
-                      text: "Mood",
-                      onTap: () {
-                        logOut();
-                      },
-                      icon: Icons.face,
-                    ),
-                  ],
-                ))),
+                  child: MySlider(
+                    val: currentMood,
+                    min: 0.0,
+                    max: 20.0,
+                    onChanged: updateMood,
+                  ),
+                )),
           ),
           Center(
               child: Container(
