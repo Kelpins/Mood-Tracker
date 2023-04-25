@@ -23,6 +23,8 @@ class _SignInState extends State<SignIn> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  String errorMessage = '';
+
   @override
   void dispose() {
     emailController.dispose();
@@ -114,49 +116,30 @@ class _SignInState extends State<SignIn> {
                       password: passwordController.text,
                     );
                     Future.delayed(Duration.zero, () {
+                      // if everthing goes right, directs to MyStatefulWidget in main.dart
                       if (message!.contains('Success')) {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (context) => MyStatefulWidget(),
                           ),
                         );
+                      } else {
+                        // if there are any errors, creates an error message
+                        errorMessage = message;
+                        print(errorMessage);
                       }
                     });
-
-                    // error message
-                    if (message != null) {
-                      Text(message,
-                          style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize: 16,
-                          ));
-                    }
+                    // "reloads" page so the correct error message displays
+                    setState(() {});
                   },
                 ),
               ),
-              /*
-              Container(
-                  child: StreamBuilder<QuerySnapshot>(
-                      stream: users,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError) {
-                          return Text('Something went wrong.');
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Text('Loading...');
-                        }
 
-                        final data = snapshot.requireData;
-
-                        return ListView.builder(
-                            itemCount: data.size,
-                            itemBuilder: (context, index) {
-                              return Text('users: ${data.docs[index]}');
-                            });
-                      }))
-                      */
+              // displays error message
+              Text(errorMessage,
+                  style: TextStyle(
+                    fontSize: 16,
+                  )),
             ]),
           ),
         ));
