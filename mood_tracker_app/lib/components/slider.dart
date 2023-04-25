@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// mood gradient selector class
 class MySlider extends StatelessWidget {
   final onChanged;
   final double val;
