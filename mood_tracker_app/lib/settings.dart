@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'home_page.dart';
+import 'profile.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -17,18 +17,17 @@ class _SettingsState extends State<Settings> {
       body: SettingsList(
         sections: [
           SettingsSection(
+            title: Text('Account'),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
-                leading: Icon(Icons.language),
-                title: Text('Language'),
-                value: Text('English'),
-              ),
-              SettingsTile.switchTile(
-                onToggle: (value) {},
-                initialValue: true,
-                leading: Icon(Icons.format_paint),
-                title: Text('Enable custom theme'),
-              ),
+                leading: Icon(Icons.person),
+                title: Text('Profile'),
+                onPressed: (BuildContext context) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile()),
+                  );
+                }),
             ],
           ),
         ],
