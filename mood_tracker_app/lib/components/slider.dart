@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 
 class MySlider extends StatelessWidget {
-  final Function()? onChangeEnd;
-  final int min;
-  final int max;
+  final onChanged;
+  final double val;
+  final double min;
+  final double max;
   final IconData icon;
 
   const MySlider(
       {super.key,
+      required this.val,
       required this.min,
       required this.max,
       required this.icon,
-      required this.onChangeEnd});
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Slider(
-      onChangeEnd: onTap,
-      child: Container(child: Icon(icon)),
+      value: val,
+      onChanged: onChanged,
+      min: min,
+      max: max,
     );
   }
 }
