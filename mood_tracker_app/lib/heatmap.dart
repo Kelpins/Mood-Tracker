@@ -4,10 +4,12 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 class heatmap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // from https://pub.dev/packages/flutter_heatmap_calendar
+    // Create a heatmap widget using the Flutter calendar heatmap library
+
     return Container(
         margin: const EdgeInsets.all(20),
         child: HeatMap(
+            // Properties for the heatmap widget
             defaultColor: Colors.white,
             scrollable: true,
             colorMode: ColorMode.opacity,
@@ -18,6 +20,7 @@ class heatmap extends StatelessWidget {
             borderRadius: 10,
             margin: const EdgeInsets.all(5),
             datasets: {
+              // Provide the dataset for the heatmap, mapping date & time to values
               DateTime(2023, 3, 1): 1,
               DateTime(2023, 3, 2): 10,
               DateTime(2023, 3, 3): 15,
@@ -30,9 +33,11 @@ class heatmap extends StatelessWidget {
               DateTime(2023, 3, 10): 6,
             },
             colorsets: const {
+              // Colorsets (themes)
               1: Colors.purple,
             },
             onClick: (value) {
+              // onClick event
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text(value.toString())));
             }));
