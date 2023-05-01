@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class heatmap extends StatelessWidget {
+  final String documentId;
+
   @override
   Widget build(BuildContext context) {
     // Create a heatmap widget using the Flutter calendar heatmap library
-
     return Container(
         margin: const EdgeInsets.all(20),
         child: HeatMap(
