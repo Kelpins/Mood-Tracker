@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'heatmap.dart';
 import 'moodEffect.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_options.dart';
 
 class StatsPage extends StatelessWidget {
-  const StatsPage({super.key});
+  StatsPage({super.key});
+
+  var user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
+    final String email = user.email.toString();
     return DefaultTabController(
         initialIndex: 0,
         length: 2,
@@ -25,7 +30,7 @@ class StatsPage extends StatelessWidget {
                 )),
             body: TabBarView(
               children: <Widget>[
-                heatmap(),
+                heatmap(email),
                 moodEffect(),
               ],
             )));
