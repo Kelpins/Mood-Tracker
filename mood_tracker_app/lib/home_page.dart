@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
+  double value = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -178,24 +179,12 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Slider(
-                        value: _currentSliderPrimaryValue,
-                        secondaryTrackValue: _currentSliderSecondaryValue,
-                        label: _currentSliderPrimaryValue.round().toString(),
-                        onChanged: (double value) {
+                        value: value,
+                        onChanged: (val) {
                           setState(() {
-                            _currentSliderPrimaryValue = value;
+                            value = val;
                           });
-                        },
-                      ),
-                      Slider(
-                        value: _currentSliderSecondaryValue,
-                        label: _currentSliderSecondaryValue.round().toString(),
-                        onChanged: (double value) {
-                          setState(() {
-                            _currentSliderSecondaryValue = value;
-                          });
-                        },
-                      ),
+                      }),
                     ],
                   ), /*Slider(
                     value: currentMood,
