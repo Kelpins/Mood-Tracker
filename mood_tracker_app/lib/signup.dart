@@ -33,72 +33,20 @@ class _SignUpState extends State<SignUp> {
     var now = DateTime.now();
     String today = DateFormat('MM-dd-yyyy').format(now);
     final db = FirebaseFirestore.instance;
-    const habitName = "Taking Naps";
 
     // sign user in method
     void signUserUp(email, password, name) {
-      final dailyDocData = {
-        "Habit_1": true,
-        "Habit_2": false,
-        "Habit_3": false,
-        "mood": 5,
-      };
-
-      final habitDocData = {
-        "Description": "Thirty minute nap at least twice a week",
-        "Icon": "Icon(Icons.bed)",
-        "Name": "Taking Naps",
-        "Timing": "weekly"
-      };
-
-      final moodsDocData = {
-        "$today": 4,
-        //PAST MOOD DOC DATA -- TO READ
-      };
-
       final userInfoDocData = {
         "email": email,
         "Name": name,
         "Password": password,
       };
 
+      // default preferences
       final preferencesDocData = {
         "color": "Colors.blue",
         "Language": "English"
       };
-
-      /*DAILY -- RUNS AT END OF EVERY DAY
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Daily")
-          .doc("$today")
-          .set(dailyDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //HABITS -- RUNS ON NEW HABIT CREATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Habits")
-          .doc("$habitName")
-          .set(habitDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //MOODS -- RUNS ON MOOD UPDATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Moods")
-          .doc("Mood")
-          .set(moodsDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));*/
 
       //USER DATA -- RUNS ON PROFILE CREATE, USER DATA UPDATED
       db
@@ -140,6 +88,7 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 50),
 
+              // heading
               Text('Welcome to Meliora!',
                   style: TextStyle(
                     color: Colors.grey[700],
@@ -148,7 +97,7 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 25),
 
-              // username textfield
+              // email textfield
               MyTextField(
                 key: Key('email'),
                 controller: emailController,
@@ -178,6 +127,7 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 10),
 
+              // link to signin page
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -201,24 +151,24 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 25),
 
+              // signup button
               Center(
                 child: ElevatedButton(
                     child: const Text("Sign Up"),
-                    /*
-                  onPressed: () {
-                    signUserUp(emailController.text, passwordController.text);
-                  },
-                  */
                     onPressed: () async {
+                      // registers user to firebase authenticate
                       final message = await AuthService().registration(
                         email: emailController.text,
                         password: passwordController.text,
                       );
-                      signUserUp(emailController.text, passwordController.text,
-                          nameController.text);
 
                       Future.delayed(Duration.zero, () {
                         if (message!.contains('Success')) {
+                          // adds user to firestore database
+                          signUserUp(emailController.text,
+                              passwordController.text, nameController.text);
+
+                          // goes back to homepage
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => MyStatefulWidget()));
