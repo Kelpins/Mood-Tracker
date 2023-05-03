@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
-  double value = 0;
+  double sliderValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -182,15 +182,15 @@ class _HomePageState extends State<HomePage> {
                   trackShape: RoundedRectSliderTrackShape(),
                 ),
                 child: Slider(
-                    value: value,
+                    value: sliderValue,
                     min: -1,
                     max: 1,
                     onChanged: (val) {
                       setState(() {
-                        value = val;
+                        sliderValue = val;
                       });
                       final moodsDocData = {
-                        "$today": value,
+                        "$today": sliderValue,
                         //PAST MOOD DOC DATA -- TO READ
                       };
 
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                           .doc("$email")
                           .collection("Moods")
                           .doc("Mood")
-                          .set(moodsDocData)
+                          .update(moodsDocData)
                           .onError(
                               // ignore: avoid_print
                               (e, _) => print("Error writing document: $e"));
