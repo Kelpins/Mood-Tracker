@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
-  double value = 0;
+  double value = 0.2;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,9 @@ class _HomePageState extends State<HomePage> {
 
     String today = DateFormat('MM-dd-yyyy').format(now);
 
-    //double slider_value = 20;
-
     final db = FirebaseFirestore.instance;
     final email = user.email;
     const habitName = "Taking Naps";
-    double currentMood = 10.0;
-    double _currentSliderPrimaryValue = 0.2;
-    double _currentSliderSecondaryValue = 0.5;
 
     void logOut() {
       FirebaseAuth.instance.signOut();
@@ -179,39 +174,31 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Slider(
-                        value: value,
-                        onChanged: (val) {
-                          setState(() {
-                            value = val;
-                          });
-                      }),
+                          value: value,
+                          min: -1,
+                          max: 1,
+                          onChanged: (val) {
+                            setState(() {
+                              value = val;
+                            });
+                            final moodsDocData = {
+                              "$today": value,
+                              //PAST MOOD DOC DATA -- TO READ
+                            };
+
+                            db
+                                .collection("Users")
+                                .doc("$email")
+                                .collection("Moods")
+                                .doc("Mood")
+                                .set(moodsDocData)
+                                .onError(
+                                    // ignore: avoid_print
+                                    (e, _) =>
+                                        print("Error writing document: $e"));
+                          }),
                     ],
-                  ), /*Slider(
-                    value: currentMood,
-                    min: 0.0,
-                    max: 20.0,
-                    divisions: 20,
-                    onChanged: (double value) {
-                      setState(() {
-                        currentMood = value;
-                      });
-
-                      final moodsDocData = {
-                        "$today": value,
-                        //PAST MOOD DOC DATA -- TO READ
-                      };
-
-                      db
-                          .collection("Users")
-                          .doc("$email")
-                          .collection("Moods")
-                          .doc("Mood")
-                          .set(moodsDocData)
-                          .onError(
-                              // ignore: avoid_print
-                              (e, _) => print("Error writing document: $e"));
-                    },
-                  ),*/
+                  ),
                 )),
           ),
           Center(
@@ -227,24 +214,6 @@ class _HomePageState extends State<HomePage> {
                         logOut();
                       },
                     ),
-                    /*child: Slider(
-                          min: 0,
-                          max: 100,
-                          value: _value,
-                          onChanged: (value) {
-                            setState(() {
-                              _value = value;
-                            });
-                          })*/
-
-                    /*
-                      child: Form(
-                          child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: "How are you doing?"),
-                  ))*/
                   ))),
           Center(child: Container(child: Text('signed in as ' + user.email!))),
         ]));
