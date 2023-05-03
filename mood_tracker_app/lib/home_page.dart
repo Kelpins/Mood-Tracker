@@ -183,22 +183,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Slider(
                     value: value,
+                    min: -1,
+                    max: 1,
                     onChanged: (val) {
                       setState(() {
                         value = val;
                       });
-                    }),
-              ),
-            ), /*Slider(
-                    value: currentMood,
-                    min: 0.0,
-                    max: 20.0,
-                    divisions: 20,
-                    onChanged: (double value) {
-                      setState(() {
-                        currentMood = value;
-                      });
-
                       final moodsDocData = {
                         "$today": value,
                         //PAST MOOD DOC DATA -- TO READ
@@ -213,8 +203,9 @@ class _HomePageState extends State<HomePage> {
                           .onError(
                               // ignore: avoid_print
                               (e, _) => print("Error writing document: $e"));
-                    },
-                  ),*/
+                    }),
+              ),
+            ),
           )),
           Center(
               child: Container(
@@ -229,24 +220,6 @@ class _HomePageState extends State<HomePage> {
                         logOut();
                       },
                     ),
-                    /*child: Slider(
-                      min: 0,
-                      max: 100,
-                      value: _value,
-                      onChanged: (value) {
-                        setState(() {
-                          _value = value;
-                        });
-                      })*/
-
-                    /*
-                  child: Form(
-                      child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    labelText: "How are you doing?"),
-              ))*/
                   ))),
           Center(child: Container(child: Text('signed in as ' + user.email!))),
         ]));
