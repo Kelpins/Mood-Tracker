@@ -175,17 +175,21 @@ class _HomePageState extends State<HomePage> {
                 height: 150.0,
                 margin: const EdgeInsets.all(10.0),
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Slider(
-                        value: value,
-                        onChanged: (val) {
-                          setState(() {
-                            value = val;
-                          });
-                      }),
-                    ],
+                  
+                      // slider code from YouTube tutorial
+                      // https://youtu.be/WI4F5V6BoJw
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          trackShape: RoundedRectSliderTrackShape(),
+                        ),
+                        child: Slider(
+                          value: value,
+                          onChanged: (val) {
+                            setState(() {
+                              value = val;
+                            });
+                        }),
+                      ),
                   ), /*Slider(
                     value: currentMood,
                     min: 0.0,
@@ -213,40 +217,40 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),*/
                 )),
-          ),
+          ]),
           Center(
-              child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  width: 350.0,
-                  height: 75.0,
-                  margin: const EdgeInsets.all(10.0),
-                  child: Center(
-                    child: ElevatedButton(
-                      child: const Text("Log Out"),
-                      onPressed: () {
-                        logOut();
-                      },
-                    ),
-                    /*child: Slider(
-                          min: 0,
-                          max: 100,
-                          value: _value,
-                          onChanged: (value) {
-                            setState(() {
-                              _value = value;
-                            });
-                          })*/
+            child: Container(
+              padding: const EdgeInsets.all(10.0),
+              width: 350.0,
+              height: 75.0,
+              margin: const EdgeInsets.all(10.0),
+              child: Center(
+                child: ElevatedButton(
+                  child: const Text("Log Out"),
+                  onPressed: () {
+                    logOut();
+                  },
+                ),
+                /*child: Slider(
+                      min: 0,
+                      max: 100,
+                      value: _value,
+                      onChanged: (value) {
+                        setState(() {
+                          _value = value;
+                        });
+                      })*/
 
-                    /*
-                      child: Form(
-                          child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        labelText: "How are you doing?"),
-                  ))*/
-                  ))),
+                /*
+                  child: Form(
+                      child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    labelText: "How are you doing?"),
+              ))*/
+              ))),
           Center(child: Container(child: Text('signed in as ' + user.email!))),
-        ]));
+        );
   }
 }
