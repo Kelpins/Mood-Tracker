@@ -183,6 +183,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Slider(
                     value: value,
+                    min: -1,
+                    max: 1,
                     onChanged: (val) {
                       setState(() {
                         value = val;
