@@ -31,6 +31,9 @@ class heatmap extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
+          Map<DateTime, int> dataset = {};
+          for (int i = 0; i < data.length; i++) {}
+
           return Container(
               margin: const EdgeInsets.all(20),
               child: HeatMap(
@@ -44,13 +47,10 @@ class heatmap extends StatelessWidget {
                   showText: true,
                   borderRadius: 10,
                   margin: const EdgeInsets.all(5),
-                  datasets: {
-                    // Provide the dataset for the heatmap, mapping date & time to values
-                    DateTime(2023, 5, 1): data["2023-05-01"],
-                  },
+                  datasets: dataset,
                   colorsets: const {
                     // Colorsets (themes)
-                    1: Colors.purple,
+                    -5: Colors.purple,
                   },
                   onClick: (value) {
                     // onClick event
