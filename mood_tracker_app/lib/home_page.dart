@@ -160,37 +160,36 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ))),
           Center(
-            child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [
-                    Color.fromARGB(255, 255, 0, 0),
-                    Color.fromARGB(255, 255, 170, 0),
-                    Color.fromARGB(255, 204, 255, 0),
-                    Color.fromARGB(255, 0, 255, 85)
-                  ]),
-                  borderRadius: BorderRadius.circular(15),
+              child: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [
+                Color.fromARGB(255, 255, 0, 0),
+                Color.fromARGB(255, 255, 170, 0),
+                Color.fromARGB(255, 204, 255, 0),
+                Color.fromARGB(255, 0, 255, 85)
+              ]),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: const EdgeInsets.all(10.0),
+            width: 350.0,
+            height: 150.0,
+            margin: const EdgeInsets.all(10.0),
+            child: Center(
+              // slider code from YouTube tutorial
+              // https://youtu.be/WI4F5V6BoJw
+              child: SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackShape: RoundedRectSliderTrackShape(),
                 ),
-                padding: const EdgeInsets.all(10.0),
-                width: 350.0,
-                height: 150.0,
-                margin: const EdgeInsets.all(10.0),
-                child: Center(
-                  
-                      // slider code from YouTube tutorial
-                      // https://youtu.be/WI4F5V6BoJw
-                      child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          trackShape: RoundedRectSliderTrackShape(),
-                        ),
-                        child: Slider(
-                          value: value,
-                          onChanged: (val) {
-                            setState(() {
-                              value = val;
-                            });
-                        }),
-                      ),
-                  ), /*Slider(
+                child: Slider(
+                    value: value,
+                    onChanged: (val) {
+                      setState(() {
+                        value = val;
+                      });
+                    }),
+              ),
+            ), /*Slider(
                     value: currentMood,
                     min: 0.0,
                     max: 20.0,
@@ -216,22 +215,21 @@ class _HomePageState extends State<HomePage> {
                               (e, _) => print("Error writing document: $e"));
                     },
                   ),*/
-                )),
-          ]),
+          )),
           Center(
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              width: 350.0,
-              height: 75.0,
-              margin: const EdgeInsets.all(10.0),
-              child: Center(
-                child: ElevatedButton(
-                  child: const Text("Log Out"),
-                  onPressed: () {
-                    logOut();
-                  },
-                ),
-                /*child: Slider(
+              child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  width: 350.0,
+                  height: 75.0,
+                  margin: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: ElevatedButton(
+                      child: const Text("Log Out"),
+                      onPressed: () {
+                        logOut();
+                      },
+                    ),
+                    /*child: Slider(
                       min: 0,
                       max: 100,
                       value: _value,
@@ -241,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                         });
                       })*/
 
-                /*
+                    /*
                   child: Form(
                       child: TextField(
                 decoration: InputDecoration(
@@ -249,8 +247,8 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(15)),
                     labelText: "How are you doing?"),
               ))*/
-              ))),
+                  ))),
           Center(child: Container(child: Text('signed in as ' + user.email!))),
-        );
+        ]));
   }
 }
