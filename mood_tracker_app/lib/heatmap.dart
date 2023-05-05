@@ -78,8 +78,6 @@ class heatmap extends StatelessWidget {
                   },
                   onClick: (value) {
                     // onClick event
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(dataset.toString())));
                   }));
         }
 
