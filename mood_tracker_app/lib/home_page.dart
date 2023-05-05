@@ -21,8 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
-  double sliderValue = 0;
-  double bigVal = 1;
+  double localSliderVal = 1.5;
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +75,6 @@ class _HomePageState extends State<HomePage> {
             Map<String, dynamic> moodsDocData =
                 snapshot.data!.data() as Map<String, dynamic>;
 
-            double value = moodsDocData[today];
-            bigVal = moodsDocData[today];
-            print(bigVal);
             return Scaffold(
                 appBar: AppBar(
                   title: const Center(child: Text("Home")),
@@ -125,14 +121,14 @@ class _HomePageState extends State<HomePage> {
                           trackShape: RoundedRectSliderTrackShape(),
                         ),
                         child: Slider(
-                            value: value,
+                            value: localSliderVal,
                             min: 0,
-                            max: 3,
+                            max: 6,
                             onChanged: (val) {
                               setState(() {
-                                value = val;
+                                localSliderVal = val;
                               });
-                              moodsDocData["$today"] = value;
+                              moodsDocData["$today"] = localSliderVal;
 
                               db
                                   .collection("Users")
@@ -213,12 +209,12 @@ class _HomePageState extends State<HomePage> {
                         trackShape: RoundedRectSliderTrackShape(),
                       ),
                       child: Slider(
-                          value: bigVal,
+                          value: localSliderVal,
                           min: 0,
-                          max: 3,
+                          max: 6,
                           onChanged: (val) {
                             setState(() {
-                              bigVal = val;
+                              localSliderVal = val;
                             });
                           }),
                     ),

@@ -35,6 +35,7 @@ class heatmap extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
+          print(data);
 
           //return Text(data.toString());
 
@@ -48,7 +49,8 @@ class heatmap extends StatelessWidget {
 
             dataset[DateTime(year, month, day)] = data[datums[i]].round();
           }
-          return Text(data.toString());
+
+          print(dataset);
 
           return Container(
               margin: const EdgeInsets.all(20),
@@ -56,7 +58,7 @@ class heatmap extends StatelessWidget {
                   // Properties for the heatmap widget
                   defaultColor: Colors.white,
                   scrollable: true,
-                  colorMode: ColorMode.opacity,
+                  colorMode: ColorMode.color,
                   size: 40,
                   fontSize: 20,
                   showColorTip: false,
@@ -64,17 +66,20 @@ class heatmap extends StatelessWidget {
                   borderRadius: 10,
                   margin: const EdgeInsets.all(5),
                   datasets: dataset,
-                  colorsets: const {
+                  colorsets: {
                     // Colorsets (themes)
-                    0: Colors.yellow,
-                    1: Colors.green,
-                    2: Colors.blue,
-                    3: Colors.purple,
+                    0: Color.fromRGBO(255, 0, 0, 1.0),
+                    1: Color.fromRGBO(255, 135, 0, 1.0),
+                    2: Color.fromRGBO(255, 165, 0, 1.0),
+                    3: Color.fromRGBO(255, 175, 65, 0.75),
+                    4: Color.fromARGB(255, 211, 211, 0),
+                    5: Color.fromRGBO(155, 205, 75, 1.0),
+                    6: Color.fromARGB(255, 0, 200, 0),
                   },
                   onClick: (value) {
                     // onClick event
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(value.toString())));
+                        SnackBar(content: Text(dataset.toString())));
                   }));
         }
 
