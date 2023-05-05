@@ -33,14 +33,9 @@ class _HomePageState extends State<HomePage> {
 
     String today = DateFormat('MM-dd-yyyy').format(now);
 
-    //double slider_value = 20;
-
     final db = FirebaseFirestore.instance;
     final email = user.email;
     const habitName = "Taking Naps";
-    double currentMood = 10.0;
-    double _currentSliderPrimaryValue = 0.2;
-    double _currentSliderSecondaryValue = 0.5;
 
     void logOut() {
       FirebaseAuth.instance.signOut();
@@ -136,92 +131,114 @@ class _HomePageState extends State<HomePage> {
               (e, _) => print("Error writing document: $e"));
     }
 
-    return Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text("Home")),
-        ),
-        body: Column(children: [
-          Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(colors: [
-                      Color.fromARGB(255, 57, 150, 227),
-                      Color.fromARGB(255, 165, 72, 182)
-                    ]),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  margin: const EdgeInsets.all(10.0),
-                  width: 375.0,
-                  height: 75.0,
-                  child: Center(
-                    child: Text(
-                      "Hello! It is $time on $weekday, $month $day.",
-                      textScaleFactor: 1.25,
-                    ),
-                  ))),
-          Center(
-              child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [
-                Color.fromARGB(255, 255, 0, 0),
-                Color.fromARGB(255, 255, 170, 0),
-                Color.fromARGB(255, 204, 255, 0),
-                Color.fromARGB(255, 0, 255, 85)
-              ]),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            padding: const EdgeInsets.all(10.0),
-            width: 350.0,
-            height: 150.0,
-            margin: const EdgeInsets.all(10.0),
-            child: Center(
-              // slider code from YouTube tutorial
-              // https://youtu.be/WI4F5V6BoJw
-              child: SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  trackShape: RoundedRectSliderTrackShape(),
-                ),
-                child: Slider(
-                    value: value,
-                    min: -1,
-                    max: 1,
-                    onChanged: (val) {
-                      setState(() {
-                        value = val;
-                      });
-                      final moodsDocData = {
-                        "$today": value,
-                        //PAST MOOD DOC DATA -- TO READ
-                      };
+    CollectionReference moods = FirebaseFirestore.instance.collection('Users');
 
-                      db
-                          .collection("Users")
-                          .doc("$email")
-                          .collection("Moods")
-                          .doc("Mood")
-                          .set(moodsDocData)
-                          .onError(
-                              // ignore: avoid_print
-                              (e, _) => print("Error writing document: $e"));
-                    }),
-              ),
-            ),
-          )),
-          Center(
-              child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  width: 350.0,
-                  height: 75.0,
-                  margin: const EdgeInsets.all(10.0),
-                  child: Center(
-                    child: ElevatedButton(
-                      child: const Text("Log Out"),
-                      onPressed: () {
-                        logOut();
-                      },
+    return FutureBuilder<DocumentSnapshot>(
+        future: moods.doc(email).collection("Moods").doc("Mood").get(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          //Error Handling conditions
+          if (snapshot.hasError) {
+            return Text("Something went wrong");
+          }
+
+          if (snapshot.hasData && !snapshot.data!.exists) {
+            return Text("Document does not exist");
+          }
+
+          //Data is output to the user
+          if (snapshot.connectionState == ConnectionState.done) {
+            Map<String, dynamic> moodsDocData =
+                snapshot.data!.data() as Map<String, dynamic>;
+
+            return Scaffold(
+                appBar: AppBar(
+                  title: const Center(child: Text("Home")),
+                ),
+                body: Column(children: [
+                  Center(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromARGB(255, 57, 150, 227),
+                              Color.fromARGB(255, 165, 72, 182)
+                            ]),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          height: 75.0,
+                          child: Center(
+                            child: Text(
+                              "Hello! It is $time on $weekday, $month $day.",
+                              textScaleFactor: 1.25,
+                            ),
+                          ))),
+                  Center(
+                      child: Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [
+                        Color.fromARGB(255, 255, 0, 0),
+                        Color.fromARGB(255, 255, 170, 0),
+                        Color.fromARGB(255, 204, 255, 0),
+                        Color.fromARGB(255, 0, 255, 85)
+                      ]),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ))),
-          Center(child: Container(child: Text('signed in as ' + user.email!))),
-        ]));
+                    padding: const EdgeInsets.all(10.0),
+                    width: 350.0,
+                    height: 150.0,
+                    margin: const EdgeInsets.all(10.0),
+                    child: Center(
+                      // slider code from YouTube tutorial
+                      // https://youtu.be/WI4F5V6BoJw
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          trackShape: RoundedRectSliderTrackShape(),
+                        ),
+                        child: Slider(
+                            value: value,
+                            min: 0,
+                            max: 3,
+                            onChanged: (val) {
+                              setState(() {
+                                value = val;
+                              });
+                              moodsDocData["$today"] = value;
+
+                              db
+                                  .collection("Users")
+                                  .doc("$email")
+                                  .collection("Moods")
+                                  .doc("Mood")
+                                  .set(moodsDocData)
+                                  .onError(
+                                      // ignore: avoid_print
+                                      (e, _) =>
+                                          print("Error writing document: $e"));
+                            }),
+                      ),
+                    ),
+                  )),
+                  Center(
+                      child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          width: 350.0,
+                          height: 75.0,
+                          margin: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: ElevatedButton(
+                              child: const Text("Log Out"),
+                              onPressed: () {
+                                logOut();
+                              },
+                            ),
+                          ))),
+                  Center(
+                      child: Container(
+                          child: Text('signed in as ' + user.email!))),
+                ]));
+          }
+        });
   }
 }

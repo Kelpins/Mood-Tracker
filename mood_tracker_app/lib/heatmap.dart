@@ -3,6 +3,8 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:intl/intl.dart';
+
 class heatmap extends StatelessWidget {
   final String email;
 
@@ -10,6 +12,9 @@ class heatmap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+
+    String today = DateFormat('MM-dd-yyyy').format(now);
     CollectionReference moods = FirebaseFirestore.instance.collection('Users');
 
     return FutureBuilder<DocumentSnapshot>(
@@ -31,8 +36,19 @@ class heatmap extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
+          //return Text(data.toString());
+
           Map<DateTime, int> dataset = {};
-          for (int i = 0; i < data.length; i++) {}
+          for (int i = 0; i < data.length; i++) {
+            List<String> datums = data.keys.toList();
+
+            int month = int.parse(datums[i].split("-")[0]);
+            int day = int.parse(datums[i].split("-")[1]);
+            int year = int.parse(datums[i].split("-")[2]);
+
+            dataset[DateTime(year, month, day)] = data[datums[i]].round();
+          }
+          return Text(data.toString());
 
           return Container(
               margin: const EdgeInsets.all(20),
@@ -50,7 +66,10 @@ class heatmap extends StatelessWidget {
                   datasets: dataset,
                   colorsets: const {
                     // Colorsets (themes)
-                    -5: Colors.purple,
+                    0: Colors.yellow,
+                    1: Colors.green,
+                    2: Colors.blue,
+                    3: Colors.purple,
                   },
                   onClick: (value) {
                     // onClick event
