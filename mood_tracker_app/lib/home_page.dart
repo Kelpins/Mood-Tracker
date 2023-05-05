@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
-  double value = 0;
+  double sliderValue = 0;
 
   @override
   Widget build(BuildContext context) {
