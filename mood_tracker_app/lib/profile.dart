@@ -46,9 +46,8 @@ class AccountInfo extends StatelessWidget {
         // LINK TO PROFILE PAGE
         Card(
           child: ListTile(
-            leading: Icon(Icons.person),
+            leading: Icon(Icons.create),
             title: Text('Name'),
-            subtitle: Text('Manage your account'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
@@ -60,9 +59,8 @@ class AccountInfo extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: Icon(Icons.calendar_month),
+            leading: Icon(Icons.create_outlined),
             title: Text('Username'),
-            subtitle: Text('Customize your habit settings'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
@@ -74,9 +72,8 @@ class AccountInfo extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: Icon(Icons.mood),
+            leading: Icon(Icons.email),
             title: Text('Email'),
-            subtitle: Text('Customize your mood settings'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
@@ -88,9 +85,8 @@ class AccountInfo extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: Icon(Icons.mood),
+            leading: Icon(Icons.password),
             title: Text('Password'),
-            subtitle: Text('Customize your mood settings'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
