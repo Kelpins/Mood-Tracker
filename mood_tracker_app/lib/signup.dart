@@ -36,6 +36,10 @@ class _SignUpState extends State<SignUp> {
 
     // sign user in method
     void signUserUp(email, password, name) {
+      final initialMoods = {
+        "$today": 3,
+      };
+
       final userInfoDocData = {
         "email": email,
         "Name": name,
@@ -69,6 +73,17 @@ class _SignUpState extends State<SignUp> {
           .onError(
               // ignore: avoid_print
               (e, _) => print("Error writing document: $e"));
+
+      db
+          .collection("Users")
+          .doc("$email")
+          .collection("Moods")
+          .doc("Mood")
+          .set(initialMoods)
+          .onError(
+              // ignore: avoid_print
+              (e, _) => print("Error writing document: $e"));
+      ;
     }
 
     return Scaffold(
