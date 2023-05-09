@@ -1,37 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'profile.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class Settings extends StatelessWidget {
+  const Settings({super.key});
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      body: SettingsList(
-        sections: [
-          SettingsSection(
-            title: Text('Account'),
-            tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                leading: Icon(Icons.person),
-                title: Text('Profile'),
-                onPressed: (BuildContext context) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Profile()),
-                  );
-                }),
-            ],
-          ),
-        ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Settings')),
+        body: const Tiles(),
       ),
+    );
+  }
+}
+
+class Tiles extends StatelessWidget {
+  const Tiles({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        // LINK TO PROFILE PAGE
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            subtitle: Text('Manage your account'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Habits'),
+            subtitle: Text('Customize your habit settings'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.mood),
+            title: Text('Moods'),
+            subtitle: Text('Customize your mood settings'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

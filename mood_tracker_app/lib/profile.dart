@@ -42,26 +42,64 @@ class AccountInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        ListTile(
+      children: <Widget>[
+        // LINK TO PROFILE PAGE
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.person),
             title: Text('Name'),
+            subtitle: Text('Manage your account'),
             trailing: Icon(Icons.chevron_right),
-            onTap: () {}),
-        Divider(),
-        ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.calendar_month),
             title: Text('Username'),
+            subtitle: Text('Customize your habit settings'),
             trailing: Icon(Icons.chevron_right),
-            onTap: () {}),
-        Divider(),
-        ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.mood),
             title: Text('Email'),
+            subtitle: Text('Customize your mood settings'),
             trailing: Icon(Icons.chevron_right),
-            onTap: () {}),
-        Divider(),
-        ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.mood),
             title: Text('Password'),
+            subtitle: Text('Customize your mood settings'),
             trailing: Icon(Icons.chevron_right),
-            onTap: () {}),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            },
+          ),
+        ),
       ],
     );
   }
