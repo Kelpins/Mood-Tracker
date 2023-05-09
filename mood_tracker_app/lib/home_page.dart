@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
-  double localSliderVal = 1.5;
+  double localSliderVal = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     padding: const EdgeInsets.all(10.0),
                     width: 350.0,
-                    height: 150.0,
+                    height: 75.0,
                     margin: const EdgeInsets.all(10.0),
                     child: Center(
                       // slider code from YouTube tutorial
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   padding: const EdgeInsets.all(10.0),
                   width: 350.0,
-                  height: 150.0,
+                  height: 75.0,
                   margin: const EdgeInsets.all(10.0),
                   child: Center(
                     // slider code from YouTube tutorial
