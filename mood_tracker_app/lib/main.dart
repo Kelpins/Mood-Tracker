@@ -92,6 +92,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         body: Center(
           child: PersistentTabView(
             context,
+            onItemSelected: (value) => setState(() {}),
+            stateManagement: false,
             controller: tabController,
             screens: _buildScreens(),
             items: _navBarsItems(),
