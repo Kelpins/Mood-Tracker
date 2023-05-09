@@ -78,8 +78,12 @@ class _HomePageState extends State<HomePage> {
             return Scaffold(
                 appBar: AppBar(
                   title: const Center(child: Text("Home")),
+                  backgroundColor: Colors.orange,
                 ),
                 body: Column(children: [
+                  /*Padding(
+                    padding: EdgeInsets.all(24.0),
+                  ),*/
                   Center(
                       child: Container(
                           decoration: BoxDecoration(
