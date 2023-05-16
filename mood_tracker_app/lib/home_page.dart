@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
   double localSliderVal = 3;
+  String username = "";
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +75,11 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> moodsDocData =
                 snapshot.data!.data() as Map<String, dynamic>;
+            username = moodsDocData["username"];
 
             return Scaffold(
                 appBar: AppBar(
-                  title: const Center(child: Text("Home")),
+                  title: Center(child: Text("Hello, " + username)),
                   backgroundColor: Colors.orange,
                 ),
                 body: Column(children: [
@@ -162,14 +164,12 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ))),
-                  Center(
-                      child: Container(
-                          child: Text('signed in as ' + user.email!))),
                 ]));
           }
           return Scaffold(
               appBar: AppBar(
-                title: const Center(child: Text("Home")),
+                title: Center(child: Text('Hello, ' + username)),
+                backgroundColor: Colors.orange,
               ),
               body: Column(children: [
                 Center(
@@ -238,9 +238,6 @@ class _HomePageState extends State<HomePage> {
                             },
                           ),
                         ))),
-                Center(
-                    child:
-                        Container(child: Text('signed in as ' + user.email!))),
               ]));
         });
   }

@@ -37,6 +37,7 @@ class _SignUpState extends State<SignUp> {
     // sign user in method
     void signUserUp(email, password, name) {
       final initialMoods = {
+        "username": name,
         "$today": 3,
       };
 
