@@ -54,17 +54,19 @@ class heatmap extends StatelessWidget {
 
           return Container(
               margin: const EdgeInsets.all(20),
-              child: HeatMap(
+              child: HeatMapCalendar(
                   // Properties for the heatmap widget
                   defaultColor: Colors.white,
-                  scrollable: true,
+                  //scrollable: true,
                   colorMode: ColorMode.color,
-                  size: 40,
-                  fontSize: 20,
+                  size: 35,
+                  fontSize: 15,
+                  monthFontSize: 20,
+                  flexible: true,
                   showColorTip: false,
-                  showText: true,
+                  //showText: true,
                   borderRadius: 10,
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(6),
                   datasets: dataset,
                   colorsets: {
                     // Colorsets (themes)
@@ -81,7 +83,7 @@ class heatmap extends StatelessWidget {
                   }));
         }
 
-        return Text("loading");
+        return Text("Loading...");
       },
     );
   }

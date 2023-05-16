@@ -18,6 +18,7 @@ dependencies:
   firebase_remote_config: ^4.0.0
   firebase_auth: ^4.2.2
   persistent_bottom_nav_bar: any
+  group_button: ^5.2.2
 
 dev_dependencies:
   flutter_test:
