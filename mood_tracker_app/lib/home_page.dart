@@ -12,6 +12,8 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
 
+import 'package:group_button/group_button.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -37,6 +39,8 @@ class _HomePageState extends State<HomePage> {
     final db = FirebaseFirestore.instance;
     final email = user.email;
     const habitName = "Taking Naps";
+
+    final _controller = GroupButtonController();
 
     void logOut() {
       FirebaseAuth.instance.signOut();
@@ -86,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                   /*Padding(
                     padding: EdgeInsets.all(24.0),
                   ),*/
+                  // Time/Date Box
                   Center(
                       child: Container(
                           decoration: BoxDecoration(
@@ -104,6 +109,7 @@ class _HomePageState extends State<HomePage> {
                               textScaleFactor: 1.25,
                             ),
                           ))),
+                  // Rainbow Gradient Slider
                   Center(
                       child: Container(
                     decoration: BoxDecoration(
@@ -150,6 +156,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   )),
+
+                  // Buttons
+
+                  Center(
+                    child: Center(
+                      child: Container(
+                          child: const GroupButton(
+                        isRadio: false,
+                        //controller: _controller,
+                        //onSelected: (index, isSelected) =>
+                        //print('$index button is selected'),
+                        buttons: ["Habit 1", "Habit 2", "Habit 3"],
+                      )),
+                    ),
+                  ),
+
+                  // Log Out Button
                   Center(
                       child: Container(
                           padding: const EdgeInsets.all(10.0),
@@ -166,6 +189,8 @@ class _HomePageState extends State<HomePage> {
                           ))),
                 ]));
           }
+
+          // This page runs if snapshot.connectionState != ConnectionState.done
           return Scaffold(
               appBar: AppBar(
                 title: Center(child: Text('Hello, ' + username)),
@@ -242,8 +267,6 @@ class _HomePageState extends State<HomePage> {
         });
   }
 }
-
-
 
 
 
