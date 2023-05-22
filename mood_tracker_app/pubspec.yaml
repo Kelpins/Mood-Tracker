@@ -12,11 +12,11 @@ dependencies:
   flutter_heatmap_calendar: ^1.0.5
   syncfusion_flutter_charts: ^20.4.53
   settings_ui: ^2.0.2
-  firebase_core: ^2.8.0
-  cloud_firestore: ^4.5.0
-  firebase_storage: ^11.1.0
-  firebase_remote_config: ^4.0.0
-  firebase_auth: ^4.2.2
+  firebase_core: ^2.13.0
+  cloud_firestore: ^4.7.1
+  firebase_storage: ^11.2.1
+  firebase_remote_config: ^4.2.1
+  firebase_auth: ^4.6.1
   persistent_bottom_nav_bar: any
   group_button: ^5.2.2
 
