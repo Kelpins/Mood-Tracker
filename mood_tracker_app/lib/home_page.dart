@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                           height: 75.0,
                           child: Center(
                             child: Text(
-                              "Hello! It is $time on $weekday, $month $day.",
+                              "Hello! It is $weekday, $month $day.\nHow are you doing today?",
                               textScaleFactor: 1.25,
                             ),
                           ))),
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                         height: 75.0,
                         child: Center(
                           child: Text(
-                            "Hello! It is $time on $weekday, $month $day.",
+                            "Hello! It is $weekday, $month $day.\nHow are you doing today?",
                             textScaleFactor: 1.25,
                           ),
                         ))),
@@ -249,6 +249,22 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )),
+
+                // Buttons
+
+                Center(
+                  child: Center(
+                    child: Container(
+                        child: const GroupButton(
+                      isRadio: false,
+                      //controller: _controller,
+                      //onSelected: (index, isSelected) =>
+                      //print('$index button is selected'),
+                      buttons: ["Habit 1", "Habit 2", "Habit 3"],
+                    )),
+                  ),
+                ),
+
                 Center(
                     child: Container(
                         padding: const EdgeInsets.all(10.0),
