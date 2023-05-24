@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// basic structure from ChatGPT
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          title: Text('Profile'),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Center(
-            child: Column(
+        title: Text('Profile'),
+      ),
+      body: Center(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
@@ -23,7 +25,9 @@ class Profile extends StatelessWidget {
             ),
             AccountInfo(),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }
 
@@ -41,35 +45,51 @@ class ProfilePicture extends StatelessWidget {
 class AccountInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? userID = user?.uid;
+
     return Column(
       children: <Widget>[
-        // LINK TO PROFILE PAGE
         Card(
-          child: ListTile(
-            leading: Icon(Icons.create),
-            title: Text('Name'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Profile()),
-              );
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(userID)
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.hasData && snapshot.data?.exists == true) {
+                var userData = snapshot.data?.data() as Map<String, dynamic>;
+                var username = userData?['username'] as String?;
+
+                return ListTile(
+                  leading: Icon(Icons.create),
+                  title: Text('Username'),
+                  subtitle: Text(username ?? ''),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profile()),
+                    );
+                  },
+                );
+              } else {
+                return ListTile(
+                  leading: Icon(Icons.create),
+                  title: Text('Username'),
+                  subtitle: Text('Loading...'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profile()),
+                    );
+                  },
+                );
+              }
             },
           ),
         ),
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.create_outlined),
-            title: Text('Username'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Profile()),
-              );
-            },
-          ),
-        ),
+
+        // Remaining card widgets
         Card(
           child: ListTile(
             leading: Icon(Icons.email),
