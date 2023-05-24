@@ -249,6 +249,22 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )),
+
+                // Buttons
+
+                Center(
+                  child: Center(
+                    child: Container(
+                        child: const GroupButton(
+                      isRadio: false,
+                      //controller: _controller,
+                      //onSelected: (index, isSelected) =>
+                      //print('$index button is selected'),
+                      buttons: ["Habit 1", "Habit 2", "Habit 3"],
+                    )),
+                  ),
+                ),
+
                 Center(
                     child: Container(
                         padding: const EdgeInsets.all(10.0),
