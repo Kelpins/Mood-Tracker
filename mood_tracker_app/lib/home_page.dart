@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                           height: 75.0,
                           child: Center(
                             child: Text(
-                              "Hello! It is $time on $weekday, $month $day.",
+                              "Hello! It is $weekday, $month $day.\nHow are you doing today?",
                               textScaleFactor: 1.25,
                             ),
                           ))),
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                         height: 75.0,
                         child: Center(
                           child: Text(
-                            "Hello! It is $time on $weekday, $month $day.",
+                            "Hello! It is $weekday, $month $day.\nHow are you doing today?",
                             textScaleFactor: 1.25,
                           ),
                         ))),
