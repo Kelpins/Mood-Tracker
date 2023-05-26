@@ -76,7 +76,7 @@ class heatmap extends StatelessWidget {
                     3: Color.fromARGB(255, 236, 208, 153),
                     4: Color.fromARGB(255, 185, 200, 144),
                     5: Color.fromARGB(255, 160, 190, 140),
-                    6: Color.fromARGB(255, 154, 200, 136)
+                    6: Color.fromARGB(255, 154, 200, 136),
                   },
                   onClick: (value) {
                     // onClick event
