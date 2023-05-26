@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'signin.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void logOut() {
+      FirebaseAuth.instance.signOut();
+      //Navigator.pop(context);
+      PersistentNavBarNavigator.pushNewScreen(context,
+          screen: SignIn(), withNavBar: false);
+    }
+
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Settings')),
+        appBar: AppBar(
+          title: const Text('Settings'),
+          backgroundColor: Colors.orange,
+          actions: [
+            IconButton(
+                icon: Icon(Icons.logout),
+                tooltip: "log out",
+                onPressed: () {
+                  logOut();
+                }),
+          ],
+        ),
         body: const Tiles(),
       ),
     );
