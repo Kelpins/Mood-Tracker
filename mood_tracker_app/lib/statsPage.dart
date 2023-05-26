@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_tracker_app/signin.dart';
 import 'heatmap.dart';
 import 'moodEffect.dart';
 import 'firebase_options.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class StatsPage extends StatelessWidget {
   StatsPage({super.key});
@@ -11,6 +13,13 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void logOut() {
+      FirebaseAuth.instance.signOut();
+      //Navigator.pop(context);
+      PersistentNavBarNavigator.pushNewScreen(context,
+          screen: SignIn(), withNavBar: false);
+    }
+
     if (user == null) {
       return Text("BORK");
     } else {
@@ -21,6 +30,15 @@ class StatsPage extends StatelessWidget {
           child: Scaffold(
               appBar: AppBar(
                   title: Center(child: Text("Statistics")),
+                  backgroundColor: Colors.orange,
+                  actions: [
+                    IconButton(
+                        icon: Icon(Icons.logout),
+                        tooltip: "log out",
+                        onPressed: () {
+                          logOut();
+                        }),
+                  ],
                   bottom: const TabBar(
                     tabs: <Widget>[
                       Tab(

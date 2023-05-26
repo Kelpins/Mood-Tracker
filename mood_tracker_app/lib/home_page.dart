@@ -85,6 +85,14 @@ class _HomePageState extends State<HomePage> {
                 appBar: AppBar(
                   title: Center(child: Text("Hello, " + username)),
                   backgroundColor: Colors.orange,
+                  actions: [
+                    IconButton(
+                        icon: Icon(Icons.logout),
+                        tooltip: "log out",
+                        onPressed: () {
+                          logOut();
+                        }),
+                  ],
                 ),
                 body: Column(children: [
                   /*Padding(
@@ -171,22 +179,6 @@ class _HomePageState extends State<HomePage> {
                       )),
                     ),
                   ),
-
-                  // Log Out Button
-                  Center(
-                      child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          width: 350.0,
-                          height: 75.0,
-                          margin: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: ElevatedButton(
-                              child: const Text("Log Out"),
-                              onPressed: () {
-                                logOut();
-                              },
-                            ),
-                          ))),
                 ]));
           }
 
@@ -195,6 +187,14 @@ class _HomePageState extends State<HomePage> {
               appBar: AppBar(
                 title: Center(child: Text('Hello, ' + username)),
                 backgroundColor: Colors.orange,
+                actions: [
+                  IconButton(
+                      icon: Icon(Icons.logout),
+                      tooltip: "log out",
+                      onPressed: () {
+                        logOut();
+                      }),
+                ],
               ),
               body: Column(children: [
                 Center(
