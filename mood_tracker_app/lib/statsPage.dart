@@ -29,7 +29,7 @@ class StatsPage extends StatelessWidget {
           length: 2,
           child: Scaffold(
               appBar: AppBar(
-                  title: Center(child: Text("Statistics")),
+                  title: Text("Statistics"),
                   backgroundColor: Colors.orange,
                   actions: [
                     IconButton(

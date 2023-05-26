@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
           // This page runs if snapshot.connectionState != ConnectionState.done
           return Scaffold(
               appBar: AppBar(
-                title: Center(child: Text('Hello, ' + username)),
+                title: Text('Hello, ' + username),
                 actions: [
                   IconButton(
                       icon: Icon(Icons.logout),
