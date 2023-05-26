@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'signin.dart';
 import 'components/button.dart';
+import 'components/slider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -122,11 +123,11 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(colors: [
-                            Color.fromARGB(255, 234, 131, 121),
-                            Color.fromARGB(255, 240, 175, 130),
-                            Color.fromARGB(255, 236, 208, 153),
-                            Color.fromARGB(255, 187, 197, 152),
-                            Color.fromARGB(255, 154, 185, 136),
+                              Color.fromARGB(255, 234, 131, 121),
+                              Color.fromARGB(255, 240, 175, 130),
+                              Color.fromARGB(255, 236, 208, 153),
+                              Color.fromARGB(255, 187, 197, 152),
+                              Color.fromARGB(255, 154, 185, 136),
                             ]),
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -151,15 +152,26 @@ class _HomePageState extends State<HomePage> {
                                     thumbColor: Colors.grey[800],
                                   ),
                                   child: Slider(
-                                    value: localSliderVal,
-                                    min: 0,
-                                    max: 6,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        localSliderVal = val;
-                                      });
-                                    },
-                                  ),
+                                      value: localSliderVal,
+                                      min: 0,
+                                      max: 6,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          localSliderVal = val;
+                                        });
+                                        moodsDocData["$today"] = localSliderVal;
+
+                                        db
+                                            .collection("Users")
+                                            .doc("$email")
+                                            .collection("Moods")
+                                            .doc("Mood")
+                                            .set(moodsDocData)
+                                            .onError(
+                                                // ignore: avoid_print
+                                                (e, _) => print(
+                                                    "Error writing document: $e"));
+                                      }),
                                 ),
                               ),
                               Icon(
@@ -173,7 +185,6 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-
 
                   // Buttons
 
@@ -284,7 +295,6 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-
 
                 // Buttons
 
