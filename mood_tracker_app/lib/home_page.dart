@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
 
             return Scaffold(
                 appBar: AppBar(
-                  title: Center(child: Text("Hello, " + username)),
+                  title: Text("Hello, " + username),
                   actions: [
                     IconButton(
                         icon: Icon(Icons.logout),
