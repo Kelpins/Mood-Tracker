@@ -65,20 +65,20 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         PersistentBottomNavBarItem(
           icon: Icon(Icons.home),
           title: ("Home"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.orange,
+          activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
+          inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.analytics_outlined),
           title: ("Statistics"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.orange,
+          activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
+          inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.settings),
           title: ("Settings"),
-          activeColorPrimary: Colors.blue,
-          inactiveColorPrimary: Colors.orange,
+          activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
+          inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
         ),
       ];
     }
