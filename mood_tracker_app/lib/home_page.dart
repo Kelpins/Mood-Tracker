@@ -190,20 +190,6 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   // Log Out Button
-                  Center(
-                      child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          width: 350.0,
-                          height: 75.0,
-                          margin: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: ElevatedButton(
-                              child: const Text("Log Out"),
-                              onPressed: () {
-                                logOut();
-                              },
-                            ),
-                          ))),
                 ]));
           }
 
@@ -312,21 +298,6 @@ class _HomePageState extends State<HomePage> {
                     )),
                   ),
                 ),
-
-                Center(
-                    child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        width: 350.0,
-                        height: 75.0,
-                        margin: const EdgeInsets.all(10.0),
-                        child: Center(
-                          child: ElevatedButton(
-                            child: const Text("Log Out"),
-                            onPressed: () {
-                              logOut();
-                            },
-                          ),
-                        ))),
               ]));
         });
   }
