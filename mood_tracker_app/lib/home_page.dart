@@ -122,11 +122,11 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(colors: [
-                              Color.fromARGB(255, 234, 131, 121),
-                              Color.fromARGB(255, 240, 175, 130),
-                              Color.fromARGB(255, 236, 208, 153),
-                              Color.fromARGB(255, 187, 197, 152),
-                              Color.fromARGB(255, 154, 185, 136),
+                            Color.fromARGB(255, 234, 131, 121),
+                            Color.fromARGB(255, 240, 175, 130),
+                            Color.fromARGB(255, 236, 208, 153),
+                            Color.fromARGB(255, 187, 197, 152),
+                            Color.fromARGB(255, 154, 185, 136),
                             ]),
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -173,6 +173,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+
 
                   // Buttons
 
@@ -283,6 +284,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+
 
                 // Buttons
 
