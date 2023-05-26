@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
 import 'signin.dart';
 import 'components/button.dart';
-import 'components/slider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -84,7 +82,6 @@ class _HomePageState extends State<HomePage> {
             return Scaffold(
                 appBar: AppBar(
                   title: Center(child: Text("Hello, " + username)),
-                  backgroundColor: Colors.orange,
                 ),
                 body: Column(children: [
                   /*Padding(
@@ -111,51 +108,64 @@ class _HomePageState extends State<HomePage> {
                           ))),
                   // Rainbow Gradient Slider
                   Center(
-                      child: Container(
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(colors: [
-                        Color.fromARGB(255, 255, 0, 0),
-                        Color.fromARGB(255, 255, 170, 0),
-                        Color.fromARGB(255, 204, 255, 0),
-                        Color.fromARGB(255, 0, 255, 85)
-                      ]),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    width: 350.0,
-                    height: 75.0,
-                    margin: const EdgeInsets.all(10.0),
-                    child: Center(
-                      // slider code from YouTube tutorial
-                      // https://youtu.be/WI4F5V6BoJw
-                      child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          trackShape: RoundedRectSliderTrackShape(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                            Color.fromARGB(255, 234, 131, 121),
+                            Color.fromARGB(255, 240, 175, 130),
+                            Color.fromARGB(255, 236, 208, 153),
+                            Color.fromARGB(255, 187, 197, 152),
+                            Color.fromARGB(255, 154, 185, 136),
+                            ]),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          width: 350.0,
+                          height: 50.0,
+                          margin: const EdgeInsets.all(10.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.mood,
+                                color: Colors.white,
+                                size: 30.0,
+                              ),
+                              Expanded(
+                                child: SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    trackShape: RoundedRectSliderTrackShape(),
+                                    trackHeight: 4.0,
+                                    activeTrackColor: Colors.grey[500],
+                                    inactiveTrackColor: Colors.grey[300],
+                                    thumbColor: Colors.grey[800],
+                                  ),
+                                  child: Slider(
+                                    value: localSliderVal,
+                                    min: 0,
+                                    max: 6,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        localSliderVal = val;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.mood_bad,
+                                color: Colors.white,
+                                size: 30.0,
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Slider(
-                            value: localSliderVal,
-                            min: 0,
-                            max: 6,
-                            onChanged: (val) {
-                              setState(() {
-                                localSliderVal = val;
-                              });
-                              moodsDocData["$today"] = localSliderVal;
-
-                              db
-                                  .collection("Users")
-                                  .doc("$email")
-                                  .collection("Moods")
-                                  .doc("Mood")
-                                  .set(moodsDocData)
-                                  .onError(
-                                      // ignore: avoid_print
-                                      (e, _) =>
-                                          print("Error writing document: $e"));
-                            }),
-                      ),
+                      ],
                     ),
-                  )),
+                  ),
+
 
                   // Buttons
 
@@ -216,39 +226,64 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ))),
                 Center(
-                    child: Container(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(colors: [
-                      Color.fromARGB(255, 255, 0, 0),
-                      Color.fromARGB(255, 255, 170, 0),
-                      Color.fromARGB(255, 204, 255, 0),
-                      Color.fromARGB(255, 0, 255, 85)
-                    ]),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                  width: 350.0,
-                  height: 75.0,
-                  margin: const EdgeInsets.all(10.0),
-                  child: Center(
-                    // slider code from YouTube tutorial
-                    // https://youtu.be/WI4F5V6BoJw
-                    child: SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        trackShape: RoundedRectSliderTrackShape(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(colors: [
+                            Color.fromARGB(255, 234, 131, 121),
+                            Color.fromARGB(255, 240, 175, 130),
+                            Color.fromARGB(255, 236, 208, 153),
+                            Color.fromARGB(255, 187, 197, 152),
+                            Color.fromARGB(255, 154, 185, 136),
+                          ]),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        padding: const EdgeInsets.all(10.0),
+                        width: 350.0,
+                        height: 50.0,
+                        margin: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.mood,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                            Expanded(
+                              child: SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  trackShape: RoundedRectSliderTrackShape(),
+                                  trackHeight: 4.0,
+                                  activeTrackColor: Colors.grey[500],
+                                  inactiveTrackColor: Colors.grey[300],
+                                  thumbColor: Colors.grey[800],
+                                ),
+                                child: Slider(
+                                  value: localSliderVal,
+                                  min: 0,
+                                  max: 6,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      localSliderVal = val;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.mood_bad,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Slider(
-                          value: localSliderVal,
-                          min: 0,
-                          max: 6,
-                          onChanged: (val) {
-                            setState(() {
-                              localSliderVal = val;
-                            });
-                          }),
-                    ),
+                    ],
                   ),
-                )),
+                ),
+
 
                 // Buttons
 
