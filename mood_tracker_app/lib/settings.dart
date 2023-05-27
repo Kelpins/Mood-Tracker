@@ -20,7 +20,7 @@ class Settings extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
-          backgroundColor: Colors.orange,
+          backgroundColor: Color.fromARGB(255, 255, 184, 189),
           actions: [
             IconButton(
                 icon: Icon(Icons.logout),
@@ -30,6 +30,7 @@ class Settings extends StatelessWidget {
                 }),
           ],
         ),
+        backgroundColor: Color.fromARGB(255, 255, 240, 240),
         body: const Tiles(),
       ),
     );

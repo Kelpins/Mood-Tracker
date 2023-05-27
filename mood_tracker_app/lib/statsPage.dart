@@ -30,7 +30,7 @@ class StatsPage extends StatelessWidget {
           child: Scaffold(
               appBar: AppBar(
                   title: Text("Statistics"),
-                  backgroundColor: Colors.orange,
+                  backgroundColor: Color.fromARGB(255, 255, 184, 189),
                   actions: [
                     IconButton(
                         icon: Icon(Icons.logout),
@@ -49,6 +49,7 @@ class StatsPage extends StatelessWidget {
                       ),
                     ],
                   )),
+              backgroundColor: Color.fromARGB(255, 255, 240, 240),
               body: TabBarView(
                 children: <Widget>[
                   heatmap(email),
