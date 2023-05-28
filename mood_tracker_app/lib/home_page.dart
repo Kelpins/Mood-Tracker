@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                   ),*/
                   // Time/Date Box
                   Center(
-                    child: Container(
+                    children: Container(
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(colors: [
                           Color.fromARGB(255, 57, 150, 227),
@@ -118,8 +118,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ))),
                   // Rainbow Gradient Slider
-                  Center(
-                    child: Column(
+                    children: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
