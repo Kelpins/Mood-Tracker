@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'signin.dart';
+import 'habits.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Settings extends StatelessWidget {
@@ -68,7 +69,7 @@ class Tiles extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile()),
+                MaterialPageRoute(builder: (context) => Habits()),
               );
             },
           ),
