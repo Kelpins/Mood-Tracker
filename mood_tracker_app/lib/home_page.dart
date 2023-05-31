@@ -136,110 +136,110 @@ class _HomePageState extends State<HomePage> {
                 ),
                 backgroundColor: Color.fromARGB(255, 255, 240, 240),
                 body: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [
-                          Color.fromARGB(255, 57, 150, 227),
-                          Color.fromARGB(255, 165, 72, 182)
-                        ]),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      margin: const EdgeInsets.all(10.0),
-                      width: 375.0,
-                      height: 75.0,
-                      child: Center(
-                        child: Text(
-                          "Hello! It is $weekday, $month $day.\nHow are you doing today?",
-                          textScaleFactor: 1.25,
-                        ),
-                      )),
-                  // Rainbow Gradient Slider
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [
-                          Color.fromARGB(255, 234, 131, 121),
-                          Color.fromARGB(255, 240, 175, 130),
-                          Color.fromARGB(255, 236, 208, 153),
-                          Color.fromARGB(255, 187, 197, 152),
-                          Color.fromARGB(255, 154, 185, 136),
-                        ]),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      padding: const EdgeInsets.all(10.0),
-                      width: 350.0,
-                      height: 50.0,
-                      margin: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.mood_bad,
-                            color: Colors.white,
-                            size: 30.0,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromARGB(255, 57, 150, 227),
+                              Color.fromARGB(255, 165, 72, 182)
+                            ]),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          Expanded(
-                            child: SliderTheme(
-                              data: SliderTheme.of(context).copyWith(
-                                trackShape: RoundedRectSliderTrackShape(),
-                                trackHeight: 4.0,
-                                activeTrackColor: Colors.grey[500],
-                                inactiveTrackColor: Colors.grey[300],
-                                thumbColor: Colors.grey[800],
-                              ),
-                              child: Slider(
-                                  value: localSliderVal,
-                                  min: 0,
-                                  max: 6,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      localSliderVal = val;
-                                    });
-                                    moodsDocData["$today"] = localSliderVal;
-
-                                    db
-                                        .collection("Users")
-                                        .doc("$email")
-                                        .collection("Moods")
-                                        .doc("Mood")
-                                        .set(moodsDocData)
-                                        .onError(
-                                            // ignore: avoid_print
-                                            (e, _) => print(
-                                                "Error writing document: $e"));
-                                  }),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          height: 75.0,
+                          child: Center(
+                            child: Text(
+                              "Hello! It is $weekday, $month $day.\nHow are you doing today?",
+                              textScaleFactor: 1.25,
                             ),
-                          ),
-                          Icon(
-                            Icons.mood,
-                            color: Colors.white,
-                            size: 30.0,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  // Buttons
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [
-                          Color.fromARGB(255, 57, 150, 227),
-                          Color.fromARGB(255, 165, 72, 182)
-                        ]),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      margin: const EdgeInsets.all(10.0),
-                      width: 375.0,
-                      height: 75.0,
-                      child: Center(
-                        child: Text(
-                          "Which of these habits\nhave you performed today?",
-                          textScaleFactor: 1.25,
+                          )),
+                      // Rainbow Gradient Slider
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(colors: [
+                            Color.fromARGB(255, 234, 131, 121),
+                            Color.fromARGB(255, 240, 175, 130),
+                            Color.fromARGB(255, 236, 208, 153),
+                            Color.fromARGB(255, 187, 197, 152),
+                            Color.fromARGB(255, 154, 185, 136),
+                          ]),
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                      )),
-                    
-                    Container(
-                      child: GroupButton(
+                        padding: const EdgeInsets.all(10.0),
+                        width: 350.0,
+                        height: 50.0,
+                        margin: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.mood_bad,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                            Expanded(
+                              child: SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  trackShape: RoundedRectSliderTrackShape(),
+                                  trackHeight: 4.0,
+                                  activeTrackColor: Colors.grey[500],
+                                  inactiveTrackColor: Colors.grey[300],
+                                  thumbColor: Colors.grey[800],
+                                ),
+                                child: Slider(
+                                    value: localSliderVal,
+                                    min: 0,
+                                    max: 6,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        localSliderVal = val;
+                                      });
+                                      moodsDocData["$today"] = localSliderVal;
+
+                                      db
+                                          .collection("Users")
+                                          .doc("$email")
+                                          .collection("Moods")
+                                          .doc("Mood")
+                                          .set(moodsDocData)
+                                          .onError(
+                                              // ignore: avoid_print
+                                              (e, _) => print(
+                                                  "Error writing document: $e"));
+                                    }),
+                              ),
+                            ),
+                            Icon(
+                              Icons.mood,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Buttons
+                      Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromARGB(255, 57, 150, 227),
+                              Color.fromARGB(255, 165, 72, 182)
+                            ]),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          height: 75.0,
+                          child: Center(
+                            child: Text(
+                              "Which of these habits\nhave you performed today?",
+                              textScaleFactor: 1.25,
+                            ),
+                          )),
+
+                      Container(
+                          child: GroupButton(
                               controller: _controller,
                               isRadio: false,
                               buttons: habits,
@@ -297,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                                         (e, _) => print(
                                             "Error writing document: $e"));
                               })),
-                ]));
+                    ]));
           }
 
           if (!loaded) {
@@ -331,97 +331,97 @@ class _HomePageState extends State<HomePage> {
               ),
               backgroundColor: Color.fromARGB(255, 255, 240, 240),
               body: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(colors: [
-                        Color.fromARGB(255, 57, 150, 227),
-                        Color.fromARGB(255, 165, 72, 182)
-                      ]),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    margin: const EdgeInsets.all(10.0),
-                    width: 375.0,
-                    height: 75.0,
-                    child: Center(
-                      child: Text(
-                        "Hello! It is $weekday, $month $day.\nHow are you doing today?",
-                        textScaleFactor: 1.25,
-                      ),
-                    )),
-                  Container(
-                    decoration: BoxDecoration(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
                           gradient: const LinearGradient(colors: [
-                            Color.fromARGB(255, 234, 131, 121),
-                            Color.fromARGB(255, 240, 175, 130),
-                            Color.fromARGB(255, 236, 208, 153),
-                            Color.fromARGB(255, 187, 197, 152),
-                            Color.fromARGB(255, 154, 185, 136),
+                            Color.fromARGB(255, 57, 150, 227),
+                            Color.fromARGB(255, 165, 72, 182)
                           ]),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                    padding: const EdgeInsets.all(10.0),
-                    width: 350.0,
-                    height: 50.0,
-                    margin: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.mood_bad,
-                          color: Colors.white,
-                          size: 30.0,
-                        ),
-                        Expanded(
-                          child: SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              trackShape: RoundedRectSliderTrackShape(),
-                              trackHeight: 4.0,
-                              activeTrackColor: Colors.grey[500],
-                              inactiveTrackColor: Colors.grey[300],
-                              thumbColor: Colors.grey[800],
-                            ),
-                            child: Slider(
-                              value: localSliderVal,
-                              min: 0,
-                              max: 6,
-                              onChanged: (val) {
-                                setState(() {
-                                  localSliderVal = val;
-                                });
-                              },
+                        margin: const EdgeInsets.all(10.0),
+                        width: 375.0,
+                        height: 75.0,
+                        child: Center(
+                          child: Text(
+                            "Hello! It is $weekday, $month $day.\nHow are you doing today?",
+                            textScaleFactor: 1.25,
+                          ),
+                        )),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(colors: [
+                          Color.fromARGB(255, 234, 131, 121),
+                          Color.fromARGB(255, 240, 175, 130),
+                          Color.fromARGB(255, 236, 208, 153),
+                          Color.fromARGB(255, 187, 197, 152),
+                          Color.fromARGB(255, 154, 185, 136),
+                        ]),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      width: 350.0,
+                      height: 50.0,
+                      margin: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.mood_bad,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                          Expanded(
+                            child: SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                trackShape: RoundedRectSliderTrackShape(),
+                                trackHeight: 4.0,
+                                activeTrackColor: Colors.grey[500],
+                                inactiveTrackColor: Colors.grey[300],
+                                thumbColor: Colors.grey[800],
+                              ),
+                              child: Slider(
+                                value: localSliderVal,
+                                min: 0,
+                                max: 6,
+                                onChanged: (val) {
+                                  setState(() {
+                                    localSliderVal = val;
+                                  });
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        Icon(
-                          Icons.mood,
-                          color: Colors.white,
-                          size: 30.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(colors: [
-                        Color.fromARGB(255, 57, 150, 227),
-                        Color.fromARGB(255, 165, 72, 182)
-                      ]),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    margin: const EdgeInsets.all(10.0),
-                    width: 375.0,
-                    height: 75.0,
-                    child: Center(
-                      child: Text(
-                        "Which of these habits\nhave you performed today?",
-                        textScaleFactor: 1.25,
+                          Icon(
+                            Icons.mood,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                        ],
                       ),
-                    )),
+                    ),
+                    Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(colors: [
+                            Color.fromARGB(255, 57, 150, 227),
+                            Color.fromARGB(255, 165, 72, 182)
+                          ]),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        margin: const EdgeInsets.all(10.0),
+                        width: 375.0,
+                        height: 75.0,
+                        child: Center(
+                          child: Text(
+                            "Which of these habits\nhave you performed today?",
+                            textScaleFactor: 1.25,
+                          ),
+                        )),
 
-                // Buttons
-                  Container(
-                    child: GroupButton(
+                    // Buttons
+                    Container(
+                        child: GroupButton(
                       isRadio: false,
                       controller: _controller2,
                       //onSelected: (index, isSelected) =>
@@ -455,7 +455,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       buttons: habits,
                     )),
-              ]));
+                  ]));
         });
   }
 }
