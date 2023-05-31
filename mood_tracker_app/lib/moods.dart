@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Habits extends StatelessWidget {
+class Moods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,14 +11,14 @@ class Habits extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text('Habits'),
+        title: Text('Moods'),
         backgroundColor: Color.fromARGB(255, 255, 184, 189),
       ),
       backgroundColor: Color.fromARGB(255, 255, 240, 240),
       body: Center(
         child: Column(
           children: [
-            Text("habits page"),
+            Text("moods page"),
           ]
         ),
       ),
