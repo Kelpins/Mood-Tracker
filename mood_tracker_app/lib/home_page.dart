@@ -136,15 +136,47 @@ class _HomePageState extends State<HomePage> {
                 ),
                 backgroundColor: Color.fromARGB(255, 255, 240, 240),
                 body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(colors: [
-                              Color.fromARGB(255, 57, 150, 227),
-                              Color.fromARGB(255, 165, 72, 182)
-                            ]),
-                            borderRadius: BorderRadius.circular(15),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(colors: [
+                          Color.fromARGB(255, 57, 150, 227),
+                          Color.fromARGB(255, 165, 72, 182)
+                        ]),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      margin: const EdgeInsets.all(10.0),
+                      width: 375.0,
+                      height: 75.0,
+                      child: Center(
+                        child: Text(
+                          "Hello! It is $weekday, $month $day.\nHow are you doing today?",
+                          textScaleFactor: 1.25,
+                        ),
+                      )),
+                  // Rainbow Gradient Slider
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(colors: [
+                          Color.fromARGB(255, 234, 131, 121),
+                          Color.fromARGB(255, 240, 175, 130),
+                          Color.fromARGB(255, 236, 208, 153),
+                          Color.fromARGB(255, 187, 197, 152),
+                          Color.fromARGB(255, 154, 185, 136),
+                        ]),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      width: 350.0,
+                      height: 50.0,
+                      margin: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.mood_bad,
+                            color: Colors.white,
+                            size: 30.0,
                           ),
                           margin: const EdgeInsets.all(10.0),
                           width: 375.0,
@@ -331,10 +363,27 @@ class _HomePageState extends State<HomePage> {
               ),
               backgroundColor: Color.fromARGB(255, 255, 240, 240),
               body: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                        decoration: BoxDecoration(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [
+                        Color.fromARGB(255, 57, 150, 227),
+                        Color.fromARGB(255, 165, 72, 182)
+                      ]),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    margin: const EdgeInsets.all(10.0),
+                    width: 375.0,
+                    height: 75.0,
+                    child: Center(
+                      child: Text(
+                        "Hello! It is $weekday, $month $day.\nHow are you doing today?",
+                        textScaleFactor: 1.25,
+                      ),
+                    )),
+                  Container(
+                    decoration: BoxDecoration(
                           gradient: const LinearGradient(colors: [
                             Color.fromARGB(255, 57, 150, 227),
                             Color.fromARGB(255, 165, 72, 182)
