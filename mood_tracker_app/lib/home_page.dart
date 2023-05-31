@@ -213,12 +213,12 @@ class _HomePageState extends State<HomePage> {
                   Center(
                     child: Center(
                       child: Container(
-                          child: const GroupButton(
+                          child: GroupButton(
                         isRadio: false,
                         //controller: _controller,
                         //onSelected: (index, isSelected) =>
                         //print('$index button is selected'),
-                        buttons: ["Habit 1", "Habit 2", "Habit 3"],
+                        buttons: habits,
                       )),
                     ),
                   ),
@@ -344,12 +344,12 @@ class _HomePageState extends State<HomePage> {
                 Center(
                   child: Center(
                     child: Container(
-                        child: const GroupButton(
+                        child: GroupButton(
                       isRadio: false,
                       //controller: _controller,
                       //onSelected: (index, isSelected) =>
                       //print('$index button is selected'),
-                      buttons: ["Habit 1", "Habit 2", "Habit 3"],
+                      buttons: habits,
                     )),
                   ),
                 ),
