@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 backgroundColor: Color.fromARGB(255, 255, 240, 240),
                 body: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -331,7 +331,7 @@ class _HomePageState extends State<HomePage> {
               ),
               backgroundColor: Color.fromARGB(255, 255, 240, 240),
               body: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
                     decoration: BoxDecoration(
