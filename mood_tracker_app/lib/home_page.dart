@@ -189,6 +189,24 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   // Buttons
+                  Center(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromARGB(255, 57, 150, 227),
+                              Color.fromARGB(255, 165, 72, 182)
+                            ]),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          height: 75.0,
+                          child: Center(
+                            child: Text(
+                              "Which of these actions\nhave you performed today?",
+                              textScaleFactor: 1.25,
+                            ),
+                          ))),
 
                   Center(
                     child: Center(
@@ -299,6 +317,25 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+
+                Center(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(colors: [
+                            Color.fromARGB(255, 57, 150, 227),
+                            Color.fromARGB(255, 165, 72, 182)
+                          ]),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        margin: const EdgeInsets.all(10.0),
+                        width: 375.0,
+                        height: 75.0,
+                        child: Center(
+                          child: Text(
+                            "Which of these actions\nhave you performed today?",
+                            textScaleFactor: 1.25,
+                          ),
+                        ))),
 
                 // Buttons
 
