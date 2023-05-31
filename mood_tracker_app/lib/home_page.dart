@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                           height: 75.0,
                           child: Center(
                             child: Text(
-                              "Which of these actions\nhave you performed today?",
+                              "Which of these habits\nhave you performed today?",
                               textScaleFactor: 1.25,
                             ),
                           ))),
@@ -332,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                         height: 75.0,
                         child: Center(
                           child: Text(
-                            "Which of these actions\nhave you performed today?",
+                            "Which of these habits\nhave you performed today?",
                             textScaleFactor: 1.25,
                           ),
                         ))),
