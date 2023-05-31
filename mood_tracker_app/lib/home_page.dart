@@ -329,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                                         (e, _) => print(
                                             "Error writing document: $e"));
                               })),
-                    ]));
+            )]));
           }
 
           if (!loaded) {
