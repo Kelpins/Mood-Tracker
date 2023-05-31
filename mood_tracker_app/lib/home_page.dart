@@ -93,30 +93,30 @@ class _HomePageState extends State<HomePage> {
                         }),
                   ],
                 ),
-                backgroundColor: Color.fromARGB(255,255,240,240),
+                backgroundColor: Color.fromARGB(255, 255, 240, 240),
                 body: Column(children: [
                   /*Padding(
                     padding: EdgeInsets.all(24.0),
                   ),*/
                   // Time/Date Box
                   Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: [
-                          Color.fromARGB(255, 57, 150, 227),
-                          Color.fromARGB(255, 165, 72, 182)
-                        ]),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      margin: const EdgeInsets.all(10.0),
-                      width: 375.0,
-                      height: 75.0,
-                      child: Center(
-                        child: Text(
-                          "Hello! It is $weekday, $month $day.\nHow are you doing today?",
-                          textScaleFactor: 1.25,
-                        ),
-                      ))),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromARGB(255, 57, 150, 227),
+                              Color.fromARGB(255, 165, 72, 182)
+                            ]),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          height: 75.0,
+                          child: Center(
+                            child: Text(
+                              "Hello! It is $weekday, $month $day.\nHow are you doing today?",
+                              textScaleFactor: 1.25,
+                            ),
+                          ))),
                   // Rainbow Gradient Slider
                   Center(
                     child: Column(
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.mood,
+                                Icons.mood_bad,
                                 color: Colors.white,
                                 size: 30.0,
                               ),
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Icon(
-                                Icons.mood_bad,
+                                Icons.mood,
                                 color: Colors.white,
                                 size: 30.0,
                               ),
@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                       }),
                 ],
               ),
-              backgroundColor: Color.fromARGB(255,255,240,240),
+              backgroundColor: Color.fromARGB(255, 255, 240, 240),
               body: Column(children: [
                 Center(
                     child: Container(
@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.mood,
+                              Icons.mood_bad,
                               color: Colors.white,
                               size: 30.0,
                             ),
@@ -289,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Icon(
-                              Icons.mood_bad,
+                              Icons.mood,
                               color: Colors.white,
                               size: 30.0,
                             ),
