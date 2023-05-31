@@ -38,6 +38,7 @@ class heatmap extends StatelessWidget {
           data.remove("username");
           data.remove("Habits");
           data.remove("HabitMatchingToday");
+          data.remove("HabitDay");
 
           //return Text(data.toString());
 

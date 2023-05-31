@@ -331,9 +331,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               backgroundColor: Color.fromARGB(255, 255, 240, 240),
-              body: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+              body: Center(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                     Container(
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(colors: [
@@ -456,7 +457,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       buttons: habits,
                     )),
-                  ]));
+                  ])));
         });
   }
 }
