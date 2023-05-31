@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'components/textfield.dart';
 
 class Habits extends StatelessWidget {
   @override
@@ -18,7 +19,19 @@ class Habits extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text("habits page"),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: TextField(
+                decoration: InputDecoration(
+                enabledBorder:
+                  OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 255, 184, 189))),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade400)),
+                fillColor: Colors.white,
+                filled: true,
+                hintStyle: TextStyle(color: Colors.grey[500]),
+              )),
+            ),
           ]
         ),
       ),
