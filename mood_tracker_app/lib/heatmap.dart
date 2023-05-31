@@ -38,7 +38,6 @@ class heatmap extends StatelessWidget {
           data.remove("username");
           data.remove("Habits");
           data.remove("HabitMatchingToday");
-          data.remove("HabitDay");
 
           //return Text(data.toString());
 
@@ -52,6 +51,8 @@ class heatmap extends StatelessWidget {
 
             dataset[DateTime(year, month, day)] = data[datums[i]].round();
           }
+
+          print(dataset);
 
           return Container(
               margin: const EdgeInsets.all(20),
