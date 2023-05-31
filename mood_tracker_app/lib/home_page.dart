@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
   double localSliderVal = 3;
   String username = "";
+  var habits = [];
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
             Map<String, dynamic> moodsDocData =
                 snapshot.data!.data() as Map<String, dynamic>;
             username = moodsDocData["username"];
+            habits = moodsDocData["Habits"];
 
             return Scaffold(
                 appBar: AppBar(
