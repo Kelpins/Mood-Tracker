@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   double localSliderVal = 3;
   String username = "";
   var habits = [];
+  var habitMatching = [];
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +82,7 @@ class _HomePageState extends State<HomePage> {
                 snapshot.data!.data() as Map<String, dynamic>;
             username = moodsDocData["username"];
             habits = moodsDocData["Habits"];
+            habitMatching = moodsDocData["HabitMatchingToday"];
 
             return Scaffold(
                 appBar: AppBar(
@@ -214,12 +216,23 @@ class _HomePageState extends State<HomePage> {
                     child: Center(
                       child: Container(
                           child: GroupButton(
-                        isRadio: false,
-                        //controller: _controller,
-                        //onSelected: (index, isSelected) =>
-                        //print('$index button is selected'),
-                        buttons: habits,
-                      )),
+                              isRadio: false,
+                              buttons: habits,
+                              onSelected: (value, index, isSelected) {
+                                var current = habitMatching[index];
+                                moodsDocData["HabitMatchingToday"][index] =
+                                    !current;
+                                db
+                                    .collection("Users")
+                                    .doc("$email")
+                                    .collection("Moods")
+                                    .doc("Mood")
+                                    .set(moodsDocData)
+                                    .onError(
+                                        // ignore: avoid_print
+                                        (e, _) => print(
+                                            "Error writing document: $e"));
+                              })),
                     ),
                   ),
 
