@@ -36,6 +36,7 @@ class heatmap extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           data.remove("username");
+          data.remove("Habits");
 
           //return Text(data.toString());
 
