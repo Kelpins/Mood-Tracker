@@ -24,12 +24,14 @@ class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser!;
   double localSliderVal = 3;
   String username = "";
+  String habitDay = "";
   var habits = [];
   var habitMatching = [];
 
   @override
   Widget build(BuildContext context) {
     var now = DateTime.now();
+    bool loaded = false;
     String time = DateFormat("jm").format(now);
     String month = DateFormat("MMMM").format(now);
     String day = DateFormat('dd').format(now);
@@ -41,7 +43,8 @@ class _HomePageState extends State<HomePage> {
     final email = user.email;
     const habitName = "Taking Naps";
 
-    final _controller = GroupButtonController();
+    var _controller = GroupButtonController();
+    var _controller2 = GroupButtonController();
 
     void logOut() {
       FirebaseAuth.instance.signOut();
@@ -76,13 +79,47 @@ class _HomePageState extends State<HomePage> {
             return Text("Document does not exist");
           }
 
+          loaded = true;
+
           //Data is output to the user
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> moodsDocData =
                 snapshot.data!.data() as Map<String, dynamic>;
             username = moodsDocData["username"];
+            habitDay = moodsDocData["HabitDay"];
             habits = moodsDocData["Habits"];
             habitMatching = moodsDocData["HabitMatchingToday"];
+            if (habitDay != today) {
+              for (int i = 0; i < habitMatching.length; i++) {
+                moodsDocData["HabitMatchingToday"][i] = false;
+              }
+              moodsDocData["HabitDay"] = today;
+              db
+                  .collection("Users")
+                  .doc("$email")
+                  .collection("Moods")
+                  .doc("Mood")
+                  .set(moodsDocData)
+                  .onError(
+                      // ignore: avoid_print
+                      (e, _) => print("Error writing document: $e"));
+              username = moodsDocData["username"];
+              habitDay = moodsDocData["HabitDay"];
+              habits = moodsDocData["Habits"];
+              habitMatching = moodsDocData["HabitMatchingToday"];
+            }
+            try {
+              localSliderVal = moodsDocData["$today"];
+            } catch (e) {
+              localSliderVal = 3;
+            }
+            List<int> matches = [];
+            for (int i = 0; i < habitMatching.length; i++) {
+              if (habitMatching[i]) {
+                matches.add(i);
+              }
+            }
+            _controller.selectIndexes(matches);
 
             return Scaffold(
                 appBar: AppBar(
@@ -216,18 +253,58 @@ class _HomePageState extends State<HomePage> {
                     child: Center(
                       child: Container(
                           child: GroupButton(
+                              controller: _controller,
                               isRadio: false,
                               buttons: habits,
+                              options: GroupButtonOptions(
+                                selectedShadow: const [],
+                                selectedTextStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.pink[900],
+                                ),
+                                selectedColor: Colors.pink[100],
+                                unselectedShadow: const [],
+                                unselectedColor: Colors.amber[100],
+                                unselectedTextStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.amber[900],
+                                ),
+                                selectedBorderColor: Colors.pink[900],
+                                unselectedBorderColor: Colors.amber[900],
+                                spacing: 10,
+                                runSpacing: 10,
+                                groupingType: GroupingType.wrap,
+                                direction: Axis.horizontal,
+                                mainGroupAlignment: MainGroupAlignment.center,
+                                crossGroupAlignment: CrossGroupAlignment.center,
+                                groupRunAlignment: GroupRunAlignment.center,
+                                textAlign: TextAlign.center,
+                                textPadding: EdgeInsets.zero,
+                                alignment: Alignment.center,
+                                elevation: 0,
+                              ),
                               onSelected: (value, index, isSelected) {
                                 var current = habitMatching[index];
                                 moodsDocData["HabitMatchingToday"][index] =
                                     !current;
+                                final habitDocData = {"$today": isSelected};
+                                moodsDocData["HabitDay"] = today;
                                 db
                                     .collection("Users")
                                     .doc("$email")
                                     .collection("Moods")
                                     .doc("Mood")
                                     .set(moodsDocData)
+                                    .onError(
+                                        // ignore: avoid_print
+                                        (e, _) => print(
+                                            "Error writing document: $e"));
+                                db
+                                    .collection("Users")
+                                    .doc("$email")
+                                    .collection("Habits")
+                                    .doc("$value")
+                                    .set(habitDocData)
                                     .onError(
                                         // ignore: avoid_print
                                         (e, _) => print(
@@ -239,6 +316,21 @@ class _HomePageState extends State<HomePage> {
                   // Log Out Button
                 ]));
           }
+
+          if (!loaded) {
+            return Column(children: [
+              SizedBox(height: 200),
+              Center(child: Text("Loading..."))
+            ]);
+          }
+
+          List<int> matches = [];
+          for (int i = 0; i < habitMatching.length; i++) {
+            if (habitMatching[i]) {
+              matches.add(i);
+            }
+          }
+          _controller2.selectIndexes(matches);
 
           // This page runs if snapshot.connectionState != ConnectionState.done
           return Scaffold(
@@ -359,9 +451,36 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                         child: GroupButton(
                       isRadio: false,
-                      //controller: _controller,
+                      controller: _controller2,
                       //onSelected: (index, isSelected) =>
                       //print('$index button is selected'),
+                      options: GroupButtonOptions(
+                        selectedShadow: const [],
+                        selectedTextStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.pink[900],
+                        ),
+                        selectedColor: Colors.pink[100],
+                        unselectedShadow: const [],
+                        unselectedColor: Colors.amber[100],
+                        unselectedTextStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.amber[900],
+                        ),
+                        selectedBorderColor: Colors.pink[900],
+                        unselectedBorderColor: Colors.amber[900],
+                        spacing: 10,
+                        runSpacing: 10,
+                        groupingType: GroupingType.wrap,
+                        direction: Axis.horizontal,
+                        mainGroupAlignment: MainGroupAlignment.center,
+                        crossGroupAlignment: CrossGroupAlignment.center,
+                        groupRunAlignment: GroupRunAlignment.center,
+                        textAlign: TextAlign.center,
+                        textPadding: EdgeInsets.zero,
+                        alignment: Alignment.center,
+                        elevation: 0,
+                      ),
                       buttons: habits,
                     )),
                   ),
