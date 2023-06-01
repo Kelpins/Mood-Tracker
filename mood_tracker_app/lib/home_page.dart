@@ -156,9 +156,9 @@ class _HomePageState extends State<HomePage> {
                               const Text(
                                 "Hello! How are you?",
                                 style: TextStyle(
-                                  fontSize: 25,
-                                  fontFamily: 'Raleway',
-                                ),
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 87, 46, 49)
+                                )
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -378,9 +378,9 @@ class _HomePageState extends State<HomePage> {
                           const Text(
                             "Hello! How are you?",
                             style: TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'Raleway',
-                            ),
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 87, 46, 49)
+                            )
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
