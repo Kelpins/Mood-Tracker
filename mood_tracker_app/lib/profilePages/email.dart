@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Habits extends StatelessWidget {
+class Email extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +11,7 @@ class Habits extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text('Habits'),
+        title: Text('Email'),
         backgroundColor: Color.fromARGB(255, 255, 184, 189),
       ),
       backgroundColor: Color.fromARGB(255, 255, 245, 245),
@@ -28,17 +28,16 @@ class Habits extends StatelessWidget {
                   borderSide: BorderSide(color: Colors.grey.shade400)),
                 fillColor: Colors.white,
                 filled: true,
-                hintText: "Add a new habit",
+                hintText: "Enter your new email",
                 hintStyle: TextStyle(color: Colors.grey[500]),
               )),
             ),
             ElevatedButton(
+              child: const Text("Done"),
               onPressed:() {
                 // KELLAN ADD YOUR STUFF HERE
               },
-              child: Icon(Icons.add),
               style: ElevatedButton.styleFrom(
-                shape: CircleBorder(),
                 padding: EdgeInsets.all(16),
                 backgroundColor: Color.fromARGB(255, 255, 184, 189)
               ),
