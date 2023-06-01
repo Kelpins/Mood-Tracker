@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                           width: 375.0,
                           height: 150.0,
                           child: Center(
-                          child: Column(
+                              child: Column(
                             children: [
                               SizedBox(
                                 height: 8.0,
@@ -166,9 +166,7 @@ class _HomePageState extends State<HomePage> {
                                   Icon(
                                     Icons.calendar_today,
                                   ),
-                                  Text(
-                                    "$weekday, $month $day"
-                                  )
+                                  Text("$weekday, $month $day")
                                 ],
                               ),
                               SizedBox(
@@ -210,10 +208,16 @@ class _HomePageState extends State<HomePage> {
                                             value: localSliderVal,
                                             min: 0,
                                             max: 6,
+                                            onChangeEnd: (value) {
+                                              setState(() {
+                                                localSliderVal = value;
+                                              });
+                                            },
                                             onChanged: (val) {
                                               setState(() {
                                                 localSliderVal = val;
                                               });
+
                                               moodsDocData["$today"] =
                                                   localSliderVal;
 
@@ -384,9 +388,7 @@ class _HomePageState extends State<HomePage> {
                               Icon(
                                 Icons.calendar_today,
                               ),
-                              Text(
-                                "$weekday, $month $day"
-                              )
+                              Text("$weekday, $month $day")
                             ],
                           ),
                           SizedBox(
@@ -427,6 +429,11 @@ class _HomePageState extends State<HomePage> {
                                       value: localSliderVal,
                                       min: 0,
                                       max: 6,
+                                      onChangeEnd: (value) {
+                                        setState(() {
+                                          localSliderVal = value;
+                                        });
+                                      },
                                       onChanged: (val) {
                                         setState(() {
                                           localSliderVal = val;
