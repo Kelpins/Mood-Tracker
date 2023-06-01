@@ -32,7 +32,18 @@ class Habits extends StatelessWidget {
                 hintStyle: TextStyle(color: Colors.grey[500]),
               )),
             ),
-          ]
+            ElevatedButton(
+              onPressed:() {
+                // KELLAN ADD YOUR STUFF HERE
+              },
+              child: Icon(Icons.add),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromARGB(255, 255, 184, 189)
+              ),
+            ),
+          ],
         ),
       ),
     );
