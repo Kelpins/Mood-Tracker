@@ -144,12 +144,12 @@ class BarChartSample5State extends State<BarChartSample5> {
     if (value == 0) {
       text = '0';
     } else {
-      text = '${value.toInt()}';
+      text = '${(value.toDouble() * 100).toInt()}%';
     }
     return SideTitleWidget(
       angle: 0,
       axisSide: meta.axisSide,
-      space: 4,
+      space: 0,
       child: Text(
         text,
         style: style,
@@ -164,7 +164,7 @@ class BarChartSample5State extends State<BarChartSample5> {
     if (value == 0) {
       text = '0';
     } else {
-      text = '${value.toInt()}';
+      text = '${(value.toDouble() * 100).toInt()}%';
     }
     return SideTitleWidget(
       angle: 0,
