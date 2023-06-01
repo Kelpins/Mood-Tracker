@@ -16,7 +16,7 @@ class Profile extends StatelessWidget {
         title: Text('Profile'),
         backgroundColor: Color.fromARGB(255, 255, 184, 189),
       ),
-      backgroundColor: Color.fromARGB(255, 255, 245, 245),
+      backgroundColor: Color.fromARGB(255, 255, 250, 250),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

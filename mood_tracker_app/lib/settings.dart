@@ -32,7 +32,7 @@ class Settings extends StatelessWidget {
                 }),
           ],
         ),
-        backgroundColor: Color.fromARGB(255, 255, 245, 245),
+        backgroundColor: Color.fromARGB(255, 255, 250, 250),
         body: const Tiles(),
       ),
     );

@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Color.fromARGB(255, 255, 250, 250),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -133,6 +133,10 @@ class _SignInState extends State<SignIn> {
                       // "reloads" page so the correct error message displays
                       setState(() {});
                     },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(16),
+                      backgroundColor: Color.fromARGB(255, 255, 184, 189)
+                    ),
                   ),
                 ),
             

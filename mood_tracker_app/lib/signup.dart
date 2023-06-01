@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
     }
 
     return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Color.fromARGB(255, 255, 250, 250),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -196,7 +196,12 @@ class _SignUpState extends State<SignUp> {
                             ),
                           );
                         });
-                      }),
+                      },
+                        style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(16),
+                        backgroundColor: Color.fromARGB(255, 255, 184, 189)
+                      ),
+                    ),
                 )
               ]),
             ),
