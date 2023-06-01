@@ -88,88 +88,89 @@ class _SignUpState extends State<SignUp> {
     }
 
     return Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Color.fromARGB(255, 255, 250, 250),
         body: SafeArea(
           child: Center(
-            child: Column(children: [
-              // spacing
-              SizedBox(height: 50),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                // spacing
+                SizedBox(height: 50),
 
-              // logo
-              Image.asset(
-                'images/logo.png',
-                width: 100,
-                height: 100,
-              ),
-
-              SizedBox(height: 50),
-
-              // heading
-              Text('Welcome to Meliora!',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
-                  )),
-
-              SizedBox(height: 25),
-
-              // email textfield
-              MyTextField(
-                key: Key('email'),
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
-
-              SizedBox(height: 10),
-
-              // password textfield
-              MyTextField(
-                key: Key('password'),
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
-
-              SizedBox(height: 10),
-
-              // name textfield
-              MyTextField(
-                key: Key('name'),
-                controller: nameController,
-                hintText: 'Username',
-                obscureText: false,
-              ),
-
-              SizedBox(height: 10),
-
-              // link to signin page
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignIn()),
-                        );
-                      },
-                      child: Text(
-                        'Tap here to log in!',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ),
-                  ],
+                // logo
+                Image.asset(
+                  'images/logo.png',
+                  width: 100,
+                  height: 100,
                 ),
-              ),
 
-              SizedBox(height: 25),
+                SizedBox(height: 50),
 
-              // signup button
-              Center(
-                child: ElevatedButton(
+                // heading
+                Text('Welcome to Meliora!',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 16,
+                    )),
+
+                SizedBox(height: 25),
+
+                // email textfield
+                MyTextField(
+                  key: Key('email'),
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
+
+                SizedBox(height: 10),
+
+                // password textfield
+                MyTextField(
+                  key: Key('password'),
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
+
+                SizedBox(height: 10),
+
+                // name textfield
+                MyTextField(
+                  key: Key('name'),
+                  controller: nameController,
+                  hintText: 'Username',
+                  obscureText: false,
+                ),
+
+                SizedBox(height: 10),
+
+                // link to signin page
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignIn()),
+                          );
+                        },
+                        child: Text(
+                          'Tap here to log in!',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 25),
+
+                // signup button
+                Center(
+                  child: ElevatedButton(
                     child: const Text("Sign Up"),
                     onPressed: () async {
                       // registers user to firebase authenticate
@@ -195,9 +196,14 @@ class _SignUpState extends State<SignUp> {
                           ),
                         );
                       });
-                    }),
-              )
-            ]),
+                    },
+                    style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(16),
+                        backgroundColor: Color.fromARGB(255, 255, 184, 189)),
+                  ),
+                )
+              ]),
+            ),
           ),
         ));
   }

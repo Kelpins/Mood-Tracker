@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
 import 'dart:async';
 import 'dart:io';
+// different library
+import 'package:fl_chart/fl_chart.dart';
 
 class moodEffect extends StatefulWidget {
   const moodEffect({Key? key}) : super(key: key);
@@ -175,7 +177,36 @@ class _moodEffectState extends State<moodEffect> {
               });
             }
 
-            return Center(child: Container(child: SfCartesianChart()));
+            return Center(
+              child: Container(
+                  // child: SfCartesianChart(),
+
+                  child: BarChart(
+                BarChartData(
+                  maxY: 1,
+                  minY: -1,
+                  barGroups: [
+                    BarChartGroupData(x: 0, barRods: [
+                      BarChartRodData(
+                        toY: 0.5,
+                      )
+                    ]),
+                    BarChartGroupData(x: 1, barRods: [
+                      BarChartRodData(
+                        toY: -0.8,
+                      ),
+                    ])
+                  ],
+                  gridData: FlGridData(show: false),
+                  /*titlesData: FlTitlesData(
+              show: true,
+            )*/ // SHOWS DATA LABLES MIGHT NEED LATER
+                  borderData: FlBorderData(show: true, border: Border()),
+                ),
+                swapAnimationDuration: Duration(milliseconds: 150),
+                swapAnimationCurve: Curves.linear,
+              )),
+            );
           }
 
           if (!loaded) {

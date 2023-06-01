@@ -14,7 +14,7 @@ class Moods extends StatelessWidget {
         title: Text('Moods'),
         backgroundColor: Color.fromARGB(255, 255, 184, 189),
       ),
-      backgroundColor: Color.fromARGB(255, 255, 240, 240),
+      backgroundColor: Color.fromARGB(255, 255, 250, 250),
       body: Center(
         child: Column(
           children: [
