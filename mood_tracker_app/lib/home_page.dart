@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
             }
             _controller.selectIndexes(matches);
 
-            if (habits.length > 1) {
+            if (habits.length >= 1) {
               habitMsg = "What are you up to today?";
             }
 
