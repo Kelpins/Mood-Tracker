@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   double localSliderVal = 3;
   String username = "";
   String habitDay = "";
+  String habitMsg = "No Habits Found.\nGo to settings to add a habit.";
   var habits = [];
   var habitMatching = [];
 
@@ -124,6 +125,10 @@ class _HomePageState extends State<HomePage> {
               }
             }
             _controller.selectIndexes(matches);
+
+            if (habits.length > 1) {
+              habitMsg = "What are you up to today?";
+            }
 
             return Scaffold(
                 appBar: AppBar(
@@ -259,12 +264,10 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                             child: Column(children: [
                           SizedBox(height: 8.0),
-                          Text(
-                            "What have you been up to today?",
-                            style: TextStyle(
-                              fontSize: 20,
-                            )
-                          ),
+                          Text("$habitMsg",
+                              style: TextStyle(
+                                fontSize: 20,
+                              )),
                           SizedBox(height: 16.0),
                           Container(
                               child: GroupButton(
@@ -467,12 +470,10 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Column(children: [
                             SizedBox(height: 8.0),
-                            Text(
-                              "What have you been up to today?",
+                            Text("$habitMsg",
                                 style: TextStyle(
-                                fontSize: 20,
-                              )
-                            ),
+                                  fontSize: 20,
+                                )),
                             SizedBox(height: 16.0),
                             Container(
                                 child: GroupButton(
@@ -519,94 +520,3 @@ class _HomePageState extends State<HomePage> {
         });
   }
 }
-
-
-
-/*
-void createUser() {
-      final dailyDocData = {
-        "Habit_1": true,
-        "Habit_2": false,
-        "Habit_3": false,
-        "mood": 5,
-      };
-
-      final habitDocData = {
-        "Description": "Thirty minute nap at least twice a week",
-        "Icon": "Icon(Icons.bed)",
-        "Name": "Taking Naps",
-        "Timing": "weekly"
-      };
-
-      final moodsDocData = {
-        "$today": 4,
-        //PAST MOOD DOC DATA -- TO READ
-      };
-
-      final userInfoDocData = {
-        "email": email,
-        "Name": "Kellan",
-        "Password": "Firebase"
-      };
-
-      final preferencesDocData = {
-        "color": "Colors.blue",
-        "Language": "English"
-      };
-
-      //DAILY -- RUNS AT END OF EVERY DAY
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Daily")
-          .doc("$today")
-          .set(dailyDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //HABITS -- RUNS ON NEW HABIT CREATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Habits")
-          .doc("$habitName")
-          .set(habitDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //MOODS -- RUNS ON MOOD UPDATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("Moods")
-          .doc("Mood")
-          .set(moodsDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //USER DATA -- RUNS ON PROFILE CREATE, USER DATA UPDATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("User_Info")
-          .doc("User")
-          .set(userInfoDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //USER PREFERENCES -- RUNS ON PROFILE CREATE, PREFERENCES UPDATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("User_Info")
-          .doc("Preferences")
-          .set(preferencesDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-    }
-    */
