@@ -95,7 +95,7 @@ class BarChartSample5State extends State<BarChartSample5> {
         text = 'Sun';
         break;
       default:
-        text = 'hakfhsd';
+        text = '';
         break;
     }
     return SideTitleWidget(
@@ -130,6 +130,7 @@ class BarChartSample5State extends State<BarChartSample5> {
         text = 'Sun';
         break;
       default:
+        text = '';
         return Container();
     }
     return SideTitleWidget(
