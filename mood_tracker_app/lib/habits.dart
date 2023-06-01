@@ -21,11 +21,12 @@ class Habits extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(10),
               child: TextField(
-                decoration: InputDecoration(
-                enabledBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 255, 184, 189))),
+                  decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 255, 184, 189))),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400)),
+                    borderSide: BorderSide(color: Colors.grey.shade400)),
                 fillColor: Colors.white,
                 filled: true,
                 hintText: "Add a new habit",
@@ -33,15 +34,12 @@ class Habits extends StatelessWidget {
               )),
             ),
             ElevatedButton(
-              onPressed:() {
-                // KELLAN ADD YOUR STUFF HERE
-              },
+              onPressed: () {},
               child: Icon(Icons.add),
               style: ElevatedButton.styleFrom(
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(16),
-                backgroundColor: Color.fromARGB(255, 255, 184, 189)
-              ),
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(16),
+                  backgroundColor: Color.fromARGB(255, 255, 184, 189)),
             ),
           ],
         ),
