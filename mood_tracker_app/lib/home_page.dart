@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: 8.0,
                               ),
-                              const Text("How are you?",
+                              const Text("Hello! How are you?",
                                   style: TextStyle(
                                     fontSize: 20,
                                   )),
@@ -284,6 +284,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     selectedBorderColor: Colors.pink[900],
                                     unselectedBorderColor: Colors.grey[900],
+                                    borderRadius: BorderRadius.circular(100),
                                     spacing: 10,
                                     runSpacing: 10,
                                     groupingType: GroupingType.wrap,
@@ -490,6 +491,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 selectedBorderColor: Colors.pink[900],
                                 unselectedBorderColor: Colors.grey[900],
+                                borderRadius: BorderRadius.circular(100),
                                 spacing: 10,
                                 runSpacing: 10,
                                 groupingType: GroupingType.wrap,

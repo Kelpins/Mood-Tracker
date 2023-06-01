@@ -125,13 +125,10 @@ class _moodEffectState extends State<moodEffect> {
       // Finding the correlation factor
       correlationFactor = deviationProductSum /
           sqrt(moodStandardDeviation * habitStandardDeviation);
-      print("correlation factor: $correlationFactor");
       //},
 
       //onError: (e) ==> print("Error getting document: $e"),
       //);
-
-      print("correlation factor when it's time to return : $correlationFactor");
 
       return correlationFactor;
     }
