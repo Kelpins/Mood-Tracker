@@ -53,8 +53,6 @@ class heatmap extends StatelessWidget {
             dataset[DateTime(year, month, day)] = data[datums[i]].round();
           }
 
-          print(dataset);
-
           return Container(
               margin: const EdgeInsets.all(20),
               child: HeatMapCalendar(
