@@ -29,6 +29,7 @@ class Habits extends StatelessWidget {
                   borderSide: BorderSide(color: Colors.grey.shade400)),
                 fillColor: Colors.white,
                 filled: true,
+                hintText: "Add a new habit",
                 hintStyle: TextStyle(color: Colors.grey[500]),
               )),
             ),

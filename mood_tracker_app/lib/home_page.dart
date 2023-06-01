@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           margin: const EdgeInsets.all(10.0),
                           width: 375.0,
-                          height: 150.0,
+                          //height: 150.0,
                           child: Center(
                               child: Column(
                             children: [
@@ -154,18 +154,19 @@ class _HomePageState extends State<HomePage> {
                                 height: 8.0,
                               ),
                               const Text(
-                                "Hello! How are you?",
+                                "How are you?",
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Color.fromARGB(255, 87, 46, 49)
                                 )
                               ),
+                              SizedBox(height: 5),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     Icons.calendar_today,
                                   ),
+                                  SizedBox(width: 3),
                                   Text("$weekday, $month $day")
                                 ],
                               ),
@@ -369,7 +370,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         margin: const EdgeInsets.all(10.0),
                         width: 375.0,
-                        height: 150.0,
+                        //height: 150.0,
                         child: Center(
                             child: Column(children: [
                           SizedBox(
@@ -379,15 +380,16 @@ class _HomePageState extends State<HomePage> {
                             "Hello! How are you?",
                             style: TextStyle(
                               fontSize: 20,
-                              color: Color.fromARGB(255, 87, 46, 49)
                             )
                           ),
+                          SizedBox(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.calendar_today,
                               ),
+                              SizedBox(width: 3),
                               Text("$weekday, $month $day")
                             ],
                           ),
