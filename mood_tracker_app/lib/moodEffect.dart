@@ -20,6 +20,7 @@ class _moodEffectState extends State<moodEffect> {
   var user = FirebaseAuth.instance.currentUser!;
   var habitList = [];
   var moodDays = [];
+  var barInfo = <BarChartGroupData>[];
 
   @override
   Widget build(BuildContext context) {
@@ -166,44 +167,67 @@ class _moodEffectState extends State<moodEffect> {
             print("Days with mood data: " + moodDays.toString());
 
             // iterates through all the habits
-            for (final habit in habitList) {
+
+            var correlationFactorFutures = <Future<num>>[];
+            for (int i = 0; i < habitList.length; i++) {
+              var habit = habitList[i];
               // finds the correlation between the specific habit and the user's mood
               // this will return NaN if there's not enough data!! do not worry!!
-              calculateCorrelationFactor(habit, moodDays, userData)
-                  .then((correlationFactor) {
-                print("CF: $correlationFactor");
-              });
+              var correlationFactorFuture =
+                  calculateCorrelationFactor(habit, moodDays, userData);
+              correlationFactorFutures.add(correlationFactorFuture);
             }
 
-            return Center(
-              child: Container(
-                  // child: SfCartesianChart(),
+            return FutureBuilder<List<num>>(
+              future: Future.wait(correlationFactorFutures),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<num>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  barInfo.clear();
+                  for (int i = 0; i < habitList.length; i++) {
+                    var correlationFactor = snapshot.data![i];
+                    barInfo.add(
+                      BarChartGroupData(x: i, barRods: [
+                        BarChartRodData(
+                          toY: correlationFactor.toDouble(),
+                        ),
+                      ]),
+                    );
+                    print("CF: $correlationFactor");
+                  }
+                  print("adds to bar info: $barInfo");
 
-                  child: BarChart(
-                BarChartData(
-                  maxY: 1,
-                  minY: -1,
-                  barGroups: [
-                    BarChartGroupData(x: 0, barRods: [
-                      BarChartRodData(
-                        toY: 0.5,
-                      )
-                    ]),
-                    BarChartGroupData(x: 1, barRods: [
-                      BarChartRodData(
-                        toY: -0.8,
-                      ),
-                    ]),
-                  ],
-                  gridData: FlGridData(show: false),
-                  /*titlesData: FlTitlesData(
+                  return Center(
+                    child: Container(
+                      // child: SfCartesianChart(),
+
+                      child: BarChart(
+                        BarChartData(
+                          maxY: 1,
+                          minY: -1,
+                          barGroups: barInfo,
+                          gridData: FlGridData(show: false),
+                          /*titlesData: FlTitlesData(
               show: true,
             )*/ // SHOWS DATA LABLES MIGHT NEED LATER
-                  borderData: FlBorderData(show: true, border: Border()),
-                ),
-                swapAnimationDuration: Duration(milliseconds: 150),
-                swapAnimationCurve: Curves.linear,
-              )),
+                          borderData:
+                              FlBorderData(show: true, border: Border()),
+                        ),
+                        swapAnimationDuration: Duration(milliseconds: 150),
+                        swapAnimationCurve: Curves.linear,
+                      ),
+                    ),
+                  );
+                }
+                return Column(
+                  children: [
+                    SizedBox(height: 200),
+                    Center(
+                        child:
+                            const Text("Calculating correlation factors...")),
+                  ],
+                );
+              },
             );
           }
 
