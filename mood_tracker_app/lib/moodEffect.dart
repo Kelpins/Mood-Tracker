@@ -171,6 +171,7 @@ class _moodEffectState extends State<moodEffect> {
             // iterates through all the habits
             for (final habit in habitList) {
               // finds the correlation between the specific habit and the user's mood
+              // this will return NaN if there's not enough data!! do not worry!!
               calculateCorrelationFactor(habit, moodDays, userData)
                   .then((correlationFactor) {
                 print("CF: $correlationFactor");
@@ -195,7 +196,7 @@ class _moodEffectState extends State<moodEffect> {
                       BarChartRodData(
                         toY: -0.8,
                       ),
-                    ])
+                    ]),
                   ],
                   gridData: FlGridData(show: false),
                   /*titlesData: FlTitlesData(

@@ -157,12 +157,10 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: 8.0,
                               ),
-                              const Text(
-                                "How are you?",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                )
-                              ),
+                              const Text("How are you?",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  )),
                               SizedBox(height: 5),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -321,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                                         .doc("$email")
                                         .collection("Habits")
                                         .doc("$value")
-                                        .set(habitDocData)
+                                        .update(habitDocData)
                                         .onError(
                                             // ignore: avoid_print
                                             (e, _) => print(
@@ -380,12 +378,10 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             height: 8.0,
                           ),
-                          const Text(
-                            "Hello! How are you?",
-                            style: TextStyle(
-                              fontSize: 20,
-                            )
-                          ),
+                          const Text("Hello! How are you?",
+                              style: TextStyle(
+                                fontSize: 20,
+                              )),
                           SizedBox(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
