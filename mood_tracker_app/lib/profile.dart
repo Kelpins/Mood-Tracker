@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'profilePages/username.dart';
+import 'profilePages/email.dart';
+import 'profilePages/password.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -54,7 +57,8 @@ class AccountInfo extends StatelessWidget {
                 .collection('users')
                 .doc(userID)
                 .snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            builder: (BuildContext context,
+                AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.hasData && snapshot.data?.exists == true) {
                 var userData = snapshot.data?.data() as Map<String, dynamic>;
                 var username = userData?['username'] as String?;
@@ -63,10 +67,11 @@ class AccountInfo extends StatelessWidget {
                   leading: Icon(Icons.create),
                   title: Text('Username'),
                   subtitle: Text(username ?? ''),
+                  trailing: Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Profile()),
+                      MaterialPageRoute(builder: (context) => Username()),
                     );
                   },
                 );
@@ -75,10 +80,11 @@ class AccountInfo extends StatelessWidget {
                   leading: Icon(Icons.create),
                   title: Text('Username'),
                   subtitle: Text('Loading...'),
+                  trailing: Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Profile()),
+                      MaterialPageRoute(builder: (context) => Username()),
                     );
                   },
                 );
@@ -87,6 +93,7 @@ class AccountInfo extends StatelessWidget {
           ),
         ),
 
+        SizedBox(height: 10),
         // Remaining card widgets
         Card(
           child: ListTile(
@@ -96,11 +103,13 @@ class AccountInfo extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile()),
+                MaterialPageRoute(builder: (context) => Email()),
               );
             },
           ),
         ),
+
+        SizedBox(height: 10),
         Card(
           child: ListTile(
             leading: Icon(Icons.password),
@@ -109,7 +118,7 @@ class AccountInfo extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile()),
+                MaterialPageRoute(builder: (context) => Password()),
               );
             },
           ),

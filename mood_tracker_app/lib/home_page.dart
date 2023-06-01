@@ -260,8 +260,10 @@ class _HomePageState extends State<HomePage> {
                             child: Column(children: [
                           SizedBox(height: 8.0),
                           Text(
-                            "Which of these habits\nhave you performed today?",
-                            textScaleFactor: 1.25,
+                            "What have you been up to today?",
+                            style: TextStyle(
+                              fontSize: 20,
+                            )
                           ),
                           SizedBox(height: 16.0),
                           Container(
@@ -466,8 +468,10 @@ class _HomePageState extends State<HomePage> {
                           child: Column(children: [
                             SizedBox(height: 8.0),
                             Text(
-                              "Which of these habits\nhave you performed today?",
-                              textScaleFactor: 1.25,
+                              "What have you been up to today?",
+                                style: TextStyle(
+                                fontSize: 20,
+                              )
                             ),
                             SizedBox(height: 16.0),
                             Container(
