@@ -39,108 +39,110 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.grey[300],
         body: SafeArea(
           child: Center(
-            child: Column(children: [
-              // spacing
-              SizedBox(height: 50),
-
-              // logo
-              Image.asset(
-                'images/logo.png',
-                width: 100,
-                height: 100,
-              ),
-
-              SizedBox(height: 50),
-
-              // header
-              Text('Welcome back! How have you been?',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
-                  )),
-
-              SizedBox(height: 25),
-
-              // username textfield
-              MyTextField(
-                key: Key('email'),
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
-
-              SizedBox(height: 10),
-
-              // password textfield
-              MyTextField(
-                key: Key('password'),
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
-
-              SizedBox(height: 10),
-
-              // link to the signup page
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUp()),
-                        );
-                      },
-                      child: Text(
-                        'Tap here to sign up!',
-                        style: TextStyle(color: Colors.grey[600]),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                // spacing
+                SizedBox(height: 50),
+            
+                // logo
+                Image.asset(
+                  'images/logo.png',
+                  width: 100,
+                  height: 100,
+                ),
+            
+                SizedBox(height: 50),
+            
+                // header
+                Text('Welcome back! How have you been?',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 16,
+                    )),
+            
+                SizedBox(height: 25),
+            
+                // username textfield
+                MyTextField(
+                  key: Key('email'),
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
+            
+                SizedBox(height: 10),
+            
+                // password textfield
+                MyTextField(
+                  key: Key('password'),
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
+            
+                SizedBox(height: 10),
+            
+                // link to the signup page
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                          );
+                        },
+                        child: Text(
+                          'Tap here to sign up!',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-
-              SizedBox(height: 25),
-
-              // log in button
-              Center(
-                child: ElevatedButton(
-                  child: const Text("Log In"),
-                  onPressed: () async {
-                    //signUserIn(emailController.text, passwordController.text);
-                    final message = await AuthService().login(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-                    Future.delayed(Duration.zero, () {
-                      // if everthing goes right, directs to MyStatefulWidget in main.dart
-                      if (message!.contains('Success')) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => MyStatefulWidget(),
-                          ),
-                        );
-                      } else {
-                        // if there are any errors, creates an error message
-                        errorMessage = message;
-                        print(errorMessage);
-                      }
-                    });
-                    // "reloads" page so the correct error message displays
-                    setState(() {});
-                  },
+            
+                SizedBox(height: 25),
+            
+                // log in button
+                Center(
+                  child: ElevatedButton(
+                    child: const Text("Log In"),
+                    onPressed: () async {
+                      //signUserIn(emailController.text, passwordController.text);
+                      final message = await AuthService().login(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      Future.delayed(Duration.zero, () {
+                        // if everthing goes right, directs to MyStatefulWidget in main.dart
+                        if (message!.contains('Success')) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => MyStatefulWidget(),
+                            ),
+                          );
+                        } else {
+                          // if there are any errors, creates an error message
+                          errorMessage = message;
+                          print(errorMessage);
+                        }
+                      });
+                      // "reloads" page so the correct error message displays
+                      setState(() {});
+                    },
+                  ),
                 ),
-              ),
-
-              // displays error message
-              Text(errorMessage,
-                  style: TextStyle(
-                    fontSize: 16,
-                  )),
-            ]),
+            
+                // displays error message
+                Text(errorMessage,
+                    style: TextStyle(
+                      fontSize: 16,
+                    )),
+              ]),
+            ),
           ),
         ));
   }
