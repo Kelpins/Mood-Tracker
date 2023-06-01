@@ -56,56 +56,50 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _buildScreens() {
-      return [HomePage(), StatsPage(), Settings()];
-    }
-
-    List<PersistentBottomNavBarItem> _navBarsItems() {
-      return [
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.home),
-          title: ("Home"),
-          activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
-          inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
-        ),
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.analytics_outlined),
-          title: ("Statistics"),
-          activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
-          inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
-        ),
-        PersistentBottomNavBarItem(
-          icon: Icon(Icons.settings),
-          title: ("Settings"),
-          activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
-          inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
-        ),
-      ];
-    }
-
     PersistentTabController tabController;
-
     tabController = PersistentTabController(initialIndex: 0);
 
-    if (FirebaseAuth.instance.currentUser != null) {
-      return Scaffold(
-        body: Center(
-          child: PersistentTabView(
-            context,
-            onItemSelected: (value) => setState(() {}),
-            stateManagement: false,
-            controller: tabController,
-            screens: _buildScreens(),
-            items: _navBarsItems(),
-            decoration: NavBarDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              colorBehindNavBar: Colors.white,
+    return Scaffold(
+      resizeToAvoidBottomInset: true, // Set this property to true
+      body: Center(
+        child: Column(
+          children: [
+            Expanded(
+              child: PersistentTabView(
+                context,
+                onItemSelected: (value) => setState(() {}),
+                stateManagement: false,
+                controller: tabController,
+                screens: _widgetOptions,
+                items: [
+                  PersistentBottomNavBarItem(
+                    icon: Icon(Icons.home),
+                    title: ("Home"),
+                    activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
+                    inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
+                  ),
+                  PersistentBottomNavBarItem(
+                    icon: Icon(Icons.analytics_outlined),
+                    title: ("Statistics"),
+                    activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
+                    inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
+                  ),
+                  PersistentBottomNavBarItem(
+                    icon: Icon(Icons.settings),
+                    title: ("Settings"),
+                    activeColorPrimary: Color.fromARGB(255, 255, 140, 140),
+                    inactiveColorPrimary: Color.fromARGB(255, 255, 184, 189),
+                  ),
+                ],
+                decoration: NavBarDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  colorBehindNavBar: Colors.white,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      );
-    } else {
-      return SignIn();
-    }
+      ),
+    );
   }
 }

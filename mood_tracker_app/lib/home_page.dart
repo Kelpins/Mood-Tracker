@@ -157,7 +157,8 @@ class _HomePageState extends State<HomePage> {
                                 "Hello! How are you?",
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Color.fromARGB(255, 87, 46, 49)
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 143, 46, 52)
                                 )
                               ),
                               Row(
@@ -166,6 +167,7 @@ class _HomePageState extends State<HomePage> {
                                   Icon(
                                     Icons.calendar_today,
                                   ),
+                                  SizedBox(width: 3),
                                   Text("$weekday, $month $day")
                                 ],
                               ),
@@ -379,7 +381,8 @@ class _HomePageState extends State<HomePage> {
                             "Hello! How are you?",
                             style: TextStyle(
                               fontSize: 20,
-                              color: Color.fromARGB(255, 87, 46, 49)
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 143, 46, 52)
                             )
                           ),
                           Row(
@@ -388,6 +391,7 @@ class _HomePageState extends State<HomePage> {
                               Icon(
                                 Icons.calendar_today,
                               ),
+                              SizedBox(width: 3),
                               Text("$weekday, $month $day")
                             ],
                           ),
