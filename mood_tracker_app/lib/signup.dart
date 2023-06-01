@@ -95,25 +95,25 @@ class _SignUpState extends State<SignUp> {
               child: Column(children: [
                 // spacing
                 SizedBox(height: 50),
-            
+
                 // logo
                 Image.asset(
                   'images/logo.png',
                   width: 100,
                   height: 100,
                 ),
-            
+
                 SizedBox(height: 50),
-            
+
                 // heading
                 Text('Welcome to Meliora!',
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,
                     )),
-            
+
                 SizedBox(height: 25),
-            
+
                 // email textfield
                 MyTextField(
                   key: Key('email'),
@@ -121,9 +121,9 @@ class _SignUpState extends State<SignUp> {
                   hintText: 'Email',
                   obscureText: false,
                 ),
-            
+
                 SizedBox(height: 10),
-            
+
                 // password textfield
                 MyTextField(
                   key: Key('password'),
@@ -131,9 +131,9 @@ class _SignUpState extends State<SignUp> {
                   hintText: 'Password',
                   obscureText: true,
                 ),
-            
+
                 SizedBox(height: 10),
-            
+
                 // name textfield
                 MyTextField(
                   key: Key('name'),
@@ -141,9 +141,9 @@ class _SignUpState extends State<SignUp> {
                   hintText: 'Username',
                   obscureText: false,
                 ),
-            
+
                 SizedBox(height: 10),
-            
+
                 // link to signin page
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -165,43 +165,42 @@ class _SignUpState extends State<SignUp> {
                     ],
                   ),
                 ),
-            
+
                 SizedBox(height: 25),
-            
+
                 // signup button
                 Center(
                   child: ElevatedButton(
-                      child: const Text("Sign Up"),
-                      onPressed: () async {
-                        // registers user to firebase authenticate
-                        final message = await AuthService().registration(
-                          email: emailController.text,
-                          password: passwordController.text,
+                    child: const Text("Sign Up"),
+                    onPressed: () async {
+                      // registers user to firebase authenticate
+                      final message = await AuthService().registration(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+
+                      Future.delayed(Duration.zero, () {
+                        if (message!.contains('Success')) {
+                          // adds user to firestore database
+                          signUserUp(emailController.text,
+                              passwordController.text, nameController.text);
+
+                          // goes back to homepage
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => MyStatefulWidget()));
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(message),
+                          ),
                         );
-            
-                        Future.delayed(Duration.zero, () {
-                          if (message!.contains('Success')) {
-                            // adds user to firestore database
-                            signUserUp(emailController.text,
-                                passwordController.text, nameController.text);
-            
-                            // goes back to homepage
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => MyStatefulWidget()));
-                          }
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(message),
-                            ),
-                          );
-                        });
-                      },
-                        style: ElevatedButton.styleFrom(
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(16),
-                        backgroundColor: Color.fromARGB(255, 255, 184, 189)
-                      ),
-                    ),
+                        backgroundColor: Color.fromARGB(255, 255, 184, 189)),
+                  ),
                 )
               ]),
             ),
