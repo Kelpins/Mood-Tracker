@@ -15,7 +15,7 @@ class Habits extends StatelessWidget {
         title: Text('Habits'),
         backgroundColor: Color.fromARGB(255, 255, 184, 189),
       ),
-      backgroundColor: Color.fromARGB(255, 255, 240, 240),
+      backgroundColor: Color.fromARGB(255, 255, 245, 245),
       body: Center(
         child: Column(
           children: [

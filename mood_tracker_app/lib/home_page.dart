@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                         }),
                   ],
                 ),
-                backgroundColor: Color.fromARGB(255, 255, 240, 240),
+                backgroundColor: Color.fromARGB(255, 255, 250, 250),
                 body: Center(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,20 +142,34 @@ class _HomePageState extends State<HomePage> {
                       Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: const Color.fromARGB(100, 255, 143, 180),
+                            color: Color.fromARGB(255, 255, 230, 230),
                           ),
                           margin: const EdgeInsets.all(10.0),
                           width: 375.0,
                           height: 150.0,
                           child: Center(
-                              child: Column(
+                          child: Column(
                             children: [
                               SizedBox(
                                 height: 8.0,
                               ),
-                              Text(
-                                "Hello! It is $weekday, $month $day.\nHow are you doing today?",
-                                textScaleFactor: 1.25,
+                              const Text(
+                                "Hello! How are you?",
+                                style: TextStyle(
+                                  fontSize: 25, 
+                                  fontFamily: 'Raleway',
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.calendar_today,
+                                  ),
+                                  Text(
+                                    "$weekday, $month $day"
+                                  )
+                                ],
                               ),
                               SizedBox(
                                 height: 16.0,
@@ -230,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                       // Buttons
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(100, 255, 143, 180),
+                          color: const Color.fromARGB(255, 255, 230, 230),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         margin: const EdgeInsets.all(10.0),
@@ -339,14 +353,14 @@ class _HomePageState extends State<HomePage> {
                       }),
                 ],
               ),
-              backgroundColor: Color.fromARGB(255, 255, 240, 240),
+              backgroundColor: Color.fromARGB(255, 255, 250, 250),
               body: Center(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                     Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(100, 255, 143, 180),
+                          color: Color.fromARGB(255, 255, 230, 230),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         margin: const EdgeInsets.all(10.0),
@@ -357,9 +371,23 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             height: 8.0,
                           ),
-                          Text(
-                            "Hello! It is $weekday, $month $day.\nHow are you doing today?",
-                            textScaleFactor: 1.25,
+                          const Text(
+                            "Hello! How are you?",
+                            style: TextStyle(
+                              fontSize: 25, 
+                              fontFamily: 'Raleway',
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.calendar_today,
+                              ),
+                              Text(
+                                "$weekday, $month $day"
+                              )
+                            ],
                           ),
                           SizedBox(
                             height: 16.0,
@@ -419,7 +447,7 @@ class _HomePageState extends State<HomePage> {
 
                     Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(100, 255, 143, 180),
+                          color: const Color.fromARGB(255, 255, 230, 230),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         margin: const EdgeInsets.all(10.0),
