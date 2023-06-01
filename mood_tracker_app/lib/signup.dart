@@ -39,41 +39,10 @@ class _SignUpState extends State<SignUp> {
       final initialMoods = {
         "username": name,
         "$today": 3,
+        "HabitDay": "$today",
+        "Habits": [],
+        "HabitMatchingToday": [],
       };
-
-      final userInfoDocData = {
-        "email": email,
-        "Name": name,
-        "Password": password,
-      };
-
-      // default preferences
-      final preferencesDocData = {
-        "color": "Colors.blue",
-        "Language": "English"
-      };
-
-      //USER DATA -- RUNS ON PROFILE CREATE, USER DATA UPDATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("User_Info")
-          .doc("User")
-          .set(userInfoDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
-
-      //USER PREFERENCES -- RUNS ON PROFILE CREATE, PREFERENCES UPDATED
-      db
-          .collection("Users")
-          .doc("$email")
-          .collection("User_Info")
-          .doc("Preferences")
-          .set(preferencesDocData)
-          .onError(
-              // ignore: avoid_print
-              (e, _) => print("Error writing document: $e"));
 
       db
           .collection("Users")
