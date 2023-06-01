@@ -85,11 +85,15 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> moodsDocData =
                 snapshot.data!.data() as Map<String, dynamic>;
+            // reads everything from the Mood part of the database
             username = moodsDocData["username"];
             habitDay = moodsDocData["HabitDay"];
             habits = moodsDocData["Habits"];
             habitMatching = moodsDocData["HabitMatchingToday"];
+
+            // if you run the program on a new day
             if (habitDay != today) {
+              // sets all the HabitMatchingToday things to false, "wipes the slate clean"
               for (int i = 0; i < habitMatching.length; i++) {
                 moodsDocData["HabitMatchingToday"][i] = false;
               }
