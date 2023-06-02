@@ -13,6 +13,7 @@ import 'main.dart';
 
 import 'package:group_button/group_button.dart';
 
+//legal app
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
