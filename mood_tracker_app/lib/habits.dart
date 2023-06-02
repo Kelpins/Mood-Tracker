@@ -50,10 +50,11 @@ class Habits extends StatelessWidget {
                     .doc("Mood")
                     .update({
                   "Habits": FieldValue.arrayUnion([_textController.text]),
-                  "HabitMatchingToday": FieldValue.arrayUnion([false]),
                 }).onError(
                         // ignore: avoid_print
                         (e, _) => print("Error writing document: $e"));
+
+                _textController.clear();
               },
               child: Icon(Icons.add),
               style: ElevatedButton.styleFrom(

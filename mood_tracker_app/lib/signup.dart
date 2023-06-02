@@ -53,7 +53,6 @@ class _SignUpState extends State<SignUp> {
           .onError(
               // ignore: avoid_print
               (e, _) => print("Error writing document: $e"));
-      ;
     }
 
     return Scaffold(

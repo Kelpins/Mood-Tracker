@@ -305,9 +305,17 @@ class _HomePageState extends State<HomePage> {
                                     elevation: 0,
                                   ),
                                   onSelected: (value, index, isSelected) {
-                                    var current = habitMatching[index];
-                                    moodsDocData["HabitMatchingToday"][index] =
-                                        !current;
+                                    var current = false;
+                                    try {
+                                      current = habitMatching[index];
+                                      moodsDocData["HabitMatchingToday"]
+                                          [index] = !current;
+                                    } catch (e) {
+                                      current = false;
+                                      moodsDocData["HabitMatchingToday"]
+                                          .add(true);
+                                    }
+
                                     final habitDocData = {"$today": isSelected};
                                     moodsDocData["HabitDay"] = today;
                                     db
@@ -317,6 +325,15 @@ class _HomePageState extends State<HomePage> {
                                         .doc("Mood")
                                         .set(moodsDocData)
                                         .onError(
+                                            // ignore: avoid_print
+                                            (e, _) => print(
+                                                "Error writing document: $e"));
+                                    db
+                                        .collection("Users")
+                                        .doc("$email")
+                                        .collection("Habits")
+                                        .doc("$value")
+                                        .set({}).onError(
                                             // ignore: avoid_print
                                             (e, _) => print(
                                                 "Error writing document: $e"));
