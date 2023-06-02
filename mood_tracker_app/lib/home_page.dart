@@ -222,12 +222,7 @@ class _HomePageState extends State<HomePage> {
                                               });
                                             },
                                             onChanged: (val) {
-                                              setState(() {
-                                                localSliderVal = val;
-                                              });
-
-                                              moodsDocData["$today"] =
-                                                  localSliderVal;
+                                              moodsDocData["$today"] = val;
 
                                               db
                                                   .collection("Users")
@@ -239,6 +234,9 @@ class _HomePageState extends State<HomePage> {
                                                       // ignore: avoid_print
                                                       (e, _) => print(
                                                           "Error writing document: $e"));
+                                              setState(() {
+                                                localSliderVal = val;
+                                              });
                                             }),
                                       ),
                                     ),
@@ -460,9 +458,7 @@ class _HomePageState extends State<HomePage> {
                                         });
                                       },
                                       onChanged: (val) {
-                                        setState(() {
-                                          localSliderVal = val;
-                                        });
+                                        localSliderVal = val;
                                       },
                                     ),
                                   ),
