@@ -91,7 +91,6 @@ class HabitsPageState extends State<HabitsPage2> {
               for (int i = 0; i < habits.length; i++) {
                 habitMsg += "\n\t\t- ${habits[i]}";
               }
-              habitMsg += "\n\nAdd a habit by filling out the form below:";
             } else {
               habitMsg =
                   "Hi, $username! You are currently not tracking any habits. Add a habit by filling out the form below:";
