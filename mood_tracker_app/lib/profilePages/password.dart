@@ -50,7 +50,7 @@ class Password extends StatelessWidget {
             SizedBox(height: 25),
             ElevatedButton(
               child: const Text("Done"),
-              onPressed: () {
+              onPressed: () async {
                 if (passwordController.text != passwordCheckController.text) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -59,24 +59,32 @@ class Password extends StatelessWidget {
                   );
                 } else {
                   var password = passwordController.text;
-                  //Pass in the password to updatePassword.
-                  user.updatePassword(password).then((_) {
+                  var oldPassword = oldPasswordController.text;
+                  AuthCredential authCredential = EmailAuthProvider.credential(
+                    email: "${user.email!}",
+                    password: oldPasswordController.text,
+                  );
+                  try {
+                    await user.reauthenticateWithCredential(authCredential);
+
+                    //Pass in the password to updatePassword.
+                    user.updatePassword(password).then((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Successfully changed password!"),
+                        ),
+                      );
+                      passwordCheckController.clear();
+                      passwordController.clear();
+                      oldPasswordController.clear();
+                    }).catchError((error) {});
+                  } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text("Successfully changed password!"),
+                        content: Text("Incorrect Password..."),
                       ),
                     );
-                    passwordCheckController.clear();
-                    passwordController.clear();
-                  }).catchError((error) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            "Password can't be changed" + error.toString()),
-                      ),
-                    );
-                    //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
-                  });
+                  }
                 }
               },
               style: ElevatedButton.styleFrom(

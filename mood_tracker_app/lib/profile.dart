@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'profilePages/username.dart';
-import 'profilePages/email.dart';
 import 'profilePages/password.dart';
 
 class Profile extends StatelessWidget {
@@ -92,23 +91,6 @@ class AccountInfo extends StatelessWidget {
             },
           ),
         ),
-
-        SizedBox(height: 10),
-        // Remaining card widgets
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.email),
-            title: Text('Change Email'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Email()),
-              );
-            },
-          ),
-        ),
-
         SizedBox(height: 10),
         Card(
           child: ListTile(
