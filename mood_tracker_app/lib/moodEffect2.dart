@@ -224,33 +224,54 @@ class _barChartState extends State<barChart> {
 
                   // replace this return statement
                   return Scaffold(
-                      body: Center(
-                          child: Container(
-                    child: SfCartesianChart(
-                        series: <ChartSeries>[
-                          BarSeries<correlationData, String>(
-                              dataSource: _chartData,
-                              xValueMapper:
-                                  (correlationData correlationFactor, _) =>
-                                      correlationFactor.habitLabel,
-                              yValueMapper:
-                                  (correlationData correlationFactor, _) =>
-                                      correlationFactor.correlationFactor,
-                              dataLabelSettings:
-                                  DataLabelSettings(isVisible: true),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Color.fromARGB(255, 255, 184, 189),
-                              width: 0.3,
-                              spacing: 0.2),
-                        ],
-                        primaryXAxis: CategoryAxis(),
-                        primaryYAxis: NumericAxis(
-                          title: AxisTitle(text: 'Effect on mood'),
-                          minimum: -1,
-                          maximum: 1,
-                        )),
-                  )));
+                    backgroundColor: Color.fromARGB(255, 255, 245, 245),
+                    body: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Which habits are making you happier?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            height: 500,
+                            child: SfCartesianChart(
+                              series: <ChartSeries>[
+                                BarSeries<correlationData, String>(
+                                    dataSource: _chartData,
+                                    xValueMapper:
+                                        (correlationData correlationFactor, _) =>
+                                            correlationFactor.habitLabel,
+                                    yValueMapper:
+                                        (correlationData correlationFactor, _) =>
+                                            correlationFactor.correlationFactor,
+                                    dataLabelSettings:
+                                        DataLabelSettings(isVisible: true),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    color: Color.fromARGB(255, 255, 184, 189),
+                                    width: 0.3,
+                                    spacing: 0.2),
+                              ],
+                              primaryXAxis: CategoryAxis(
+                                //maximumLabelWidth: 50,
+                                labelStyle: TextStyle(
+                                  fontSize: 10,
+                                ),
+                              ),
+                              primaryYAxis: NumericAxis(
+                                title: AxisTitle(text: 'Effect on mood'),
+                                minimum: -1,
+                                maximum: 1,
+
+                          )),
+                          ),
+                            ],
+                          )));
                 }
 
                 return Column(

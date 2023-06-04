@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker_app/signin.dart';
 import 'heatmap.dart';
-import 'moodEffect.dart';
 import 'moodEffect2.dart';
 import 'firebase_options.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
