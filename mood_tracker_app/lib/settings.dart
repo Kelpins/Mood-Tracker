@@ -75,7 +75,7 @@ class Tiles extends StatelessWidget {
               );
             },
           ),
-        ),
+        ), /*
         Card(
           child: ListTile(
             leading: Icon(Icons.mood),
@@ -89,7 +89,7 @@ class Tiles extends StatelessWidget {
               );
             },
           ),
-        ),
+        ),*/
       ],
     );
   }
