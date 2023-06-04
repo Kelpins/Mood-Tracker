@@ -26,34 +26,6 @@ class Password extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            /*Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                decoration: InputDecoration(
-                enabledBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 255, 184, 189))),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400)),
-                fillColor: Colors.white,
-                filled: true,
-                hintText: "Enter your new password",
-                hintStyle: TextStyle(color: Colors.grey[500]),
-              )),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                decoration: InputDecoration(
-                enabledBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 255, 184, 189))),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400)),
-                fillColor: Colors.white,
-                filled: true,
-                hintText: "Re-enter your new password",
-                hintStyle: TextStyle(color: Colors.grey[500]),
-              )),
-            ),*/
             SizedBox(height: 35.0),
             MyTextField(
               key: Key('password'),
@@ -85,9 +57,7 @@ class Password extends StatelessWidget {
                       content: Text("Passwords did not match."),
                     ),
                   );
-                } 
-                else if (oldPasswordController.text != user) {}
-                else {
+                } else {
                   var password = passwordController.text;
                   //Pass in the password to updatePassword.
                   user.updatePassword(password).then((_) {
