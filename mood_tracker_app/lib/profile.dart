@@ -6,9 +6,56 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'profilePages/username.dart';
 import 'profilePages/password.dart';
 
-class Profile extends StatelessWidget {
+// profile picture imports
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  double screenHeight = 0;
+  double screenWidth = 0;
+  Color primary = const Color.fromARGB(255, 255, 210, 210);
+  String profilePicLink = "";
+
+  /*void pickUploadProfilePic() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 512,
+      maxWidth: 512,
+      imageQuality: 90,
+    );
+
+    Reference ref =
+        FirebaseStorage.instance.ref().child("profilepic.jpg");
+
+    await ref.putFile(File(image!.path));
+
+    ref.getDownloadURL().then((value) async {
+      setState(() {
+        profilePicLink = value;
+      });
+    });
+  }*/
+
+  void logOut() {
+    FirebaseAuth.instance.signOut();
+    PersistentNavBarNavigator.pushNewScreen(
+      context,
+      screen: SignIn(),
+      withNavBar: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -21,11 +68,38 @@ class Profile extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 255, 184, 189),
       ),
       backgroundColor: Color.fromARGB(255, 255, 250, 250),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AccountInfo(),
+            GestureDetector(
+              onTap: () {
+                //pickUploadProfilePic();
+              },
+              child: Container(
+                margin: const EdgeInsets.only(top: 80, bottom: 24),
+                height: 120,
+                width: 120,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: primary,
+                ),
+                child: Center(
+                  child: profilePicLink.isEmpty
+                      ? Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 80,
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(profilePicLink),
+                        ),
+                ),
+              ),
+            ),
+            AccountInfo(logOut),
           ],
         ),
       ),
@@ -33,44 +107,31 @@ class Profile extends StatelessWidget {
   }
 }
 
-class ProfilePicture extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 70,
-      backgroundColor: Colors.grey[200],
-      child: Icon(Icons.person, size: 60, color: Colors.grey[700]),
-    );
-  }
-}
-
 class AccountInfo extends StatelessWidget {
+  final Function logOut;
+
+  AccountInfo(this.logOut);
+
   @override
   Widget build(BuildContext context) {
-    void logOut() {
-      FirebaseAuth.instance.signOut();
-      //Navigator.pop(context);
-      PersistentNavBarNavigator.pushNewScreen(context,
-          screen: SignIn(), withNavBar: false);
-    }
-
     final User? user = FirebaseAuth.instance.currentUser;
     final String? userID = user?.uid;
 
     return Column(
       children: <Widget>[
         Card(
-            child: ListTile(
-          leading: Icon(Icons.create),
-          title: Text('Change Username'),
-          trailing: Icon(Icons.chevron_right),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Username()),
-            );
-          },
-        )),
+          child: ListTile(
+            leading: Icon(Icons.create),
+            title: Text('Change Username'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Username()),
+              );
+            },
+          ),
+        ),
         SizedBox(height: 10),
         Card(
           child: ListTile(
