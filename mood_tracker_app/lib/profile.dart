@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mood_tracker_app/signin.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'profilePages/username.dart';
-import 'profilePages/email.dart';
 import 'profilePages/password.dart';
 
 class Profile extends StatelessWidget {
@@ -46,80 +47,51 @@ class ProfilePicture extends StatelessWidget {
 class AccountInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void logOut() {
+      FirebaseAuth.instance.signOut();
+      //Navigator.pop(context);
+      PersistentNavBarNavigator.pushNewScreen(context,
+          screen: SignIn(), withNavBar: false);
+    }
+
     final User? user = FirebaseAuth.instance.currentUser;
     final String? userID = user?.uid;
 
     return Column(
       children: <Widget>[
         Card(
-          child: StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(userID)
-                .snapshots(),
-            builder: (BuildContext context,
-                AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.hasData && snapshot.data?.exists == true) {
-                var userData = snapshot.data?.data() as Map<String, dynamic>;
-                var username = userData?['username'] as String?;
-
-                return ListTile(
-                  leading: Icon(Icons.create),
-                  title: Text('Username'),
-                  subtitle: Text(username ?? ''),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Username()),
-                    );
-                  },
-                );
-              } else {
-                return ListTile(
-                  leading: Icon(Icons.create),
-                  title: Text('Username'),
-                  subtitle: Text('Loading...'),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Username()),
-                    );
-                  },
-                );
-              }
-            },
-          ),
-        ),
-
-        SizedBox(height: 10),
-        // Remaining card widgets
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.email),
-            title: Text('Email'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Email()),
-              );
-            },
-          ),
-        ),
-
+            child: ListTile(
+          leading: Icon(Icons.create),
+          title: Text('Change Username'),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Username()),
+            );
+          },
+        )),
         SizedBox(height: 10),
         Card(
           child: ListTile(
             leading: Icon(Icons.password),
-            title: Text('Password'),
+            title: Text('Change Password'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Password()),
               );
+            },
+          ),
+        ),
+        SizedBox(height: 10),
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Log Out'),
+            onTap: () {
+              logOut();
             },
           ),
         ),

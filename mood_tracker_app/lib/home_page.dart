@@ -13,6 +13,7 @@ import 'main.dart';
 
 import 'package:group_button/group_button.dart';
 
+//legal app
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -222,12 +223,7 @@ class _HomePageState extends State<HomePage> {
                                               });
                                             },
                                             onChanged: (val) {
-                                              setState(() {
-                                                localSliderVal = val;
-                                              });
-
-                                              moodsDocData["$today"] =
-                                                  localSliderVal;
+                                              moodsDocData["$today"] = val;
 
                                               db
                                                   .collection("Users")
@@ -239,6 +235,9 @@ class _HomePageState extends State<HomePage> {
                                                       // ignore: avoid_print
                                                       (e, _) => print(
                                                           "Error writing document: $e"));
+                                              setState(() {
+                                                localSliderVal = val;
+                                              });
                                             }),
                                       ),
                                     ),
@@ -325,15 +324,6 @@ class _HomePageState extends State<HomePage> {
                                         .doc("Mood")
                                         .set(moodsDocData)
                                         .onError(
-                                            // ignore: avoid_print
-                                            (e, _) => print(
-                                                "Error writing document: $e"));
-                                    db
-                                        .collection("Users")
-                                        .doc("$email")
-                                        .collection("Habits")
-                                        .doc("$value")
-                                        .set({}).onError(
                                             // ignore: avoid_print
                                             (e, _) => print(
                                                 "Error writing document: $e"));
@@ -460,9 +450,7 @@ class _HomePageState extends State<HomePage> {
                                         });
                                       },
                                       onChanged: (val) {
-                                        setState(() {
-                                          localSliderVal = val;
-                                        });
+                                        localSliderVal = val;
                                       },
                                     ),
                                   ),

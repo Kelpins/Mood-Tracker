@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'signin.dart';
 import 'habits.dart';
 import 'moods.dart';
+import 'habits2.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Settings extends StatelessWidget {
@@ -70,11 +71,11 @@ class Tiles extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Habits()),
+                MaterialPageRoute(builder: (context) => HabitsPage2()),
               );
             },
           ),
-        ),
+        ), /*
         Card(
           child: ListTile(
             leading: Icon(Icons.mood),
@@ -88,7 +89,7 @@ class Tiles extends StatelessWidget {
               );
             },
           ),
-        ),
+        ),*/
       ],
     );
   }
