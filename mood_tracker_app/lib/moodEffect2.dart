@@ -74,8 +74,12 @@ class _barChartState extends State<barChart> {
       //await habitDataRef.get().then(
       //(DocumentSnapshot doc) {
       final DocumentSnapshot doc = await habitDataRef.get();
+      try {
+        final habitData = doc.data() as Map<String, dynamic>;
+      } catch (e) {
+        return 0;
+      }
       final habitData = doc.data() as Map<String, dynamic>;
-
       // Days where there is data for that specific habit
       habitDays = habitData.keys.toList();
 
