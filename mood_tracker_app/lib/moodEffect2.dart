@@ -108,8 +108,10 @@ class _barChartState extends State<barChart> {
         habitStandardDeviation += value * value;
       }
 
-      // Makes it so that habitStandardDeviation (which ends up in the denominator) is never 0
-      habitStandardDeviation += 0.00001;
+      // Makes it so that the standard deviations (which end up in the denominator) are never 0
+      // UNHIDE IF YOU WANT TO DISPLAY ALL HABITS, EVEN THOSE W/ VALUE 0
+      //habitStandardDeviation += 0.00001;
+      //moodStandardDeviation += 0.00001;
 
       // MOOD SECTION ----------------------------------------------------
 
