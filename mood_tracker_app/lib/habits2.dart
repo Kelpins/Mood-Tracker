@@ -30,6 +30,13 @@ class HabitsPageState extends State<HabitsPage2> {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    String time = DateFormat("jm").format(now);
+    String month = DateFormat("MMMM").format(now);
+    String day = DateFormat('dd').format(now);
+    String weekday = DateFormat('EEEE').format(now);
+
+    String today = DateFormat('MM-dd-yyyy').format(now);
     bool loaded = false;
 
     final db = FirebaseFirestore.instance;
@@ -171,7 +178,7 @@ class HabitsPageState extends State<HabitsPage2> {
                                     .doc("$email")
                                     .collection("Habits")
                                     .doc(_textController.text)
-                                    .update({}).onError(
+                                    .set({"$today": false}).onError(
                                         // ignore: avoid_print
                                         (e, _) => print(
                                             "Error writing document: $e"));
@@ -224,6 +231,7 @@ class HabitsPageState extends State<HabitsPage2> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         margin: const EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(12.0),
                         width: 375.0,
                         child: Center(
                           child: Column(children: [
