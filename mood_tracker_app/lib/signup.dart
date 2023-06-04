@@ -26,6 +26,7 @@ class _SignUpState extends State<SignUp> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordCheckController = TextEditingController();
   final nameController = TextEditingController();
 
   @override
@@ -100,6 +101,13 @@ class _SignUpState extends State<SignUp> {
                   obscureText: true,
                 ),
 
+                MyTextField(
+                  key: Key('passwordCheck'),
+                  controller: passwordCheckController,
+                  hintText: 'Repeat Password',
+                  obscureText: true,
+                ),
+
                 SizedBox(height: 10),
 
                 // name textfield
@@ -141,29 +149,38 @@ class _SignUpState extends State<SignUp> {
                   child: ElevatedButton(
                     child: const Text("Sign Up"),
                     onPressed: () async {
-                      // registers user to firebase authenticate
-                      final message = await AuthService().registration(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-
-                      Future.delayed(Duration.zero, () {
-                        if (message!.contains('Success')) {
-                          // adds user to firestore database
-                          signUserUp(emailController.text,
-                              passwordController.text, nameController.text);
-
-                          // goes back to homepage
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => MyStatefulWidget()));
-                        }
+                      if (passwordController.text !=
+                          passwordCheckController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(message),
+                            content: Text("Passwords did not match."),
                           ),
                         );
-                      });
+                      } else {
+                        // registers user to firebase authenticate
+                        final message = await AuthService().registration(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+
+                        Future.delayed(Duration.zero, () {
+                          if (message!.contains('Success')) {
+                            // adds user to firestore database
+                            signUserUp(emailController.text,
+                                passwordController.text, nameController.text);
+
+                            // goes back to homepage
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => MyStatefulWidget()));
+                          }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                            ),
+                          );
+                        });
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(16),
