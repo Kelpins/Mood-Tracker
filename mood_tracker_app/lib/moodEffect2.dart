@@ -46,6 +46,11 @@ class _barChartState extends State<barChart> {
       return 0;
     }
 
+    double roundDouble(double value, int places) {
+      double mod = pow(10.0, places).toDouble();
+      return ((value * mod).round().toDouble() / mod);
+    }
+
     Future<num> calculateCorrelationFactor(
         String habitName, List moodDays, moodData) async {
       num correlationFactor = 0;
@@ -197,9 +202,10 @@ class _barChartState extends State<barChart> {
                   for (int i = 0; i < habitList.length; i++) {
                     var correlationFactor = snapshot.data![i].toDouble();
                     if (correlationFactor.isFinite) {
+                      print("full correlation factor: $correlationFactor");
+                      correlationFactor = roundDouble(correlationFactor, 2);
                       barLabels.add(habitList[i].toString());
                       barValues.add(correlationFactor);
-                      print("CF: $correlationFactor");
                     }
                   }
                   print("barValues: $barValues");
@@ -214,23 +220,26 @@ class _barChartState extends State<barChart> {
                     child: SfCartesianChart(
                         series: <ChartSeries>[
                           BarSeries<correlationData, String>(
-                            dataSource: _chartData,
-                            xValueMapper:
-                                (correlationData correlationFactor, _) =>
-                                    correlationFactor.habitLabel,
-                            yValueMapper:
-                                (correlationData correlationFactor, _) =>
-                                    correlationFactor.correlationFactor,
-                            dataLabelSettings:
-                                DataLabelSettings(isVisible: true),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: Color.fromARGB(255, 255, 184, 189),
-                            width: 0.07,
-                          ),
+                              dataSource: _chartData,
+                              xValueMapper:
+                                  (correlationData correlationFactor, _) =>
+                                      correlationFactor.habitLabel,
+                              yValueMapper:
+                                  (correlationData correlationFactor, _) =>
+                                      correlationFactor.correlationFactor,
+                              dataLabelSettings:
+                                  DataLabelSettings(isVisible: true),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Color.fromARGB(255, 255, 184, 189),
+                              width: 0.3,
+                              spacing: 0.2),
                         ],
                         primaryXAxis: CategoryAxis(),
                         primaryYAxis: NumericAxis(
                           title: AxisTitle(text: 'Effect on mood'),
+                          minimum: -1,
+                          maximum: 1,
                         )),
                   )));
                 }

@@ -171,7 +171,7 @@ class HabitsPageState extends State<HabitsPage2> {
                                     .doc("$email")
                                     .collection("Habits")
                                     .doc(_textController.text)
-                                    .set({}).onError(
+                                    .update({}).onError(
                                         // ignore: avoid_print
                                         (e, _) => print(
                                             "Error writing document: $e"));
@@ -277,7 +277,7 @@ class HabitsPageState extends State<HabitsPage2> {
                                   .doc("$email")
                                   .collection("Habits")
                                   .doc(_textController.text)
-                                  .set({}).onError(
+                                  .update({}).onError(
                                       // ignore: avoid_print
                                       (e, _) =>
                                           print("Error writing document: $e"));
