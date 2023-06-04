@@ -20,6 +20,7 @@ class _barChartState extends State<barChart> {
   var moodDays = [];
   var barValues = [];
   var barLabels = [];
+  var barMap = {};
   late List<correlationData> _chartData;
 
   @override
@@ -210,12 +211,14 @@ class _barChartState extends State<barChart> {
                     if (correlationFactor.isFinite) {
                       print("full correlation factor: $correlationFactor");
                       correlationFactor = roundDouble(correlationFactor, 2);
-                      barLabels.add(habitList[i].toString());
+                      barMap[habitList[i].toString()] = correlationFactor;
+                      //barLabels.add(habitList[i].toString());
                       barValues.add(correlationFactor);
                     }
                   }
+                  print("barMap: $barMap");
                   print("barValues: $barValues");
-                  print("barLabels: $barLabels");
+                  //print("barLabels: $barLabels");
 
                   _chartData = getChartData();
 
@@ -277,8 +280,13 @@ class _barChartState extends State<barChart> {
   List<correlationData> getChartData() {
     final List<correlationData> chartData = [];
 
-    for (int i = 0; i < barLabels.length; i++) {
-      chartData.add(correlationData(barLabels[i], barValues[i]));
+    barValues.sort();
+    print("sorted bar values: $barValues");
+
+    for (int i = 0; i < barValues.length; i++) {
+      var label = barMap.keys
+          .firstWhere((k) => barMap[k] == barValues[i], orElse: () => null);
+      chartData.add(correlationData(label, barValues[i]));
     }
 
     return chartData;
