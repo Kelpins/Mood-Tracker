@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_heatmap_calendar: ^1.0.5
-  syncfusion_flutter_charts: ^20.4.53
+  syncfusion_flutter_charts: ^21.2.8
   settings_ui: ^2.0.2
   firebase_core: ^2.13.0
   cloud_firestore: ^4.7.1

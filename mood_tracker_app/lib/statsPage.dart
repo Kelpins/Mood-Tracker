@@ -54,7 +54,7 @@ class StatsPage extends StatelessWidget {
               body: TabBarView(
                 children: <Widget>[
                   heatmap(email),
-                  BarChartSample5(),
+                  barChart(),
                 ],
               )));
     }

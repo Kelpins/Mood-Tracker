@@ -3,248 +3,37 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'dart:math';
 import 'dart:async';
 import 'dart:io';
 
-import 'dart:math' as math;
-import 'package:fl_chart/fl_chart.dart';
-
-// this version technically works but it is so incredibly ugly.
-// the bars are vertical and all the labels are overlapping.
-// this is awful
-
-class AppColors {
-  static const Color primary = contentColorCyan;
-  static const Color menuBackground = Color(0xFF090912);
-  static const Color itemsBackground = Color(0xFF1B2339);
-  static const Color pageBackground = Color(0xFF282E45);
-  static const Color mainTextColor1 = Colors.black;
-  static const Color mainTextColor2 = Colors.white;
-  static const Color mainTextColor3 = Colors.white38;
-  static const Color mainGridLineColor = Colors.white10;
-  static const Color borderColor = Colors.white54;
-  static const Color gridLinesColor = Color(0x11FFFFFF);
-
-  static const Color contentColorBlack = Colors.black;
-  static const Color contentColorWhite = Colors.white;
-  static const Color contentColorBlue = Color(0xFF2196F3);
-  static const Color contentColorYellow = Color(0xFFFFC300);
-  static const Color contentColorOrange = Color(0xFFFF683B);
-  static const Color contentColorGreen = Color(0xFF3BFF49);
-  static const Color contentColorPurple = Color(0xFF6E1BFF);
-  static const Color contentColorPink = Color(0xFFFF3AF2);
-  static const Color contentColorRed = Color(0xFFE80054);
-  static const Color contentColorCyan = Color(0xFF50E4FF);
-}
-
-class AppUtils {
-  factory AppUtils() {
-    return _singleton;
-  }
-
-  AppUtils._internal();
-  static final AppUtils _singleton = AppUtils._internal();
-
-  double degreeToRadian(double degree) {
-    return degree * math.pi / 180;
-  }
-
-  double radianToDegree(double radian) {
-    return radian * 180 / math.pi;
-  }
-}
-
-class BarChartSample5 extends StatefulWidget {
-  const BarChartSample5({super.key});
+class barChart extends StatefulWidget {
+  const barChart({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => BarChartSample5State();
+  State<barChart> createState() => _barChartState();
 }
 
-class BarChartSample5State extends State<BarChartSample5> {
+class _barChartState extends State<barChart> {
   var user = FirebaseAuth.instance.currentUser!;
   var habitList = [];
   var moodDays = [];
-  var barLabels = [];
   var barValues = [];
-
-  static const double barWidth = 22;
-  static const shadowOpacity = 0.0;
-  var mainItems = <int, List<double>>{};
-
-  int touchedIndex = -1;
+  var barLabels = [];
+  late List<correlationData> _chartData;
 
   @override
   void initState() {
     super.initState();
+    _chartData = getChartData();
   }
-
-/*
-  Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.black, fontSize: 10);
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = 'Mon';
-        break;
-      case 1:
-        text = 'Tue';
-        break;
-      case 2:
-        text = 'Wed';
-        break;
-      case 3:
-        text = 'Thu';
-        break;
-      case 4:
-        text = 'Fri';
-        break;
-      case 5:
-        text = 'Sat';
-        break;
-      case 6:
-        text = 'Sun';
-        break;
-      default:
-        text = '';
-        break;
-    }
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: style),
-    );
-  }
-  */
-
-  Widget topTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.black, fontSize: 10);
-    String text;
-    text = barLabels[value.toInt()];
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: style),
-    );
-  }
-
-  Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.black, fontSize: 10);
-    String text;
-    if (value == 0) {
-      text = '0';
-    } else {
-      text = '${(value.toDouble() * 100).toInt()}%';
-    }
-    return SideTitleWidget(
-      angle: 0,
-      axisSide: meta.axisSide,
-      space: 0,
-      child: Text(
-        text,
-        style: style,
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
-  Widget rightTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.black, fontSize: 10);
-    String text;
-    if (value == 0) {
-      text = '0';
-    } else {
-      text = '${(value.toDouble() * 100).toInt()}%';
-    }
-    return SideTitleWidget(
-      angle: 0,
-      axisSide: meta.axisSide,
-      space: 0,
-      child: Text(
-        text,
-        style: style,
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
-  BarChartGroupData generateGroup(
-    int x,
-    double value1,
-  ) {
-    final isTop = value1 > 0;
-    final sum = value1;
-    final isTouched = touchedIndex == x;
-    return BarChartGroupData(
-      x: x,
-      groupVertically: true,
-      showingTooltipIndicators: isTouched ? [0] : [],
-      barRods: [
-        BarChartRodData(
-          toY: sum,
-          width: barWidth,
-          borderRadius: isTop
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(6),
-                  topRight: Radius.circular(6),
-                )
-              : const BorderRadius.only(
-                  bottomLeft: Radius.circular(6),
-                  bottomRight: Radius.circular(6),
-                ),
-          rodStackItems: [
-            BarChartRodStackItem(
-              0,
-              value1,
-              AppColors.contentColorGreen,
-              BorderSide(
-                color: Colors.black,
-                width: isTouched ? 2 : 0,
-              ),
-            ),
-          ],
-        ),
-        BarChartRodData(
-          toY: -sum,
-          width: barWidth,
-          color: Colors.transparent,
-          borderRadius: isTop
-              ? const BorderRadius.only(
-                  bottomLeft: Radius.circular(6),
-                  bottomRight: Radius.circular(6),
-                )
-              : const BorderRadius.only(
-                  topLeft: Radius.circular(6),
-                  topRight: Radius.circular(6),
-                ),
-          rodStackItems: [
-            BarChartRodStackItem(
-              0,
-              -value1,
-              AppColors.contentColorGreen
-                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
-              const BorderSide(color: Colors.transparent),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  bool isShadowBar(int rodIndex) => rodIndex == 1;
 
   @override
   Widget build(BuildContext context) {
-    // Iris's code starts here -----------------------------------
     bool loaded = false;
 
     final db = FirebaseFirestore.instance;
     final email = user.email;
-
-    for (int i = 0; i < barValues.length; i++) {
-      mainItems.addAll({
-        i: [barValues[i]]
-      });
-    }
 
     CollectionReference userDatabase =
         FirebaseFirestore.instance.collection('Users');
@@ -314,6 +103,9 @@ class BarChartSample5State extends State<BarChartSample5> {
         habitStandardDeviation += value * value;
       }
 
+      // Makes it so that habitStandardDeviation (which ends up in the denominator) is never 0
+      habitStandardDeviation += 0.00001;
+
       // MOOD SECTION ----------------------------------------------------
 
       // Mean mood value
@@ -342,7 +134,7 @@ class BarChartSample5State extends State<BarChartSample5> {
 
       // Finding the correlation factor
       correlationFactor = deviationProductSum /
-          math.sqrt(moodStandardDeviation * habitStandardDeviation);
+          sqrt(moodStandardDeviation * habitStandardDeviation);
       //},
 
       //onError: (e) ==> print("Error getting document: $e"),
@@ -355,16 +147,10 @@ class BarChartSample5State extends State<BarChartSample5> {
         future: userDatabase.doc(email).collection("Moods").doc("Mood").get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-//Error Handling conditions
+          //Error Handling conditions
           if (snapshot.hasError) {
             return const Text("Something went wrong");
           }
-
-          if (snapshot.hasData && !snapshot.data!.exists) {
-            return const Text("Document does not exist");
-          }
-
-          loaded = true;
 
           if (snapshot.hasData && !snapshot.data!.exists) {
             return const Text("Document does not exist");
@@ -406,121 +192,49 @@ class BarChartSample5State extends State<BarChartSample5> {
               builder:
                   (BuildContext context, AsyncSnapshot<List<num>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  barLabels.clear();
                   barValues.clear();
+                  barLabels.clear();
                   for (int i = 0; i < habitList.length; i++) {
-                    var correlationFactor = snapshot.data![i];
-                    barLabels.add(habitList[i].toString());
-                    barValues.add(correlationFactor.toDouble());
-                    mainItems[i] = [correlationFactor.toDouble()];
-                    print("CF: $correlationFactor");
+                    var correlationFactor = snapshot.data![i].toDouble();
+                    if (correlationFactor.isFinite) {
+                      barLabels.add(habitList[i].toString());
+                      barValues.add(correlationFactor);
+                      print("CF: $correlationFactor");
+                    }
                   }
-                  print("values!!!: $barValues");
+                  print("barValues: $barValues");
+                  print("barLabels: $barLabels");
 
-                  return AspectRatio(
-                    aspectRatio: 0.8,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: BarChart(
-                        BarChartData(
-                          alignment: BarChartAlignment.center,
-                          maxY: 1,
-                          minY: -1,
-                          groupsSpace: 12,
-                          barTouchData: BarTouchData(
-                            handleBuiltInTouches: false,
-                            touchCallback:
-                                (FlTouchEvent event, barTouchResponse) {
-                              if (!event.isInterestedForInteractions ||
-                                  barTouchResponse == null ||
-                                  barTouchResponse.spot == null) {
-                                setState(() {
-                                  touchedIndex = -1;
-                                });
-                                return;
-                              }
-                              final rodIndex =
-                                  barTouchResponse.spot!.touchedRodDataIndex;
-                              if (isShadowBar(rodIndex)) {
-                                setState(() {
-                                  touchedIndex = -1;
-                                });
-                                return;
-                              }
-                              setState(() {
-                                touchedIndex =
-                                    barTouchResponse.spot!.touchedBarGroupIndex;
-                              });
-                            },
+                  _chartData = getChartData();
+
+                  // replace this return statement
+                  return Scaffold(
+                      body: Center(
+                          child: Container(
+                    child: SfCartesianChart(
+                        series: <ChartSeries>[
+                          BarSeries<correlationData, String>(
+                            dataSource: _chartData,
+                            xValueMapper:
+                                (correlationData correlationFactor, _) =>
+                                    correlationFactor.habitLabel,
+                            yValueMapper:
+                                (correlationData correlationFactor, _) =>
+                                    correlationFactor.correlationFactor,
+                            dataLabelSettings:
+                                DataLabelSettings(isVisible: true),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Color.fromARGB(255, 255, 184, 189),
+                            width: 0.07,
                           ),
-                          titlesData: FlTitlesData(
-                            show: true,
-                            topTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 32,
-                                getTitlesWidget: topTitles,
-                              ),
-                            ),
-                            /*
-                            bottomTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 32,
-                                getTitlesWidget: bottomTitles,
-                              ),
-                            ),
-                            */
-                            leftTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                getTitlesWidget: leftTitles,
-                                interval: 5,
-                                reservedSize: 42,
-                              ),
-                            ),
-                            rightTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                getTitlesWidget: rightTitles,
-                                interval: 5,
-                                reservedSize: 42,
-                              ),
-                            ),
-                          ),
-                          gridData: FlGridData(
-                            show: true,
-                            checkToShowHorizontalLine: (value) =>
-                                value % 5 == 0,
-                            getDrawingHorizontalLine: (value) {
-                              if (value == 0) {
-                                return FlLine(
-                                  color: AppColors.borderColor.withOpacity(0.1),
-                                  strokeWidth: 3,
-                                );
-                              }
-                              return FlLine(
-                                color: AppColors.borderColor.withOpacity(0.05),
-                                strokeWidth: 0.8,
-                              );
-                            },
-                          ),
-                          borderData: FlBorderData(
-                            show: false,
-                          ),
-                          barGroups: mainItems.entries
-                              .map(
-                                (e) => generateGroup(
-                                  e.key,
-                                  e.value[0],
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    ),
-                  );
+                        ],
+                        primaryXAxis: CategoryAxis(),
+                        primaryYAxis: NumericAxis(
+                          title: AxisTitle(text: 'Effect on mood'),
+                        )),
+                  )));
                 }
+
                 return Column(
                   children: [
                     SizedBox(height: 200),
@@ -532,6 +246,7 @@ class BarChartSample5State extends State<BarChartSample5> {
               },
             );
           }
+
           if (!loaded) {
             return Column(children: [
               SizedBox(height: 200),
@@ -542,4 +257,21 @@ class BarChartSample5State extends State<BarChartSample5> {
           return Scaffold();
         });
   }
+
+  // data for each bar :)
+  List<correlationData> getChartData() {
+    final List<correlationData> chartData = [];
+
+    for (int i = 0; i < barLabels.length; i++) {
+      chartData.add(correlationData(barLabels[i], barValues[i]));
+    }
+
+    return chartData;
+  }
+}
+
+class correlationData {
+  correlationData(this.habitLabel, this.correlationFactor);
+  final String habitLabel;
+  final double correlationFactor;
 }
