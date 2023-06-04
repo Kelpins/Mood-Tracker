@@ -1,8 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../components/textfield.dart';
 
 class Username extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var user = FirebaseAuth.instance.currentUser!;
+    final db = FirebaseFirestore.instance;
+    final email = user.email;
+    var usernameController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -20,27 +28,38 @@ class Username extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.all(10),
-              child: TextField(
-                decoration: InputDecoration(
-                enabledBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 255, 184, 189))),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400)),
-                fillColor: Colors.white,
-                filled: true,
-                hintText: "Enter your new username",
-                hintStyle: TextStyle(color: Colors.grey[500]),
-              )),
+              child: MyTextField(
+                key: Key('username'),
+                controller: usernameController,
+                hintText: 'New Username',
+                obscureText: false,
+              ),
             ),
             ElevatedButton(
               child: const Text("Done"),
-              onPressed:() {
-                // KELLAN ADD YOUR STUFF HERE
+              onPressed: () {
+                db
+                    .collection("Users")
+                    .doc("$email")
+                    .collection("Moods")
+                    .doc("Mood")
+                    .set({
+                  "username": usernameController.text
+                }, SetOptions(merge: true)).onError(
+                        // ignore: avoid_print
+                        (e, _) => print("Error writing document: $e"));
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        "Successfully changed username to ${usernameController.text}!"),
+                  ),
+                );
+                usernameController.clear();
               },
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(16),
-                backgroundColor: Color.fromARGB(255, 255, 184, 189)
-              ),
+                  padding: EdgeInsets.all(16),
+                  backgroundColor: Color.fromARGB(255, 255, 184, 189)),
             ),
           ],
         ),
