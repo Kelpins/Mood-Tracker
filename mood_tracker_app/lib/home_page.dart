@@ -332,15 +332,6 @@ class _HomePageState extends State<HomePage> {
                                         .doc("$email")
                                         .collection("Habits")
                                         .doc("$value")
-                                        .set({}).onError(
-                                            // ignore: avoid_print
-                                            (e, _) => print(
-                                                "Error writing document: $e"));
-                                    db
-                                        .collection("Users")
-                                        .doc("$email")
-                                        .collection("Habits")
-                                        .doc("$value")
                                         .update(habitDocData)
                                         .onError(
                                             // ignore: avoid_print
