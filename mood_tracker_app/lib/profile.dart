@@ -98,7 +98,7 @@ class AccountInfo extends StatelessWidget {
         Card(
           child: ListTile(
             leading: Icon(Icons.email),
-            title: Text('Email'),
+            title: Text('Change Email'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(
@@ -113,7 +113,7 @@ class AccountInfo extends StatelessWidget {
         Card(
           child: ListTile(
             leading: Icon(Icons.password),
-            title: Text('Password'),
+            title: Text('Change Password'),
             trailing: Icon(Icons.chevron_right),
             onTap: () {
               Navigator.push(

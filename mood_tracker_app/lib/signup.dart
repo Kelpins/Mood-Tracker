@@ -101,6 +101,8 @@ class _SignUpState extends State<SignUp> {
                   obscureText: true,
                 ),
 
+                SizedBox(height: 10),
+
                 MyTextField(
                   key: Key('passwordCheck'),
                   controller: passwordCheckController,
