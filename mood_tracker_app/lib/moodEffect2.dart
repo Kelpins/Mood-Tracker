@@ -146,10 +146,6 @@ class _barChartState extends State<barChart> {
       // Finding the correlation factor
       correlationFactor = deviationProductSum /
           sqrt(moodStandardDeviation * habitStandardDeviation);
-      //},
-
-      //onError: (e) ==> print("Error getting document: $e"),
-      //);
 
       return correlationFactor;
     }
@@ -214,14 +210,14 @@ class _barChartState extends State<barChart> {
 
                     // checks that the correlation factor is an actual number
                     if (correlationFactor.isFinite) {
-                      //print("full correlation factor: $correlationFactor");
+                      print("full correlation factor: $correlationFactor");
                       correlationFactor = roundDouble(correlationFactor, 2);
                       barMap[habitList[i].toString()] = correlationFactor;
                       barValues.add(correlationFactor);
                     }
                   }
-                  //print("barMap: $barMap");
-                  //print("barValues: $barValues");
+                  print("barMap: $barMap");
+                  print("barValues: $barValues");
 
                   // gets the most up to date data before displaying
                   _chartData = getChartData();
