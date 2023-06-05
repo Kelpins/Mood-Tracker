@@ -7,7 +7,6 @@ import 'profilePages/username.dart';
 import 'profilePages/password.dart';
 
 // profile picture imports
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 
@@ -89,15 +88,15 @@ class _ProfileState extends State<Profile> {
                 ),
                 child: Center(
                   child: profilePicLink.isEmpty
-                    ? Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 80,
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(profilePicLink),
-                      ),
+                      ? Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 80,
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(profilePicLink),
+                        ),
                 ),
               ),
             ),
