@@ -224,9 +224,10 @@ class _barChartState extends State<barChart> {
 
                   // replace this return statement
                   return Scaffold(
-                    backgroundColor: Color.fromARGB(255, 255, 245, 245),
-                    body: Center(
-                      child: Column(
+                      backgroundColor: Color.fromARGB(255, 255, 245, 245),
+                      body: SingleChildScrollView(
+                          child: Center(
+                              child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
@@ -251,38 +252,39 @@ class _barChartState extends State<barChart> {
                           Container(
                             height: 500,
                             child: SfCartesianChart(
-                              series: <ChartSeries>[
-                                BarSeries<correlationData, String>(
-                                    dataSource: _chartData,
-                                    xValueMapper:
-                                        (correlationData correlationFactor, _) =>
-                                            correlationFactor.habitLabel,
-                                    yValueMapper:
-                                        (correlationData correlationFactor, _) =>
-                                            correlationFactor.correlationFactor,
-                                    dataLabelSettings:
-                                        DataLabelSettings(isVisible: true),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color.fromARGB(255, 255, 184, 189),
-                                    width: 0.3,
-                                    spacing: 0.2),
-                              ],
-                              primaryXAxis: CategoryAxis(
-                                //maximumLabelWidth: 50,
-                                labelStyle: TextStyle(
-                                  fontSize: 10,
+                                series: <ChartSeries>[
+                                  BarSeries<correlationData, String>(
+                                      dataSource: _chartData,
+                                      xValueMapper:
+                                          (correlationData correlationFactor,
+                                                  _) =>
+                                              correlationFactor.habitLabel,
+                                      yValueMapper: (correlationData
+                                                  correlationFactor,
+                                              _) =>
+                                          correlationFactor.correlationFactor,
+                                      dataLabelSettings:
+                                          DataLabelSettings(isVisible: true),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      color: Color.fromARGB(255, 255, 184, 189),
+                                      width: 0.3,
+                                      spacing: 0.2),
+                                ],
+                                primaryXAxis: CategoryAxis(
+                                  //maximumLabelWidth: 50,
+                                  labelStyle: TextStyle(
+                                    fontSize: 10,
+                                  ),
                                 ),
-                              ),
-                              primaryYAxis: NumericAxis(
-                                title: AxisTitle(text: 'Effect on mood'),
-                                minimum: -1,
-                                maximum: 1,
-
-                          )),
+                                primaryYAxis: NumericAxis(
+                                  title: AxisTitle(text: 'Effect on mood'),
+                                  minimum: -1,
+                                  maximum: 1,
+                                )),
                           ),
-                            ],
-                          )));
+                        ],
+                      ))));
                 }
 
                 return Column(
