@@ -53,35 +53,57 @@ class heatmap extends StatelessWidget {
             dataset[DateTime(year, month, day)] = data[datums[i]].round();
           }
 
-          return Container(
-              margin: const EdgeInsets.all(20),
-              child: HeatMapCalendar(
-                  // Properties for the heatmap widget
-                  defaultColor: Colors.white,
-                  //scrollable: true,
-                  colorMode: ColorMode.color,
-                  size: 35,
-                  fontSize: 15,
-                  monthFontSize: 20,
-                  flexible: true,
-                  showColorTip: false,
-                  //showText: true,
-                  borderRadius: 10,
-                  margin: const EdgeInsets.all(6),
-                  datasets: dataset,
-                  colorsets: {
-                    // Colorsets (themes)
-                    0: Color.fromARGB(255, 234, 131, 121),
-                    1: Color.fromARGB(255, 240, 150, 130),
-                    2: Color.fromARGB(255, 238, 189, 141),
-                    3: Color.fromARGB(255, 236, 208, 153),
-                    4: Color.fromARGB(255, 185, 200, 144),
-                    5: Color.fromARGB(255, 160, 190, 140),
-                    6: Color.fromARGB(255, 154, 200, 136),
-                  },
-                  onClick: (value) {
-                    // onClick event
-                  }));
+          return Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 230, 230),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                height: 50,
+                width: 375,
+                child: Center(
+                  child: Text(
+                    'Mood Heatmap',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                  margin: const EdgeInsets.all(20),
+                  child: HeatMapCalendar(
+                      // Properties for the heatmap widget
+                      defaultColor: Colors.white,
+                      //scrollable: true,
+                      colorMode: ColorMode.color,
+                      size: 35,
+                      fontSize: 15,
+                      monthFontSize: 20,
+                      flexible: true,
+                      showColorTip: false,
+                      //showText: true,
+                      borderRadius: 10,
+                      margin: const EdgeInsets.all(6),
+                      datasets: dataset,
+                      colorsets: {
+                        // Colorsets (themes)
+                        0: Color.fromARGB(255, 234, 131, 121),
+                        1: Color.fromARGB(255, 240, 150, 130),
+                        2: Color.fromARGB(255, 238, 189, 141),
+                        3: Color.fromARGB(255, 236, 208, 153),
+                        4: Color.fromARGB(255, 185, 200, 144),
+                        5: Color.fromARGB(255, 160, 190, 140),
+                        6: Color.fromARGB(255, 154, 200, 136),
+                      },
+                      onClick: (value) {
+                        // onClick event
+                      })),
+            ],
+          );
         }
 
         return Text("Loading...");

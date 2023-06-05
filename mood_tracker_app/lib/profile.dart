@@ -16,6 +16,8 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+// ALL PROFILE PIC RELATED CODE FROM https://youtu.be/0mLICZlWb2k
+
 class _ProfileState extends State<Profile> {
   double screenHeight = 0;
   double screenWidth = 0;
@@ -87,15 +89,15 @@ class _ProfileState extends State<Profile> {
                 ),
                 child: Center(
                   child: profilePicLink.isEmpty
-                      ? Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 80,
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(profilePicLink),
-                        ),
+                    ? Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 80,
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(profilePicLink),
+                      ),
                 ),
               ),
             ),

@@ -229,11 +229,22 @@ class _barChartState extends State<barChart> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Which habits are making you happier?',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            margin: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 255, 230, 230),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            height: 50,
+                            width: 375,
+                            child: Center(
+                              child: Text(
+                                'Which habits are making you happier?',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 20),
