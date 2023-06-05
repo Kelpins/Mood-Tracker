@@ -88,7 +88,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     tabController = PersistentTabController(initialIndex: 0);
 
-    // checking if user is signed in
+    // if user is signed in, shows actual app
     if (FirebaseAuth.instance.currentUser != null) {
       return Scaffold(
         body: Center(
@@ -107,7 +107,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ),
       );
     } else {
-      // if user is not signed in, show sign-in page
+      // if user is not signed in, shows sign-in page
       return SignIn();
     }
   }
