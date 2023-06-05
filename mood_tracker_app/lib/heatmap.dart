@@ -35,17 +35,18 @@ class heatmap extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
+
+          // removes everything else in the document so only the moods are left
           data.remove("username");
           data.remove("Habits");
           data.remove("HabitMatchingToday");
           data.remove("HabitDay");
 
-          //return Text(data.toString());
-
           Map<DateTime, int> dataset = {};
           for (int i = 0; i < data.length; i++) {
             List<String> datums = data.keys.toList();
 
+            // dates are stored as strings, converted to DateTime here
             int month = int.parse(datums[i].split("-")[0]);
             int day = int.parse(datums[i].split("-")[1]);
             int year = int.parse(datums[i].split("-")[2]);
@@ -53,6 +54,7 @@ class heatmap extends StatelessWidget {
             dataset[DateTime(year, month, day)] = data[datums[i]].round();
           }
 
+          // frontend
           return Column(
             children: [
               Container(
@@ -73,35 +75,35 @@ class heatmap extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // heatmap
               Container(
                   margin: const EdgeInsets.all(20),
                   child: HeatMapCalendar(
-                      // Properties for the heatmap widget
-                      defaultColor: Colors.white,
-                      //scrollable: true,
-                      colorMode: ColorMode.color,
-                      size: 35,
-                      fontSize: 15,
-                      monthFontSize: 20,
-                      flexible: true,
-                      showColorTip: false,
-                      //showText: true,
-                      borderRadius: 10,
-                      margin: const EdgeInsets.all(6),
-                      datasets: dataset,
-                      colorsets: {
-                        // Colorsets (themes)
-                        0: Color.fromARGB(255, 234, 131, 121),
-                        1: Color.fromARGB(255, 240, 150, 130),
-                        2: Color.fromARGB(255, 238, 189, 141),
-                        3: Color.fromARGB(255, 236, 208, 153),
-                        4: Color.fromARGB(255, 185, 200, 144),
-                        5: Color.fromARGB(255, 160, 190, 140),
-                        6: Color.fromARGB(255, 154, 200, 136),
-                      },
-                      onClick: (value) {
-                        // onClick event
-                      })),
+                    // Properties for the heatmap widget
+                    defaultColor: Colors.white,
+                    //scrollable: true,
+                    colorMode: ColorMode.color,
+                    size: 35,
+                    fontSize: 15,
+                    monthFontSize: 20,
+                    flexible: true,
+                    showColorTip: false,
+                    //showText: true,
+                    borderRadius: 10,
+                    margin: const EdgeInsets.all(6),
+                    datasets: dataset,
+                    colorsets: {
+                      // Colorsets (themes)
+                      0: Color.fromARGB(255, 234, 131, 121),
+                      1: Color.fromARGB(255, 240, 150, 130),
+                      2: Color.fromARGB(255, 238, 189, 141),
+                      3: Color.fromARGB(255, 236, 208, 153),
+                      4: Color.fromARGB(255, 185, 200, 144),
+                      5: Color.fromARGB(255, 160, 190, 140),
+                      6: Color.fromARGB(255, 154, 200, 136),
+                    },
+                  )),
             ],
           );
         }
