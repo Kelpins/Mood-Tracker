@@ -52,6 +52,7 @@ class _barChartState extends State<barChart> {
       return ((value * mod).round().toDouble() / mod);
     }
 
+    // Finds the correlation factor of the given habit
     Future<num> calculateCorrelationFactor(
         String habitName, List moodDays, moodData) async {
       num correlationFactor = 0;
@@ -72,8 +73,6 @@ class _barChartState extends State<barChart> {
       final habitDataRef =
           db.collection('Users').doc(email).collection("Habits").doc(habitName);
 
-      //await habitDataRef.get().then(
-      //(DocumentSnapshot doc) {
       final DocumentSnapshot doc = await habitDataRef.get();
       try {
         final habitData = doc.data() as Map<String, dynamic>;
@@ -147,10 +146,6 @@ class _barChartState extends State<barChart> {
       // Finding the correlation factor
       correlationFactor = deviationProductSum /
           sqrt(moodStandardDeviation * habitStandardDeviation);
-      //},
-
-      //onError: (e) ==> print("Error getting document: $e"),
-      //);
 
       return correlationFactor;
     }
@@ -187,9 +182,9 @@ class _barChartState extends State<barChart> {
             moodDays.remove("HabitDay");
             print("Days with mood data: " + moodDays.toString());
 
-            // iterates through all the habits
-
             var correlationFactorFutures = <Future<num>>[];
+
+            // iterates through all the habits
             for (int i = 0; i < habitList.length; i++) {
               var habit = habitList[i];
               // finds the correlation between the specific habit and the user's mood
@@ -199,34 +194,40 @@ class _barChartState extends State<barChart> {
               correlationFactorFutures.add(correlationFactorFuture);
             }
 
+            // waits until the data is fetched from the database and calculated
             return FutureBuilder<List<num>>(
               future: Future.wait(correlationFactorFutures),
               builder:
                   (BuildContext context, AsyncSnapshot<List<num>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
+                  // clears the data so theres no duplicates after reloading
                   barValues.clear();
                   barLabels.clear();
+
+                  // iterates through the habits
                   for (int i = 0; i < habitList.length; i++) {
                     var correlationFactor = snapshot.data![i].toDouble();
+
+                    // checks that the correlation factor is an actual number
                     if (correlationFactor.isFinite) {
                       print("full correlation factor: $correlationFactor");
                       correlationFactor = roundDouble(correlationFactor, 2);
                       barMap[habitList[i].toString()] = correlationFactor;
-                      //barLabels.add(habitList[i].toString());
                       barValues.add(correlationFactor);
                     }
                   }
                   print("barMap: $barMap");
                   print("barValues: $barValues");
-                  //print("barLabels: $barLabels");
 
+                  // gets the most up to date data before displaying
                   _chartData = getChartData();
 
-                  // replace this return statement
+                  // frontend
                   return Scaffold(
-                    backgroundColor: Color.fromARGB(255, 255, 245, 245),
-                    body: Center(
-                      child: Column(
+                      backgroundColor: Color.fromARGB(255, 255, 245, 245),
+                      body: SingleChildScrollView(
+                          child: Center(
+                              child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
@@ -248,41 +249,64 @@ class _barChartState extends State<barChart> {
                             ),
                           ),
                           SizedBox(height: 20),
+
+                          // horizontal bar chart
                           Container(
                             height: 500,
                             child: SfCartesianChart(
-                              series: <ChartSeries>[
-                                BarSeries<correlationData, String>(
-                                    dataSource: _chartData,
-                                    xValueMapper:
-                                        (correlationData correlationFactor, _) =>
-                                            correlationFactor.habitLabel,
-                                    yValueMapper:
-                                        (correlationData correlationFactor, _) =>
-                                            correlationFactor.correlationFactor,
-                                    dataLabelSettings:
-                                        DataLabelSettings(isVisible: true),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color.fromARGB(255, 255, 184, 189),
-                                    width: 0.3,
-                                    spacing: 0.2),
-                              ],
-                              primaryXAxis: CategoryAxis(
-                                //maximumLabelWidth: 50,
-                                labelStyle: TextStyle(
-                                  fontSize: 10,
+                                series: <ChartSeries>[
+                                  BarSeries<correlationData, String>(
+                                      dataSource: _chartData,
+                                      xValueMapper:
+                                          (correlationData correlationFactor,
+                                                  _) =>
+                                              correlationFactor.habitLabel,
+                                      yValueMapper: (correlationData
+                                                  correlationFactor,
+                                              _) =>
+                                          correlationFactor.correlationFactor,
+                                      dataLabelSettings:
+                                          DataLabelSettings(isVisible: true),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      color: Color.fromARGB(255, 255, 184, 189),
+                                      width: 0.3,
+                                      spacing: 0.2),
+                                ],
+                                primaryXAxis: CategoryAxis(
+                                  labelStyle: TextStyle(
+                                    fontSize: 10,
+                                  ),
+                                ),
+                                primaryYAxis: NumericAxis(
+                                  title: AxisTitle(text: 'Effect on mood'),
+                                  minimum: -1,
+                                  maximum: 1,
+                                )),
+                          ),
+
+                          SizedBox(height: 5),
+
+                          Container(
+                            margin: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 255, 230, 230),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            height: 50,
+                            width: 375,
+                            child: Center(
+                              child: Text(
+                                '* Habits that are not displayed do not have enough data',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontStyle: FontStyle.italic,
                                 ),
                               ),
-                              primaryYAxis: NumericAxis(
-                                title: AxisTitle(text: 'Effect on mood'),
-                                minimum: -1,
-                                maximum: 1,
-
-                          )),
+                            ),
                           ),
-                            ],
-                          )));
+                        ],
+                      ))));
                 }
 
                 return Column(
@@ -312,6 +336,7 @@ class _barChartState extends State<barChart> {
   List<correlationData> getChartData() {
     final List<correlationData> chartData = [];
 
+    // sorts by correlation factor value
     barValues.sort();
     print("sorted bar values: $barValues");
 
@@ -319,6 +344,7 @@ class _barChartState extends State<barChart> {
       var label = barMap.keys
           .firstWhere((k) => barMap[k] == barValues[i], orElse: () => null);
       chartData.add(correlationData(label, barValues[i]));
+      barValues[i] = 0;
     }
 
     return chartData;
