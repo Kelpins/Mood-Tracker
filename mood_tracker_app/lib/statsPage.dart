@@ -13,6 +13,7 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // signs out and sends to the signin page
     void logOut() {
       FirebaseAuth.instance.signOut();
       //Navigator.pop(context);
@@ -21,7 +22,7 @@ class StatsPage extends StatelessWidget {
     }
 
     if (user == null) {
-      return Text("BORK");
+      return Text("BORK"); // kellan-speak for ERROR
     } else {
       final String email = user!.email.toString();
       return DefaultTabController(
@@ -29,6 +30,7 @@ class StatsPage extends StatelessWidget {
           length: 2,
           child: Scaffold(
               appBar: AppBar(
+                  toolbarHeight: 50,
                   title: Text("Statistics"),
                   backgroundColor: Color.fromARGB(255, 255, 184, 189),
                   actions: [
@@ -39,6 +41,8 @@ class StatsPage extends StatelessWidget {
                           logOut();
                         }),
                   ],
+
+                  // tabs betwen heatmap and bar chart
                   bottom: const TabBar(
                     tabs: <Widget>[
                       Tab(
@@ -52,8 +56,10 @@ class StatsPage extends StatelessWidget {
               backgroundColor: Color.fromARGB(255, 255, 240, 240),
               body: TabBarView(
                 children: <Widget>[
+                  // in heatmap.dart
                   heatmap(email),
-                  barChart(),
+                  // in moodEffect2.dart
+                  const barChart(),
                 ],
               )));
     }

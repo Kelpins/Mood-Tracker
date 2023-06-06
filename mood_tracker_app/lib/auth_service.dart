@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+// manages signin/signup with Firebase Authentication
+// from https://medium.com/google-developer-experts/firebase-authentication-flutter-80e8f00338ac
+
 class AuthService {
   Future<String?> registration({
     required String email,
