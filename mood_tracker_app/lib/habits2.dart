@@ -110,94 +110,93 @@ class HabitsPageState extends State<HabitsPage2> {
                   ],
                 ),
                 backgroundColor: Color.fromARGB(255, 255, 250, 250),
-                body: Center(
-                    child: SingleChildScrollView(
+                body: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                    // Rainbow Gradient Slider
+                    // Buttons
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 230, 230),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      margin: const EdgeInsets.all(10.0),
+                      width: 375.0,
+                      padding: EdgeInsets.all(12.0),
+                      child: Center(
+                          child: Column(children: [
+                        SizedBox(height: 8.0),
+                        Text("$habitMsg",
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        SizedBox(height: 16.0),
+                        SizedBox(height: 16.0),
+                      ])),
+                    ),
+                    Center(
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                        // Rainbow Gradient Slider
-                        // Buttons
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 255, 230, 230),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          margin: const EdgeInsets.all(10.0),
-                          width: 375.0,
-                          padding: EdgeInsets.all(12.0),
-                          child: Center(
-                              child: Column(children: [
-                            SizedBox(height: 8.0),
-                            Text("$habitMsg",
-                                style: TextStyle(
-                                  fontSize: 20,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: TextField(
+                                controller: _textController,
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 255, 184, 189))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.grey.shade400)),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: "Add a new habit",
+                                  hintStyle:
+                                      TextStyle(color: Colors.grey[500]),
                                 )),
-                            SizedBox(height: 16.0),
-                            SizedBox(height: 16.0),
-                          ])),
-                        ),
-                        Center(
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                child: TextField(
-                                    controller: _textController,
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 255, 184, 189))),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey.shade400)),
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      hintText: "Add a new habit",
-                                      hintStyle:
-                                          TextStyle(color: Colors.grey[500]),
-                                    )),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  db
-                                      .collection("Users")
-                                      .doc("$email")
-                                      .collection("Moods")
-                                      .doc("Mood")
-                                      .update({
-                                    "Habits": FieldValue.arrayUnion(
-                                        [_textController.text]),
-                                  }).onError(
-                                          // ignore: avoid_print
-                                          (e, _) => print(
-                                              "Error writing document: $e"));
-                    
-                                  db
-                                      .collection("Users")
-                                      .doc("$email")
-                                      .collection("Habits")
-                                      .doc(_textController.text)
-                                      .set({"$today": false}).onError(
-                                          // ignore: avoid_print
-                                          (e, _) => print(
-                                              "Error writing document: $e"));
-                    
-                                  _textController.clear();
-                                  setState(() {});
-                                },
-                                child: Icon(Icons.add),
-                                style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    padding: EdgeInsets.all(16),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 255, 184, 189)),
-                              ),
-                            ],
                           ),
-                        ),
-                      ]),
-                    )));
+                          ElevatedButton(
+                            onPressed: () {
+                              db
+                                  .collection("Users")
+                                  .doc("$email")
+                                  .collection("Moods")
+                                  .doc("Mood")
+                                  .update({
+                                "Habits": FieldValue.arrayUnion(
+                                    [_textController.text]),
+                              }).onError(
+                                      // ignore: avoid_print
+                                      (e, _) => print(
+                                          "Error writing document: $e"));
+                
+                              db
+                                  .collection("Users")
+                                  .doc("$email")
+                                  .collection("Habits")
+                                  .doc(_textController.text)
+                                  .set({"$today": false}).onError(
+                                      // ignore: avoid_print
+                                      (e, _) => print(
+                                          "Error writing document: $e"));
+                
+                              _textController.clear();
+                              setState(() {});
+                            },
+                            child: Icon(Icons.add),
+                            style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(16),
+                                backgroundColor:
+                                    Color.fromARGB(255, 255, 184, 189)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+                ));
           }
 
           if (!loaded) {
