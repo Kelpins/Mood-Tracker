@@ -2,18 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'signin.dart';
-import 'components/button.dart';
-import 'components/slider.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
-
 import 'package:group_button/group_button.dart';
 
-//legal app
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -22,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var user = FirebaseAuth.instance.currentUser!;
+  var user = FirebaseAuth.instance.currentUser!; // get current user
   double localSliderVal = 3;
   String username = "";
   String habitDay = "";
@@ -67,16 +59,16 @@ class _HomePageState extends State<HomePage> {
     );
 
     return Text("YA DONE BORKED IT");*/
-
+    
+    // asynchronously retrieving data from db
     return FutureBuilder<DocumentSnapshot>(
         future: moods.doc(email).collection("Moods").doc("Mood").get(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          
           //Error Handling conditions
           if (snapshot.hasError) {
             return Text("Something went wrong");
           }
-
           if (snapshot.hasData && !snapshot.data!.exists) {
             return Text("Document does not exist");
           }
@@ -95,6 +87,7 @@ class _HomePageState extends State<HomePage> {
 
             // if you run the program on a new day
             if (habitDay != today) {
+
               // sets all the HabitMatchingToday things to false, "wipes the slate clean"
               for (int i = 0; i < habitMatching.length; i++) {
                 moodsDocData["HabitMatchingToday"][i] = false;
@@ -107,13 +100,13 @@ class _HomePageState extends State<HomePage> {
                   .doc("Mood")
                   .set(moodsDocData)
                   .onError(
-                      // ignore: avoid_print
                       (e, _) => print("Error writing document: $e"));
               username = moodsDocData["username"];
               habitDay = moodsDocData["HabitDay"];
               habits = moodsDocData["Habits"];
               habitMatching = moodsDocData["HabitMatchingToday"];
             }
+
             try {
               localSliderVal = moodsDocData["$today"];
             } catch (e) {
@@ -132,41 +125,41 @@ class _HomePageState extends State<HomePage> {
             }
 
             return Scaffold(
-                appBar: AppBar(
-                  title: Text("Hello, " + username),
-                  backgroundColor: Color.fromARGB(255, 255, 184, 189),
-                  actions: [
-                    IconButton(
-                        icon: Icon(Icons.logout),
-                        tooltip: "log out",
-                        onPressed: () {
-                          logOut();
-                        }),
+              appBar: AppBar(
+                title: Text("Hello, " + username),
+                backgroundColor: Color.fromARGB(255, 255, 184, 189),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.logout),
+                    tooltip: "log out",
+                    onPressed: () {
+                      logOut();
+                    }),
                   ],
                 ),
                 backgroundColor: Color.fromARGB(255, 255, 250, 250),
                 body: Center(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                       Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Color.fromARGB(255, 255, 230, 230),
-                          ),
-                          margin: const EdgeInsets.all(10.0),
-                          width: 375.0,
-                          //height: 150.0,
-                          child: Center(
-                              child: Column(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color.fromARGB(255, 255, 230, 230),
+                        ),
+                        margin: const EdgeInsets.all(10.0),
+                        width: 375.0,
+                        //height: 150.0,
+                        child: Center(
+                          child: Column(
                             children: [
                               SizedBox(
                                 height: 8.0,
                               ),
                               const Text("Hello! How are you?",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  )),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                )),
                               SizedBox(height: 5),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -207,38 +200,38 @@ class _HomePageState extends State<HomePage> {
                                       child: SliderTheme(
                                         data: SliderTheme.of(context).copyWith(
                                           trackShape:
-                                              RoundedRectSliderTrackShape(),
+                                            RoundedRectSliderTrackShape(),
                                           trackHeight: 4.0,
                                           activeTrackColor: Colors.grey[500],
                                           inactiveTrackColor: Colors.grey[300],
                                           thumbColor: Colors.grey[800],
                                         ),
                                         child: Slider(
-                                            value: localSliderVal,
-                                            min: 0,
-                                            max: 6,
-                                            onChangeEnd: (value) {
-                                              setState(() {
-                                                localSliderVal = value;
-                                              });
-                                            },
-                                            onChanged: (val) {
-                                              moodsDocData["$today"] = val;
+                                          value: localSliderVal,
+                                          min: 0,
+                                          max: 6,
+                                          onChangeEnd: (value) {
+                                            setState(() {
+                                              localSliderVal = value;
+                                            });
+                                          },
+                                          onChanged: (val) {
+                                            moodsDocData["$today"] = val;
 
-                                              db
-                                                  .collection("Users")
-                                                  .doc("$email")
-                                                  .collection("Moods")
-                                                  .doc("Mood")
-                                                  .set(moodsDocData)
-                                                  .onError(
-                                                      // ignore: avoid_print
-                                                      (e, _) => print(
-                                                          "Error writing document: $e"));
-                                              setState(() {
-                                                localSliderVal = val;
-                                              });
-                                            }),
+                                            db
+                                              .collection("Users")
+                                              .doc("$email")
+                                              .collection("Moods")
+                                              .doc("Mood")
+                                              .set(moodsDocData)
+                                              .onError(
+                                                  // ignore: avoid_print
+                                                  (e, _) => print(
+                                                      "Error writing document: $e"));
+                                            setState(() {
+                                              localSliderVal = val;
+                                            });
+                                          }),
                                       ),
                                     ),
                                     Icon(
@@ -466,22 +459,22 @@ class _HomePageState extends State<HomePage> {
                         ]))),
 
                     Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 230, 230),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        margin: const EdgeInsets.all(10.0),
-                        width: 375.0,
-                        child: Center(
-                          child: Column(children: [
-                            SizedBox(height: 8.0),
-                            Text("$habitMsg",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                )),
-                            SizedBox(height: 16.0),
-                            Container(
-                                child: GroupButton(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 230, 230),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      margin: const EdgeInsets.all(10.0),
+                      width: 375.0,
+                      child: Center(
+                        child: Column(children: [
+                          SizedBox(height: 8.0),
+                          Text("$habitMsg",
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                          SizedBox(height: 16.0),
+                          Container(
+                            child: GroupButton(
                               isRadio: false,
                               controller: _controller2,
                               //onSelected: (index, isSelected) =>
@@ -514,11 +507,11 @@ class _HomePageState extends State<HomePage> {
                                 alignment: Alignment.center,
                                 elevation: 0,
                               ),
-                              buttons: habits,
-                            )),
-                            SizedBox(height: 16.0),
-                          ]),
-                        )),
+                            buttons: habits,
+                          )),
+                          SizedBox(height: 16.0),
+                        ]),
+                      )),
 
                     // Buttons
                   ])));
