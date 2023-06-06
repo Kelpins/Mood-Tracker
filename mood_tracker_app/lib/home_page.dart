@@ -139,202 +139,204 @@ class _HomePageState extends State<HomePage> {
                 ),
                 backgroundColor: Color.fromARGB(255, 255, 250, 250),
                 body: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color.fromARGB(255, 255, 230, 230),
-                        ),
-                        margin: const EdgeInsets.all(10.0),
-                        width: 375.0,
-                        //height: 150.0,
-                        child: Center(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 8.0,
-                              ),
-                              const Text("Hello! How are you?",
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Color.fromARGB(255, 255, 230, 230),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          //height: 150.0,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 8.0,
+                                ),
+                                const Text("Hello! How are you?",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  )),
+                                SizedBox(height: 5),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today,
+                                    ),
+                                    SizedBox(width: 3),
+                                    Text("$weekday, $month $day")
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    gradient: const LinearGradient(colors: [
+                                      Color.fromARGB(255, 234, 131, 121),
+                                      Color.fromARGB(255, 240, 175, 130),
+                                      Color.fromARGB(255, 236, 208, 153),
+                                      Color.fromARGB(255, 187, 197, 152),
+                                      Color.fromARGB(255, 154, 185, 136),
+                                    ]),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  padding: const EdgeInsets.all(10.0),
+                                  width: 350.0,
+                                  height: 50.0,
+                                  margin: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.mood_bad,
+                                        color: Colors.white,
+                                        size: 30.0,
+                                      ),
+                                      Expanded(
+                                        child: SliderTheme(
+                                          data: SliderTheme.of(context).copyWith(
+                                            trackShape:
+                                              RoundedRectSliderTrackShape(),
+                                            trackHeight: 4.0,
+                                            activeTrackColor: Colors.grey[500],
+                                            inactiveTrackColor: Colors.grey[300],
+                                            thumbColor: Colors.grey[800],
+                                          ),
+                                          child: Slider(
+                                            value: localSliderVal,
+                                            min: 0,
+                                            max: 6,
+                                            onChangeEnd: (value) {
+                                              setState(() {
+                                                localSliderVal = value;
+                                              });
+                                            },
+                                            onChanged: (val) {
+                                              moodsDocData["$today"] = val;
+                  
+                                              db
+                                                .collection("Users")
+                                                .doc("$email")
+                                                .collection("Moods")
+                                                .doc("Mood")
+                                                .set(moodsDocData)
+                                                .onError(
+                                                    // ignore: avoid_print
+                                                    (e, _) => print(
+                                                        "Error writing document: $e"));
+                                              setState(() {
+                                                localSliderVal = val;
+                                              });
+                                            }),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.mood,
+                                        color: Colors.white,
+                                        size: 30.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ))),
+                        // Rainbow Gradient Slider
+                        // Buttons
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 230, 230),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          child: Center(
+                              child: Column(children: [
+                            SizedBox(height: 8.0),
+                            Text("$habitMsg",
                                 style: TextStyle(
                                   fontSize: 20,
                                 )),
-                              SizedBox(height: 5),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.calendar_today,
-                                  ),
-                                  SizedBox(width: 3),
-                                  Text("$weekday, $month $day")
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16.0,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(colors: [
-                                    Color.fromARGB(255, 234, 131, 121),
-                                    Color.fromARGB(255, 240, 175, 130),
-                                    Color.fromARGB(255, 236, 208, 153),
-                                    Color.fromARGB(255, 187, 197, 152),
-                                    Color.fromARGB(255, 154, 185, 136),
-                                  ]),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                padding: const EdgeInsets.all(10.0),
-                                width: 350.0,
-                                height: 50.0,
-                                margin: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.mood_bad,
-                                      color: Colors.white,
-                                      size: 30.0,
-                                    ),
-                                    Expanded(
-                                      child: SliderTheme(
-                                        data: SliderTheme.of(context).copyWith(
-                                          trackShape:
-                                            RoundedRectSliderTrackShape(),
-                                          trackHeight: 4.0,
-                                          activeTrackColor: Colors.grey[500],
-                                          inactiveTrackColor: Colors.grey[300],
-                                          thumbColor: Colors.grey[800],
-                                        ),
-                                        child: Slider(
-                                          value: localSliderVal,
-                                          min: 0,
-                                          max: 6,
-                                          onChangeEnd: (value) {
-                                            setState(() {
-                                              localSliderVal = value;
-                                            });
-                                          },
-                                          onChanged: (val) {
-                                            moodsDocData["$today"] = val;
-
-                                            db
-                                              .collection("Users")
-                                              .doc("$email")
-                                              .collection("Moods")
-                                              .doc("Mood")
-                                              .set(moodsDocData)
-                                              .onError(
-                                                  // ignore: avoid_print
-                                                  (e, _) => print(
-                                                      "Error writing document: $e"));
-                                            setState(() {
-                                              localSliderVal = val;
-                                            });
-                                          }),
+                            SizedBox(height: 16.0),
+                            Container(
+                                child: GroupButton(
+                                    controller: _controller,
+                                    isRadio: false,
+                                    buttons: habits,
+                                    options: GroupButtonOptions(
+                                      selectedShadow: const [],
+                                      selectedTextStyle: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.pink[900],
                                       ),
+                                      selectedColor: Colors.pink[100],
+                                      unselectedShadow: const [],
+                                      unselectedColor: Colors.grey[100],
+                                      unselectedTextStyle: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.grey[900],
+                                      ),
+                                      selectedBorderColor: Colors.pink[900],
+                                      unselectedBorderColor: Colors.grey[900],
+                                      borderRadius: BorderRadius.circular(100),
+                                      spacing: 10,
+                                      runSpacing: 10,
+                                      groupingType: GroupingType.wrap,
+                                      direction: Axis.horizontal,
+                                      mainGroupAlignment:
+                                          MainGroupAlignment.center,
+                                      crossGroupAlignment:
+                                          CrossGroupAlignment.center,
+                                      groupRunAlignment: GroupRunAlignment.center,
+                                      textAlign: TextAlign.center,
+                                      textPadding: EdgeInsets.zero,
+                                      alignment: Alignment.center,
+                                      elevation: 0,
                                     ),
-                                    Icon(
-                                      Icons.mood,
-                                      color: Colors.white,
-                                      size: 30.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ))),
-                      // Rainbow Gradient Slider
-                      // Buttons
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 230, 230),
-                          borderRadius: BorderRadius.circular(15),
+                                    onSelected: (value, index, isSelected) {
+                                      var current = false;
+                                      try {
+                                        current = habitMatching[index];
+                                        moodsDocData["HabitMatchingToday"]
+                                            [index] = !current;
+                                      } catch (e) {
+                                        current = false;
+                                        moodsDocData["HabitMatchingToday"]
+                                            .add(true);
+                                      }
+                  
+                                      final habitDocData = {"$today": isSelected};
+                                      moodsDocData["HabitDay"] = today;
+                                      db
+                                          .collection("Users")
+                                          .doc("$email")
+                                          .collection("Moods")
+                                          .doc("Mood")
+                                          .set(moodsDocData)
+                                          .onError(
+                                              // ignore: avoid_print
+                                              (e, _) => print(
+                                                  "Error writing document: $e"));
+                                      db
+                                          .collection("Users")
+                                          .doc("$email")
+                                          .collection("Habits")
+                                          .doc("$value")
+                                          .update(habitDocData)
+                                          .onError(
+                                              // ignore: avoid_print
+                                              (e, _) => print(
+                                                  "Error writing document: $e"));
+                                    })),
+                            SizedBox(height: 16.0),
+                          ])),
                         ),
-                        margin: const EdgeInsets.all(10.0),
-                        width: 375.0,
-                        child: Center(
-                            child: Column(children: [
-                          SizedBox(height: 8.0),
-                          Text("$habitMsg",
-                              style: TextStyle(
-                                fontSize: 20,
-                              )),
-                          SizedBox(height: 16.0),
-                          Container(
-                              child: GroupButton(
-                                  controller: _controller,
-                                  isRadio: false,
-                                  buttons: habits,
-                                  options: GroupButtonOptions(
-                                    selectedShadow: const [],
-                                    selectedTextStyle: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.pink[900],
-                                    ),
-                                    selectedColor: Colors.pink[100],
-                                    unselectedShadow: const [],
-                                    unselectedColor: Colors.grey[100],
-                                    unselectedTextStyle: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.grey[900],
-                                    ),
-                                    selectedBorderColor: Colors.pink[900],
-                                    unselectedBorderColor: Colors.grey[900],
-                                    borderRadius: BorderRadius.circular(100),
-                                    spacing: 10,
-                                    runSpacing: 10,
-                                    groupingType: GroupingType.wrap,
-                                    direction: Axis.horizontal,
-                                    mainGroupAlignment:
-                                        MainGroupAlignment.center,
-                                    crossGroupAlignment:
-                                        CrossGroupAlignment.center,
-                                    groupRunAlignment: GroupRunAlignment.center,
-                                    textAlign: TextAlign.center,
-                                    textPadding: EdgeInsets.zero,
-                                    alignment: Alignment.center,
-                                    elevation: 0,
-                                  ),
-                                  onSelected: (value, index, isSelected) {
-                                    var current = false;
-                                    try {
-                                      current = habitMatching[index];
-                                      moodsDocData["HabitMatchingToday"]
-                                          [index] = !current;
-                                    } catch (e) {
-                                      current = false;
-                                      moodsDocData["HabitMatchingToday"]
-                                          .add(true);
-                                    }
-
-                                    final habitDocData = {"$today": isSelected};
-                                    moodsDocData["HabitDay"] = today;
-                                    db
-                                        .collection("Users")
-                                        .doc("$email")
-                                        .collection("Moods")
-                                        .doc("Mood")
-                                        .set(moodsDocData)
-                                        .onError(
-                                            // ignore: avoid_print
-                                            (e, _) => print(
-                                                "Error writing document: $e"));
-                                    db
-                                        .collection("Users")
-                                        .doc("$email")
-                                        .collection("Habits")
-                                        .doc("$value")
-                                        .update(habitDocData)
-                                        .onError(
-                                            // ignore: avoid_print
-                                            (e, _) => print(
-                                                "Error writing document: $e"));
-                                  })),
-                          SizedBox(height: 16.0),
-                        ])),
-                      ),
-                    ])));
+                      ]),
+                  )));
           }
 
           if (!loaded) {
@@ -368,153 +370,155 @@ class _HomePageState extends State<HomePage> {
               ),
               backgroundColor: Color.fromARGB(255, 255, 250, 250),
               body: Center(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                    Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                      Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 230, 230),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          margin: const EdgeInsets.all(10.0),
+                          width: 375.0,
+                          //height: 150.0,
+                          child: Center(
+                              child: Column(children: [
+                            SizedBox(
+                              height: 8.0,
+                            ),
+                            const Text("Hello! How are you?",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                )),
+                            SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.calendar_today,
+                                ),
+                                SizedBox(width: 3),
+                                Text("$weekday, $month $day")
+                              ],
+                            ),
+                            SizedBox(
+                              height: 16.0,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(colors: [
+                                  Color.fromARGB(255, 234, 131, 121),
+                                  Color.fromARGB(255, 240, 175, 130),
+                                  Color.fromARGB(255, 236, 208, 153),
+                                  Color.fromARGB(255, 187, 197, 152),
+                                  Color.fromARGB(255, 154, 185, 136),
+                                ]),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              padding: const EdgeInsets.all(10.0),
+                              width: 350.0,
+                              height: 50.0,
+                              margin: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.mood_bad,
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                  Expanded(
+                                    child: SliderTheme(
+                                      data: SliderTheme.of(context).copyWith(
+                                        trackShape: RoundedRectSliderTrackShape(),
+                                        trackHeight: 4.0,
+                                        activeTrackColor: Colors.grey[500],
+                                        inactiveTrackColor: Colors.grey[300],
+                                        thumbColor: Colors.grey[800],
+                                      ),
+                                      child: Slider(
+                                        value: localSliderVal,
+                                        min: 0,
+                                        max: 6,
+                                        onChangeEnd: (value) {
+                                          setState(() {
+                                            localSliderVal = value;
+                                          });
+                                        },
+                                        onChanged: (val) {
+                                          localSliderVal = val;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.mood,
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ]))),
+                  
+                      Container(
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 255, 230, 230),
+                          color: const Color.fromARGB(255, 255, 230, 230),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         margin: const EdgeInsets.all(10.0),
                         width: 375.0,
-                        //height: 150.0,
                         child: Center(
-                            child: Column(children: [
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          const Text("Hello! How are you?",
+                          child: Column(children: [
+                            SizedBox(height: 8.0),
+                            Text("$habitMsg",
                               style: TextStyle(
                                 fontSize: 20,
                               )),
-                          SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.calendar_today,
-                              ),
-                              SizedBox(width: 3),
-                              Text("$weekday, $month $day")
-                            ],
-                          ),
-                          SizedBox(
-                            height: 16.0,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(colors: [
-                                Color.fromARGB(255, 234, 131, 121),
-                                Color.fromARGB(255, 240, 175, 130),
-                                Color.fromARGB(255, 236, 208, 153),
-                                Color.fromARGB(255, 187, 197, 152),
-                                Color.fromARGB(255, 154, 185, 136),
-                              ]),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            width: 350.0,
-                            height: 50.0,
-                            margin: const EdgeInsets.all(10.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.mood_bad,
-                                  color: Colors.white,
-                                  size: 30.0,
-                                ),
-                                Expanded(
-                                  child: SliderTheme(
-                                    data: SliderTheme.of(context).copyWith(
-                                      trackShape: RoundedRectSliderTrackShape(),
-                                      trackHeight: 4.0,
-                                      activeTrackColor: Colors.grey[500],
-                                      inactiveTrackColor: Colors.grey[300],
-                                      thumbColor: Colors.grey[800],
-                                    ),
-                                    child: Slider(
-                                      value: localSliderVal,
-                                      min: 0,
-                                      max: 6,
-                                      onChangeEnd: (value) {
-                                        setState(() {
-                                          localSliderVal = value;
-                                        });
-                                      },
-                                      onChanged: (val) {
-                                        localSliderVal = val;
-                                      },
-                                    ),
+                            SizedBox(height: 16.0),
+                            Container(
+                              child: GroupButton(
+                                isRadio: false,
+                                controller: _controller2,
+                                //onSelected: (index, isSelected) =>
+                                //print('$index button is selected'),
+                                options: GroupButtonOptions(
+                                  selectedShadow: const [],
+                                  selectedTextStyle: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.pink[900],
                                   ),
+                                  selectedColor: Colors.pink[100],
+                                  unselectedShadow: const [],
+                                  unselectedColor: Colors.grey[100],
+                                  unselectedTextStyle: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.grey[900],
+                                  ),
+                                  selectedBorderColor: Colors.pink[900],
+                                  unselectedBorderColor: Colors.grey[900],
+                                  borderRadius: BorderRadius.circular(100),
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  groupingType: GroupingType.wrap,
+                                  direction: Axis.horizontal,
+                                  mainGroupAlignment: MainGroupAlignment.center,
+                                  crossGroupAlignment: CrossGroupAlignment.center,
+                                  groupRunAlignment: GroupRunAlignment.center,
+                                  textAlign: TextAlign.center,
+                                  textPadding: EdgeInsets.zero,
+                                  alignment: Alignment.center,
+                                  elevation: 0,
                                 ),
-                                Icon(
-                                  Icons.mood,
-                                  color: Colors.white,
-                                  size: 30.0,
-                                ),
-                              ],
-                            ),
-                          )
-                        ]))),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 255, 230, 230),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      margin: const EdgeInsets.all(10.0),
-                      width: 375.0,
-                      child: Center(
-                        child: Column(children: [
-                          SizedBox(height: 8.0),
-                          Text("$habitMsg",
-                            style: TextStyle(
-                              fontSize: 20,
+                              buttons: habits,
                             )),
-                          SizedBox(height: 16.0),
-                          Container(
-                            child: GroupButton(
-                              isRadio: false,
-                              controller: _controller2,
-                              //onSelected: (index, isSelected) =>
-                              //print('$index button is selected'),
-                              options: GroupButtonOptions(
-                                selectedShadow: const [],
-                                selectedTextStyle: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.pink[900],
-                                ),
-                                selectedColor: Colors.pink[100],
-                                unselectedShadow: const [],
-                                unselectedColor: Colors.grey[100],
-                                unselectedTextStyle: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.grey[900],
-                                ),
-                                selectedBorderColor: Colors.pink[900],
-                                unselectedBorderColor: Colors.grey[900],
-                                borderRadius: BorderRadius.circular(100),
-                                spacing: 10,
-                                runSpacing: 10,
-                                groupingType: GroupingType.wrap,
-                                direction: Axis.horizontal,
-                                mainGroupAlignment: MainGroupAlignment.center,
-                                crossGroupAlignment: CrossGroupAlignment.center,
-                                groupRunAlignment: GroupRunAlignment.center,
-                                textAlign: TextAlign.center,
-                                textPadding: EdgeInsets.zero,
-                                alignment: Alignment.center,
-                                elevation: 0,
-                              ),
-                            buttons: habits,
-                          )),
-                          SizedBox(height: 16.0),
-                        ]),
-                      )),
-
-                    // Buttons
-                  ])));
+                            SizedBox(height: 16.0),
+                          ]),
+                        )),
+                  
+                      // Buttons
+                    ]),
+                  )));
         });
   }
 }
